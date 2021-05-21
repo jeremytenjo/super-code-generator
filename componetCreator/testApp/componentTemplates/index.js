@@ -3,7 +3,7 @@
 module.exports = [
   {
     name: 'React component',
-    filesDir: 'componentCreateor/component',
-    nameCase: 'param-case',
-  },
-];
+    filesDir: 'componentCreateor/testApp/componentTemplates/component',
+    nameCase: 'param-case'
+  }
+]
