@@ -1,6 +1,7 @@
 const changeCase = require('change-case')
 
 const userFuction = require('../testApp/componentTemplates/component/[componentName.raw].js')
+const userConfigFile = require('../testApp/componentTemplates/config')
 
 // component anme entered by user
 const userEnteredComponentName = 'filter-button'
