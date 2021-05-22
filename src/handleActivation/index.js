@@ -1,16 +1,8 @@
-const changeCase = require('change-case')
-const userConfig = require('../../../test/app/userConfigExample')
+const userConfig = require('../../test/app/userConfigExample')
 const createComponent = require('./handlers/createComponent')
+const helpers = require('./handlers/helpers')
 
 module.exports = function handleActivation() {
-  // config properties = configFilePath, prettier config path
-
-  // helpers
-  const helpers = {
-    wrapInTemplateLiteral: require('../helpers/wrapInTemplateLiteral'),
-    changeCase
-  }
-
   // user input
   const componentName = 'filter-button'
   const selectedComponentType = 'React component'
