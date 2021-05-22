@@ -1,4 +1,4 @@
-const handlePickStoryCommand = require('./handlePickStoryCommand')
+const activation = require('./handleActivation')
 const pkgJson = require('../package.json')
 
 /**
@@ -6,7 +6,7 @@ const pkgJson = require('../package.json')
  */
 function activate(context) {
   console.log(`${pkgJson.name} activated!`)
-  handlePickStoryCommand(context)
+  activation(context)
 }
 
 // this method is called when your extension is deactivated

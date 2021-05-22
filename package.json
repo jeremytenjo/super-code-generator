@@ -3,7 +3,7 @@
 	"displayName": "Quick Component Creator",
 	"description": "Quickly create components",
 	"publisher": "tenjojeremy",
-	"version": "0.8.0",
+	"version": "0.0.0",
 	"engines": {
 		"vscode": "^1.55.0"
 	},
@@ -30,29 +30,18 @@
 		"configuration": {
 			"title": "Quick Component Creator",
 			"properties": {
-				"quickComponentCreator.storybookPort": {
+				"quickComponentCreator.configFilePath": {
 					"type": "number",
 					"default": 9002,
 					"description": "Localhost storybook port number"
 				},
-				"quickComponentCreator.storyFilesLocationGlob": {
+				"quickComponentCreator.prettierConfigFilePath": {
 					"type": "string",
 					"default": "lib/src/**/*stories.{js,jsx,mdx,ts,tsx}",
 					"description": "Array of globs that indicates the location of your story files"
-				},
-				"quickComponentCreator.rootPath": {
-					"type": "string",
-					"default": "lib",
-					"description": "Root path of project"
 				}
 			}
-		},
-		"commands": [
-			{
-				"command": "quickComponentCreator.pickStory",
-				"title": "Quick Component Creator: Pick story"
-			}
-		]
+		}
 	},
 	"devDependencies": {
 		"@types/vscode": "^1.55.0",
