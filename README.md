@@ -2,7 +2,7 @@
 
 Quickly create component using your own templates in VS Code
 
-![image info](https://firebasestorage.googleapis.com/v0/b/useweb-lib.appspot.com/o/devtools%2Fplugins%2Fvscode%2Fquick-component-creator%2Fdemo.gif?alt=media&token=0565012e-97b4-48a8-8d47-4bce96646658)
+![image info](https://github.com/jeremytenjo/quick-component-creator/blob/master/assets/videos/demo.gif?raw=true)
 
 1. Create `qcc.schema.js`
 
