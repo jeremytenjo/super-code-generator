@@ -4,18 +4,18 @@ module.exports = [
     files: [
       {
         path: ({ name, helpers: { changeCase } }) =>
-          changeCase.paramCase(name.raw) + '.jsx',
+          changeCase.paramCase(name) + '.jsx',
         template: ({
           name,
           helpers: { wrapInTemplateLiteral, changeCase }
         }) => `
         import React from 'react';
-        import styles from './${changeCase.paramCase(name.raw)}.css';
+        import styles from './${changeCase.paramCase(name)}.css';
         
-        export default function ${changeCase.camelCase(name)}() {
+        export default function ${changeCase.pascalCase(name)}() {
           return (
             <div className={${wrapInTemplateLiteral('styles.wrapper')}}>
-             ${name.raw}
+             ${name}
             </div>
           );
         }
@@ -23,7 +23,7 @@ module.exports = [
       },
       {
         path: ({ name, helpers: { changeCase } }) =>
-          changeCase.paramCase(name.raw) + '.css',
+          changeCase.paramCase(name) + '.css',
         template: () => `.wrapper {}`
       }
     ]

@@ -1,8 +1,8 @@
-# Open Storybook Story
+# Quick Component Creator
 
 ## Features
 
-Quickly open storybook stories in the browser from the editor
+Quickly create component using your own templates
 
 ## Examaple
 
