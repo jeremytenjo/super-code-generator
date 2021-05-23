@@ -46,12 +46,12 @@ module.exports = [
 
 ## Component Type properties
 
-Propoerties passed to `path` and `template` properies
+Properties passed to `path` and `template` functions
 
-### name
-
-### helpers
-
-#### changeCase
-
-#### wrapInTemplateLiteral
+```js
+name: 'component name input by user',
+helpers: {
+  changeCase: 'function to change case of a string',
+  wrapInTemplateLiteral: 'helps add templates literals within a template literal'
+}
+```
