@@ -5,6 +5,7 @@ const helpers = require('./handlers/helpers')
 const importFileInWorkspace = require('../../utils/folderFiles/importFileInWorkspace')
 const logError = require('../../utils/log/logError')
 const validateUserConfigFile = require('./handlers/validateUserConfigFile')
+const getWorkspacePath = require('../../utils/workspace/getWorkspacePath')
 
 module.exports = function handleActivation(context) {
   context.subscriptions.push(
@@ -27,6 +28,10 @@ module.exports = function handleActivation(context) {
 
           return { label: property.type }
         })
+
+        const prettierConfig = require(getWorkspacePath(
+          userConfig.prettierConfigFilePath
+        ))
 
         const quickPick = vscode.window.createQuickPick()
         quickPick.items = optionsList
@@ -56,7 +61,8 @@ module.exports = function handleActivation(context) {
                 name: componentName,
                 helpers,
                 componentConfig: selectedComponentTypeConfig,
-                componentOutputPath
+                componentOutputPath,
+                prettierConfig
               })
             })
           )

@@ -3,12 +3,8 @@ module.exports = [
     type: 'React component',
     files: [
       {
-        path: ({ name, helpers: { changeCase } }) =>
-          changeCase.paramCase(name) + '.jsx',
-        template: ({
-          name,
-          helpers: { wrapInTemplateLiteral, changeCase }
-        }) => `
+        path: ({ name, helpers: { changeCase } }) => changeCase.paramCase(name) + '.jsx',
+        template: ({ name, helpers: { wrapInTemplateLiteral, changeCase } }) => `
         import React from 'react';
         import styles from './${changeCase.paramCase(name)}.css';
         
@@ -19,13 +15,12 @@ module.exports = [
             </div>
           );
         }
-          `
+          `,
       },
       {
-        path: ({ name, helpers: { changeCase } }) =>
-          changeCase.paramCase(name) + '.css',
-        template: () => `.wrapper {}`
-      }
-    ]
-  }
+        path: ({ name, helpers: { changeCase } }) => changeCase.paramCase(name) + '.css',
+        template: () => `.wrapper {}`,
+      },
+    ],
+  },
 ]
