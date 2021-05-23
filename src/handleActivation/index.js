@@ -58,7 +58,7 @@ module.exports = function handleActivation(context) {
           await Promise.all(
             componentNames.map(async (componentName) => {
               await createComponent({
-                name: componentName,
+                name: componentName.trim(),
                 helpers,
                 componentConfig: selectedComponentTypeConfig,
                 componentOutputPath,
