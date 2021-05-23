@@ -1,7 +1,5 @@
 # Quick Component Creator
 
-## Features
-
 Quickly create component using your own templates in VS Code
 
 ![image info](https://firebasestorage.googleapis.com/v0/b/useweb-lib.appspot.com/o/devtools%2Fplugins%2Fvscode%2Fquick-component-creator%2Fdemo.gif?alt=media&token=0565012e-97b4-48a8-8d47-4bce96646658)
