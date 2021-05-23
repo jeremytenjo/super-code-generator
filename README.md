@@ -4,9 +4,9 @@
 
 Quickly create component using your own templates
 
-## Examaple
+## Example
 
-![image info](https://firebasestorage.googleapis.com/v0/b/useweb-lib.appspot.com/o/devtools%2Fplugins%2Fvscode%2Fquick-component-creator%2Fdemo.gif?alt=media&token=3183d6ec-4d96-48e2-ad77-4d669ce5b44e)
+![image info](https://firebasestorage.googleapis.com/v0/b/useweb-lib.appspot.com/o/devtools%2Fplugins%2Fvscode%2Fquick-component-creator%2Fdemo.gif?alt=media&token=9f2080d3-f87a-49f7-a91b-28d95796add9)
 
 `qcc.config.js`
 
