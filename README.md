@@ -8,7 +8,7 @@ Quickly create component using your own templates
 
 ![image info](https://firebasestorage.googleapis.com/v0/b/useweb-lib.appspot.com/o/devtools%2Fplugins%2Fvscode%2Fquick-component-creator%2Fdemo.gif?alt=media&token=9f2080d3-f87a-49f7-a91b-28d95796add9)
 
-`qcc.config.js`
+`qcc.schema.js`
 
 ```js
 module.exports = [
@@ -75,3 +75,5 @@ helpers: {
   wrapInTemplateLiteral: 'helps add templates literals within a template literal'
 }
 ```
+
+> Add a perttier config file path to format your created files.

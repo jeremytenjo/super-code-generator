@@ -15,7 +15,7 @@ module.exports = function handleActivation(context) {
         const userConfig = vscode.workspace.getConfiguration(
           'quickComponentCreator'
         )
-        const configFile = importFileInWorkspace(userConfig.configFilePath)
+        const configFile = importFileInWorkspace(userConfig.schemaFilePath)
 
         validateUserConfigFile(configFile)
 

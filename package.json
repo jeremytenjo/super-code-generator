@@ -30,10 +30,10 @@
 		"configuration": {
 			"title": "Quick Component Creator",
 			"properties": {
-				"quickComponentCreator.configFilePath": {
+				"quickComponentCreator.schemaFilePath": {
 					"type": "string",
-					"default": "qcc.config.js",
-					"description": "Config file path"
+					"default": "qcc.schema.js",
+					"description": "Schema file path"
 				},
 				"quickComponentCreator.prettierConfigFilePath": {
 					"type": "string",
