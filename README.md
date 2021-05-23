@@ -44,6 +44,26 @@ module.exports = [
 ]
 ```
 
+Creates the following component when selecting type `React component` and inputting name `button`
+
+`button.jsx`
+
+```js
+import React from 'react'
+import styles from './button.css'
+
+export default function Button() {
+  return <div className={`${styles.wrapper}`}>button</div>
+}
+```
+
+`button.css`
+
+```css
+.wrapper {
+}
+```
+
 ## Component Type properties
 
 Properties passed to `path` and `template` functions
