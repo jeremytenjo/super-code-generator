@@ -37,7 +37,7 @@
 				},
 				"quickComponentCreator.prettierConfigFilePath": {
 					"type": "string",
-					"default": ".prettierrc",
+					"default": ".prettierrc.js",
 					"description": "Prettier config file path (Optional)"
 				}
 			}
