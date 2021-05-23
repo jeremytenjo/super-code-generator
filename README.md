@@ -2,7 +2,7 @@
 
 ## Features
 
-Quickly create component using your own templates
+Quickly create component using your own templates in VS Code
 
 ## Example
 
