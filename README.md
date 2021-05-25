@@ -74,6 +74,7 @@ name: 'component name input by user',
 helpers: {
   changeCase: 'function to change case of a string',
   wrapInTemplateLiteral: 'helps add templates literals within a template literal'
+  addEmptyTemplateLiteral: 'returns ``'
 }
 ```
 
