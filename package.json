@@ -13,13 +13,17 @@
 	"activationEvents": [
 		"onCommand:quickComponentCreator.createComponent"
 	],
-	"main": "./src/index.js",
+	"main": "./out/main.js",
 	"scripts": {
 		"lint": "eslint .",
 		"pretest": "npm run lint",
 		"test": "",
 		"publish": "vsce publish minor",
-		"vscode:prepublish": "npm run test"
+		"vscode:prepublish": "npm run -S esbuild-base -- --minify",
+		"esbuild-base": "esbuild ./src/index.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
+		"esbuild": "npm run -S esbuild-base -- --sourcemap",
+		"esbuild-watch": "npm run -S esbuild-base -- --sourcemap --watch",
+		"test-compile": "tsc -p ./"
 	},
 	"icon": "assets/images/logo.png",
 	"repository": {
