@@ -15,7 +15,7 @@
 	],
 	"main": "./out/index.js",
 	"scripts": {
-		"bundle": "esbuild src/index.js --bundle --outfile=out/index.js --external:vscode --format=cjs --platform=node",
+		"bundle": "esbuild src/index.js --bundle --outfile=out/index.js --external:vscode --format=cjs --platform=node --minify",
 		"publish": "vsce publish minor"
 	},
 	"icon": "assets/images/logo.png",
