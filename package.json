@@ -15,8 +15,15 @@
 	],
 	"main": "./out/index.js",
 	"scripts": {
-		"bundle": "esbuild src/index.js --bundle --outfile=out/index.js --external:vscode --format=cjs --platform=node --minify",
-		"publish": "vsce publish minor"
+		"vscode:prepublish": "npm run -S esbuild-base -- --minify",
+		"esbuild-base": "rimraf out && esbuild ./src/index.js --bundle --outfile=out/index.js --external:vscode --format=cjs --platform=node",
+		"build": "npm run -S esbuild-base -- --sourcemap",
+		"watch": "npm run -S esbuild-base -- --sourcemap --watch",
+		"fmt": "prettier --write \"src/**/*.ts\"&& npm run test -- --fix",
+		"test": "eslint src --ext ts",
+		"download-api": "vscode-dts dev",
+		"postdownload-api": "vscode-dts master",
+		"postinstall": "npm run download-api"
 	},
 	"icon": "assets/images/logo.png",
 	"repository": {
@@ -62,7 +69,8 @@
 		"glob": "^7.1.6",
 		"mocha": "^8.2.1",
 		"os": "^0.1.1",
-		"prettier": "^2.3.0"
+		"prettier": "^2.3.0",
+		"rimraf": "^3.0.2"
 	},
 	"devDependencies": {
 		"vscode": "^1.1.37"
