@@ -15,7 +15,6 @@ module.exports = function handleActivation(context) {
       async (
         { path: componentOutputPath } = { path: getActiveFileFolderPath() }
       ) => {
-        console.log('HERE!')
         const userConfig = vscode.workspace.getConfiguration(
           'quickComponentCreator'
         )
