@@ -3,7 +3,7 @@
 	"displayName": "Quick Component Creator",
 	"description": "Quickly create React, Vue, Angular, Svelte components with your own templates",
 	"publisher": "tenjojeremy",
-	"version": "0.3.0",
+	"version": "0.2.0",
 	"engines": {
 		"vscode": "^1.55.0"
 	},
@@ -13,17 +13,13 @@
 	"activationEvents": [
 		"onCommand:quickComponentCreator.createComponent"
 	],
-	"main": "./out/main.js",
+	"main": "./src/index.js",
 	"scripts": {
 		"lint": "eslint .",
 		"pretest": "npm run lint",
 		"test": "",
 		"publish": "vsce publish minor",
-		"vscode:prepublish": "npm run -S esbuild-base -- --minify",
-		"esbuild-base": "esbuild ./src/index.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
-		"esbuild": "npm run -S esbuild-base -- --sourcemap",
-		"esbuild-watch": "npm run -S esbuild-base -- --sourcemap --watch",
-		"test-compile": "tsc -p ./"
+		"vscode:prepublish": "npm run test"
 	},
 	"icon": "assets/images/logo.png",
 	"repository": {
@@ -70,7 +66,5 @@
 		"glob": "^7.1.6",
 		"mocha": "^8.2.1"
 	},
-	"devDependencies": {
-		"esbuild": "^0.12.2"
-	}
+	"devDependencies": {}
 }
