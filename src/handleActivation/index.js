@@ -6,15 +6,12 @@ const importFileInWorkspace = require('../../utils/folderFiles/importFileInWorks
 const logError = require('../../utils/log/logError')
 const validateUserConfigFile = require('./handlers/validateUserConfigFile')
 const getWorkspacePath = require('../../utils/workspace/getWorkspacePath')
-const getActiveFileFolderPath = require('../../utils/folderFiles/getActiveFileFolderPath')
 
 module.exports = function handleActivation(context) {
   context.subscriptions.push(
     vscode.commands.registerCommand(
       'quickComponentCreator.createComponent',
-      async (
-        { path: componentOutputPath } = { path: getActiveFileFolderPath() }
-      ) => {
+      async ({ path: componentOutputPath } = {}) => {
         const userConfig = vscode.workspace.getConfiguration(
           'quickComponentCreator'
         )
