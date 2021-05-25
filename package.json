@@ -21,8 +21,8 @@
 		"watch": "npm run -S esbuild-base -- --sourcemap --watch",
 		"fmt": "prettier --write \"src/**/*.ts\"&& npm run test -- --fix",
 		"test": "eslint src --ext ts",
-		"download-api": "vscode-dts dev",
-		"postdownload-api": "vscode-dts master",
+		"download-api": "npx vscode-dts dev",
+		"postdownload-api": "npx vscode-dts master",
 		"postinstall": "npm run download-api",
 		"publish": "vsce publish -minor"
 	},
