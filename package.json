@@ -65,6 +65,5 @@
 		"eslint": "^7.19.0",
 		"glob": "^7.1.6",
 		"mocha": "^8.2.1"
-	},
-	"devDependencies": {}
+	}
 }
