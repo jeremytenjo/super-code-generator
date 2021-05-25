@@ -23,7 +23,8 @@
 		"test": "eslint src --ext ts",
 		"download-api": "vscode-dts dev",
 		"postdownload-api": "vscode-dts master",
-		"postinstall": "npm run download-api"
+		"postinstall": "npm run download-api",
+		"publish": "vsce publish -minor"
 	},
 	"icon": "assets/images/logo.png",
 	"repository": {
