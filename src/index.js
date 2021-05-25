@@ -14,4 +14,7 @@ function deactivate() {
   console.log(`${pkgJson.name} deactivated!`)
 }
 
-export { activate, deactivate }
+module.exports = {
+  activate,
+  deactivate
+}
