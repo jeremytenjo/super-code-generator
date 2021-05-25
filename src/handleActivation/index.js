@@ -12,9 +12,10 @@ module.exports = function handleActivation(context) {
   context.subscriptions.push(
     vscode.commands.registerCommand(
       'quickComponentCreator.createComponent',
-      async (
-        { path: componentOutputPath } = { path: getActiveFileFolderPath() }
-      ) => {
+      async ({ path: componentOutputPath } = {}) => {
+        if (!componentOutputPath) {
+          componentOutputPath = getActiveFileFolderPath()
+        }
         const userConfig = vscode.workspace.getConfiguration(
           'quickComponentCreator'
         )
