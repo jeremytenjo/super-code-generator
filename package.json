@@ -16,11 +16,7 @@
 	"main": "./out/index.js",
 	"scripts": {
 		"bundle": "esbuild src/index.js --bundle --outfile=out/index.js --external:vscode --format=cjs --platform=node",
-		"lint": "eslint .",
-		"pretest": "npm run lint",
-		"test": "",
-		"publish": "vsce publish minor",
-		"vscode:prepublish": "npm run test"
+		"publish": "vsce publish minor"
 	},
 	"icon": "assets/images/logo.png",
 	"repository": {
