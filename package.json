@@ -1,5 +1,5 @@
 {
-	"name": "quick-component-creator",
+	"name": "quick-component-generator",
 	"displayName": "Quick Component Creator",
 	"description": "Quickly create React, Vue, Angular, Svelte components with your own templates",
 	"publisher": "tenjojeremy",
