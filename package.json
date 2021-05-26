@@ -24,7 +24,7 @@
 		"download-api": "npx vscode-dts dev",
 		"postdownload-api": "npx vscode-dts master",
 		"postinstall": "npm run download-api",
-		"publish": "vsce publish -minor"
+		"publish": "vsce publish minor"
 	},
 	"icon": "assets/images/logo.png",
 	"repository": {
