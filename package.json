@@ -1,5 +1,5 @@
 {
-	"name": "quick-component-generator",
+	"name": "quick-component-creator",
 	"displayName": "Quick Component Creator",
 	"description": "Quickly create React, Vue, Angular, Svelte components with your own templates",
 	"publisher": "tenjojeremy",
@@ -11,7 +11,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:quickComponentGenerator.createComponent"
+		"onCommand:quickComponentCreator.createComponent"
 	],
 	"main": "./src/index.js",
 	"scripts": {
@@ -30,12 +30,12 @@
 		"configuration": {
 			"title": "Quick Component Creator",
 			"properties": {
-				"quickComponentGenerator.schemaFilePath": {
+				"quickComponentCreator.schemaFilePath": {
 					"type": "string",
 					"default": "qcc.schema.js",
 					"description": "Schema file path"
 				},
-				"quickComponentGenerator.prettierConfigFilePath": {
+				"quickComponentCreator.prettierConfigFilePath": {
 					"type": "string",
 					"default": ".prettierrc.js",
 					"description": "Prettier config file path (Optional)"
@@ -44,7 +44,7 @@
 		},
 		"commands": [
 			{
-				"command": "quickComponentGenerator.createComponent",
+				"command": "quickComponentCreator.createComponent",
 				"title": "Create Component"
 			}
 		],
@@ -52,7 +52,7 @@
 			"explorer/context": [
 				{
 					"when": "explorerResourceIsFolder",
-					"command": "quickComponentGenerator.createComponent",
+					"command": "quickComponentCreator.createComponent",
 					"group": "YourGroup@1"
 				}
 			]
