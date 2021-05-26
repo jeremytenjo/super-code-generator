@@ -11,7 +11,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:quickComponentCreator.createComponent"
+		"onCommand:quickComponentGenerator.createComponent"
 	],
 	"main": "./src/index.js",
 	"scripts": {
@@ -30,12 +30,12 @@
 		"configuration": {
 			"title": "Quick Component Creator",
 			"properties": {
-				"quickComponentCreator.schemaFilePath": {
+				"quickComponentGenerator.schemaFilePath": {
 					"type": "string",
 					"default": "qcc.schema.js",
 					"description": "Schema file path"
 				},
-				"quickComponentCreator.prettierConfigFilePath": {
+				"quickComponentGenerator.prettierConfigFilePath": {
 					"type": "string",
 					"default": ".prettierrc.js",
 					"description": "Prettier config file path (Optional)"
@@ -44,7 +44,7 @@
 		},
 		"commands": [
 			{
-				"command": "quickComponentCreator.createComponent",
+				"command": "quickComponentGenerator.createComponent",
 				"title": "Create Component"
 			}
 		],
@@ -52,7 +52,7 @@
 			"explorer/context": [
 				{
 					"when": "explorerResourceIsFolder",
-					"command": "quickComponentCreator.createComponent",
+					"command": "quickComponentGenerator.createComponent",
 					"group": "YourGroup@1"
 				}
 			]

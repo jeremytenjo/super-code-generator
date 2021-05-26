@@ -11,12 +11,12 @@ const getActiveFileFolderPath = require('../../utils/folderFiles/getActiveFileFo
 module.exports = function handleActivation(context) {
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      'quickComponentCreator.createComponent',
+      'quickComponentGenerator.createComponent',
       async (
         { path: componentOutputPath } = { path: getActiveFileFolderPath() }
       ) => {
         const userConfig = vscode.workspace.getConfiguration(
-          'quickComponentCreator'
+          'quickComponentGenerator'
         )
         const configFile = importFileInWorkspace(userConfig.schemaFilePath)
 
