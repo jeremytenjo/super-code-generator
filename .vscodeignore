@@ -12,4 +12,4 @@ node_modules
 out/
 tsconfig.json
 webpack.config.js
-assets
+assets/videos
