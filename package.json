@@ -3,7 +3,7 @@
 	"displayName": "Quick Component Creator",
 	"description": "Quickly create React, Vue, Angular, Svelte components with your own templates",
 	"publisher": "tenjojeremy",
-	"version": "1.4.0",
+	"version": "0.2.0",
 	"engines": {
 		"vscode": "^1.55.0"
 	},
@@ -13,18 +13,13 @@
 	"activationEvents": [
 		"onCommand:quickComponentCreator.createComponent"
 	],
-	"main": "./out/index.js",
+	"main": "./src/index.js",
 	"scripts": {
-		"vscode:prepublish": "npm run -S esbuild-base -- --minify",
-		"esbuild-base": "rimraf out && esbuild ./src/index.js --bundle --outfile=out/index.js --external:vscode --format=cjs --platform=node",
-		"build": "npm run -S esbuild-base -- --sourcemap",
-		"watch": "npm run -S esbuild-base -- --sourcemap --watch",
-		"fmt": "prettier --write \"src/**/*.ts\"&& npm run test -- --fix",
-		"test": "eslint src --ext ts",
-		"download-api": "npx vscode-dts dev",
-		"postdownload-api": "npx vscode-dts master",
-		"postinstall": "npm run download-api",
-		"publish": "vsce publish minor"
+		"lint": "eslint .",
+		"pretest": "npm run lint",
+		"test": "",
+		"publish": "vsce publish minor",
+		"vscode:prepublish": "npm run test"
 	},
 	"icon": "assets/images/logo.png",
 	"repository": {
@@ -65,14 +60,13 @@
 	},
 	"dependencies": {
 		"change-case": "^4.1.2",
-		"os": "^0.1.1"
-	},
-	"devDependencies": {
-		"mocha": "^8.2.1",
-		"rimraf": "^3.0.2",
+		"os": "^0.1.1",
 		"prettier": "^2.3.0",
 		"eslint": "^7.19.0",
-		"vscode": "^1.1.37",
+		"glob": "^7.1.6",
+		"mocha": "^8.2.1"
+	},
+	"devDependencies": {
 		"esbuild": "^0.12.2"
 	}
 }
