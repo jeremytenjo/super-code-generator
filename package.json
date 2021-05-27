@@ -13,7 +13,7 @@
 	"activationEvents": [
 		"onCommand:quickComponentCreator.createComponent"
 	],
-	"main": "./src/index.js",
+	"main": "./out/index.js",
 	"scripts": {
 		"lint": "eslint .",
 		"pretest": "npm run lint",
