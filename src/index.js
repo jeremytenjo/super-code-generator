@@ -9,7 +9,7 @@ function activate(context) {
   console.log(`${pkgJson.name} activated!`)
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      'quickComponentCreator.createComponent',
+      'quickComponentCreator.createComponents',
       activation
     )
   )

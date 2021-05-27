@@ -11,7 +11,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:quickComponentCreator.createComponent"
+		"onCommand:quickComponentCreator.createComponents"
 	],
 	"main": "./src/index.js",
 	"scripts": {
@@ -44,7 +44,7 @@
 		},
 		"commands": [
 			{
-				"command": "quickComponentCreator.createComponent",
+				"command": "quickComponentCreator.createComponents",
 				"title": "Create Component"
 			}
 		],
@@ -52,7 +52,7 @@
 			"explorer/context": [
 				{
 					"when": "explorerResourceIsFolder",
-					"command": "quickComponentCreator.createComponent",
+					"command": "quickComponentCreator.createComponents",
 					"group": "YourGroup@1"
 				}
 			]
