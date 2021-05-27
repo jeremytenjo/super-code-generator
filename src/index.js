@@ -1,3 +1,4 @@
+const vscode = require('vscode')
 const activation = require('./handleActivation')
 const pkgJson = require('../package.json')
 
@@ -6,7 +7,12 @@ const pkgJson = require('../package.json')
  */
 function activate(context) {
   console.log(`${pkgJson.name} activated!`)
-  activation(context)
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      'quickComponentCreator.createComponent',
+      activation
+    )
+  )
 }
 
 // this method is called when your extension is deactivated
