@@ -3,13 +3,15 @@ const logError = require('../../../utils/log/logError')
 const path = require('path')
 const doesFolderOrFileExist = require('../../../utils/folderFiles/doesFolderOrFileExist')
 const prettifyFile = require('../../../utils/folderFiles/prettifyFile')
+const openFile = require('../../../utils/folderFiles/openFile')
 
 module.exports = async function createComponent({
   name,
   helpers,
   componentConfig,
   componentOutputPath,
-  prettierConfig = {}
+  prettierConfig = {},
+  openOnCreate
 }) {
   try {
     await Promise.all(
@@ -29,6 +31,7 @@ module.exports = async function createComponent({
         if (doesExist) logError(`${name} already exists`, { silent: true })
 
         await createFile(outputPath, content)
+        if (openOnCreate) openFile(outputPath)
       })
     )
   } catch (error) {
