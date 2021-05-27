@@ -15,11 +15,13 @@
 	],
 	"main": "./out/index.js",
 	"scripts": {
+		"dev": "npm run -S build -- --sourcemap --watch",
+		"build": "esbuild ./src/index.ts --bundle --outfile=out/index.js --external:vscode --format=cjs --platform=node",
 		"lint": "eslint .",
 		"pretest": "npm run lint",
 		"test": "",
 		"publish": "vsce publish minor",
-		"vscode:prepublish": "npm run test"
+		"vscode:prepublish": "npm run -S build -- --minify"
 	},
 	"icon": "assets/images/logo.png",
 	"repository": {
