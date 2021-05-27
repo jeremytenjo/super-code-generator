@@ -1,5 +1,5 @@
 const vscode = require('vscode')
-const activation = require('./handleActivation')
+// const activation = require('./handleActivation')
 const pkgJson = require('../package.json')
 
 /**
@@ -10,7 +10,9 @@ function activate(context) {
   context.subscriptions.push(
     vscode.commands.registerCommand(
       'quickComponentCreator.createComponent',
-      activation
+      () => vscode.window.showInformationMessage('hello')
+
+      // activation
     )
   )
 }
