@@ -17,9 +17,7 @@ module.exports = async function handleActivation(
     )
     const configFile = importFileInWorkspace(userConfig.schemaFilePath)
 
-    console.log('HERE!')
-
-    // validateUserConfigFile(configFile)
+    validateUserConfigFile(configFile)
 
     // const optionsList = configFile.map((property, index) => {
     //   if (!property.type) {
@@ -79,6 +77,8 @@ module.exports = async function handleActivation(
     // quickPick.title = 'Select Component Type'
     // quickPick.placeholder = 'Type to filter'
     // quickPick.show()
+
+    console.log('HERE!')
   } catch (error) {
     logError(error)
   }
