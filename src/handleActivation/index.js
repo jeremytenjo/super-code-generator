@@ -15,23 +15,23 @@ module.exports = async function handleActivation(
     const userConfig = vscode.workspace.getConfiguration(
       'quickComponentCreator'
     )
-    const configFile = importFileInWorkspace(userConfig.schemaFilePath)
+    // const configFile = importFileInWorkspace(userConfig.schemaFilePath)
 
-    validateUserConfigFile(configFile)
+    // validateUserConfigFile(configFile)
 
-    const optionsList = configFile.map((property, index) => {
-      if (!property.type) {
-        logError(
-          `Missing type property in config file array object index ${index}`
-        )
-      }
+    // const optionsList = configFile.map((property, index) => {
+    //   if (!property.type) {
+    //     logError(
+    //       `Missing type property in config file array object index ${index}`
+    //     )
+    //   }
 
-      return { label: property.type }
-    })
+    //   return { label: property.type }
+    // })
 
-    const prettierConfig = require(getWorkspacePath(
-      userConfig.prettierConfigFilePath
-    ))
+    // const prettierConfig = require(getWorkspacePath(
+    //   userConfig.prettierConfigFilePath
+    // ))
 
     // const quickPick = vscode.window.createQuickPick()
     // quickPick.items = optionsList
