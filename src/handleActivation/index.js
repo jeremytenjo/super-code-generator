@@ -26,8 +26,8 @@ module.exports = async function handleActivation(
         )
       }
 
-    //   return { label: property.type }
-    // })
+      return { label: property.type }
+    })
 
     // const prettierConfig = require(getWorkspacePath(
     //   userConfig.prettierConfigFilePath
