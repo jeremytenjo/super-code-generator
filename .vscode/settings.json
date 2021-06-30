@@ -1,0 +1,4 @@
+{
+  "quickComponentCreator.schemaFilePath": "test/app/qcc.schema.js",
+  "quickComponentCreator.prettierConfigFilePath": "test/app/.prettierrc.js"
+}
