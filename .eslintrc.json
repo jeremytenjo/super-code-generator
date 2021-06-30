@@ -15,7 +15,8 @@
 	},
 	"ignorePatterns": [
 		"lib",
-		"app"
+		"app",
+		"out"
 	],
 	"rules": {
 		"no-const-assign": "warn",
