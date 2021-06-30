@@ -5,8 +5,8 @@ const helpers = require('./handlers/helpers')
 const importFileInWorkspace = require('../../utils/folderFiles/importFileInWorkspace')
 const logError = require('../../utils/log/logError')
 const validateUserConfigFile = require('./handlers/validateUserConfigFile')
-const getWorkspacePath = require('../../utils/workspace/getWorkspacePath')
 const getActiveFileFolderPath = require('../../utils/folderFiles/getActiveFileFolderPath')
+const importPrettierConfig = require('./handlers/importPrettierConfig')
 
 module.exports = async function handleActivation(
   { path: componentOutputPath } = { path: getActiveFileFolderPath() }
@@ -29,56 +29,54 @@ module.exports = async function handleActivation(
       return { label: property.type }
     })
 
-    const prettierConfig = require(getWorkspacePath(
-      userConfig.prettierConfigFilePath
-    ))
+    const prettierConfig = importPrettierConfig({
+      prettierConfigPath: userConfig.prettierConfigFilePath
+    })
 
-    // const quickPick = vscode.window.createQuickPick()
-    // quickPick.items = optionsList
-    // quickPick.onDidChangeSelection(async (selection) => {
-    //   const [selectedComponentType] = selection
-    //   const componentName = await vscode.window.showInputBox({
-    //     value: '',
-    //     title: 'Component Name',
-    //     placeHolder:
-    //       'Create multiple components by separating names with commas eg button, modal',
-    //     validateInput: (value) => {
-    //       if (value === '') return 'Missing name'
-    //     }
-    //   })
+    const quickPick = vscode.window.createQuickPick()
+    quickPick.items = optionsList
+    quickPick.onDidChangeSelection(async (selection) => {
+      const [selectedComponentType] = selection
+      const componentName = await vscode.window.showInputBox({
+        value: '',
+        title: 'Component Name',
+        placeHolder:
+          'Create multiple components by separating names with commas eg button, modal',
+        validateInput: (value) => {
+          if (value === '') return 'Missing name'
+        }
+      })
 
-    //   if (!componentName) return null
+      if (!componentName) return null
 
-    //   const selectedComponentTypeConfig = configFile.find(
-    //     ({ type }) => type === selectedComponentType.label
-    //   )
+      const selectedComponentTypeConfig = configFile.find(
+        ({ type }) => type === selectedComponentType.label
+      )
 
-    //   const componentNames = componentName.split(',')
-    //   const isOneFile = componentNames.length === 1
+      const componentNames = componentName.split(',')
+      const isOneFile = componentNames.length === 1
 
-    //   await Promise.all(
-    //     componentNames.map(async (componentName) => {
-    //       await createComponent({
-    //         name: componentName.trim(),
-    //         helpers,
-    //         componentConfig: selectedComponentTypeConfig,
-    //         componentOutputPath,
-    //         prettierConfig,
-    //         openOnCreate: isOneFile
-    //       })
-    //     })
-    //   )
+      await Promise.all(
+        componentNames.map(async (componentName) => {
+          await createComponent({
+            name: componentName.trim(),
+            helpers,
+            componentConfig: selectedComponentTypeConfig,
+            componentOutputPath,
+            prettierConfig,
+            openOnCreate: isOneFile
+          })
+        })
+      )
 
-    //   vscode.window.showInformationMessage(`${componentName} created!`)
-    //   quickPick.dispose()
-    // })
+      vscode.window.showInformationMessage(`${componentName} created!`)
+      quickPick.dispose()
+    })
 
-    // quickPick.onDidHide(() => quickPick.dispose())
-    // quickPick.title = 'Select Component Type'
-    // quickPick.placeholder = 'Type to filter'
-    // quickPick.show()
-
-    console.log('HERE!')
+    quickPick.onDidHide(() => quickPick.dispose())
+    quickPick.title = 'Select Component Type'
+    quickPick.placeholder = 'Type to filter'
+    quickPick.show()
   } catch (error) {
     logError(error)
   }
