@@ -11,67 +11,73 @@ const getActiveFileFolderPath = require('../../utils/folderFiles/getActiveFileFo
 module.exports = async function handleActivation(
   { path: componentOutputPath } = { path: getActiveFileFolderPath() }
 ) {
-  const userConfig = vscode.workspace.getConfiguration('quickComponentCreator')
-  const configFile = importFileInWorkspace(userConfig.schemaFilePath)
+  try {
+    const userConfig = vscode.workspace.getConfiguration(
+      'quickComponentCreator'
+    )
+    const configFile = importFileInWorkspace(userConfig.schemaFilePath)
 
-  validateUserConfigFile(configFile)
+    validateUserConfigFile(configFile)
 
-  const optionsList = configFile.map((property, index) => {
-    if (!property.type) {
-      logError(
-        `Missing type property in config file array object index ${index}`
-      )
-    }
-
-    return { label: property.type }
-  })
-
-  const prettierConfig = require(getWorkspacePath(
-    userConfig.prettierConfigFilePath
-  ))
-
-  const quickPick = vscode.window.createQuickPick()
-  quickPick.items = optionsList
-  quickPick.onDidChangeSelection(async (selection) => {
-    const [selectedComponentType] = selection
-    const componentName = await vscode.window.showInputBox({
-      value: '',
-      title: 'Component Name',
-      placeHolder:
-        'Create multiple components by separating names with commas eg button, modal',
-      validateInput: (value) => {
-        if (value === '') return 'Missing name'
+    const optionsList = configFile.map((property, index) => {
+      if (!property.type) {
+        logError(
+          `Missing type property in config file array object index ${index}`
+        )
       }
+
+      return { label: property.type }
     })
 
-    if (!componentName) return null
+    const prettierConfig = require(getWorkspacePath(
+      userConfig.prettierConfigFilePath
+    ))
 
-    const selectedComponentTypeConfig = configFile.find(
-      ({ type }) => type === selectedComponentType.label
-    )
-
-    const componentNames = componentName.split(',')
-    const isOneFile = componentNames.length === 1
-
-    await Promise.all(
-      componentNames.map(async (componentName) => {
-        await createComponent({
-          name: componentName.trim(),
-          helpers,
-          componentConfig: selectedComponentTypeConfig,
-          componentOutputPath,
-          prettierConfig,
-          openOnCreate: isOneFile
-        })
+    const quickPick = vscode.window.createQuickPick()
+    quickPick.items = optionsList
+    quickPick.onDidChangeSelection(async (selection) => {
+      const [selectedComponentType] = selection
+      const componentName = await vscode.window.showInputBox({
+        value: '',
+        title: 'Component Name',
+        placeHolder:
+          'Create multiple components by separating names with commas eg button, modal',
+        validateInput: (value) => {
+          if (value === '') return 'Missing name'
+        }
       })
-    )
 
-    vscode.window.showInformationMessage(`${componentName} created!`)
-    quickPick.dispose()
-  })
+      if (!componentName) return null
 
-  quickPick.onDidHide(() => quickPick.dispose())
-  quickPick.title = 'Select Component Type'
-  quickPick.placeholder = 'Type to filter'
-  quickPick.show()
+      const selectedComponentTypeConfig = configFile.find(
+        ({ type }) => type === selectedComponentType.label
+      )
+
+      const componentNames = componentName.split(',')
+      const isOneFile = componentNames.length === 1
+
+      await Promise.all(
+        componentNames.map(async (componentName) => {
+          await createComponent({
+            name: componentName.trim(),
+            helpers,
+            componentConfig: selectedComponentTypeConfig,
+            componentOutputPath,
+            prettierConfig,
+            openOnCreate: isOneFile
+          })
+        })
+      )
+
+      vscode.window.showInformationMessage(`${componentName} created!`)
+      quickPick.dispose()
+    })
+
+    quickPick.onDidHide(() => quickPick.dispose())
+    quickPick.title = 'Select Component Type'
+    quickPick.placeholder = 'Type to filter'
+    quickPick.show()
+  } catch (error) {
+    logError(error)
+  }
 }
