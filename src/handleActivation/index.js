@@ -19,12 +19,12 @@ module.exports = async function handleActivation(
 
     validateUserConfigFile(configFile)
 
-    // const optionsList = configFile.map((property, index) => {
-    //   if (!property.type) {
-    //     logError(
-    //       `Missing type property in config file array object index ${index}`
-    //     )
-    //   }
+    const optionsList = configFile.map((property, index) => {
+      if (!property.type) {
+        logError(
+          `Missing type property in config file array object index ${index}`
+        )
+      }
 
     //   return { label: property.type }
     // })
