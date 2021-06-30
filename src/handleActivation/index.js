@@ -29,9 +29,9 @@ module.exports = async function handleActivation(
       return { label: property.type }
     })
 
-    // const prettierConfig = require(getWorkspacePath(
-    //   userConfig.prettierConfigFilePath
-    // ))
+    const prettierConfig = require(getWorkspacePath(
+      userConfig.prettierConfigFilePath
+    ))
 
     // const quickPick = vscode.window.createQuickPick()
     // quickPick.items = optionsList
