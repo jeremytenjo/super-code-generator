@@ -54,17 +54,16 @@ module.exports = async function handleActivation(
       )
 
       const componentNames = componentName.split(',')
-      const isOneFile = componentNames.length === 1
 
       await Promise.all(
-        componentNames.map(async (componentName) => {
+        componentNames.map(async (componentName, index) => {
           await createComponent({
             name: componentName.trim(),
             helpers,
             componentConfig: selectedComponentTypeConfig,
             componentOutputPath,
             prettierConfig,
-            openOnCreate: isOneFile
+            openOnCreate: index === 0
           })
         })
       )
