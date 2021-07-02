@@ -10,12 +10,12 @@ module.exports = async function createComponent({
   helpers,
   componentConfig,
   componentOutputPath,
-  prettierConfig = {},
-  openOnCreate
+  prettierConfig = {}
 }) {
   try {
     await Promise.all(
-      componentConfig.files.map(async (file) => {
+      componentConfig.files.map(async (file, index) => {
+        const openOnCreate = index === 0
         const componentProperties = {
           name,
           helpers,

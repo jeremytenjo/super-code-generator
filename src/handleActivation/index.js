@@ -56,14 +56,13 @@ module.exports = async function handleActivation(
       const componentNames = componentName.split(',')
 
       await Promise.all(
-        componentNames.map(async (componentName, index) => {
+        componentNames.map(async (componentName) => {
           await createComponent({
             name: componentName.trim(),
             helpers,
             componentConfig: selectedComponentTypeConfig,
             componentOutputPath,
-            prettierConfig,
-            openOnCreate: index === 0
+            prettierConfig
           })
         })
       )
