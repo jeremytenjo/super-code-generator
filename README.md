@@ -1,6 +1,6 @@
 # Quick Component Creator
 
-Quickly create component using your own templates in VS Code
+Quickly create React, Vue, Angular, Svelte components with your own templates
 
 ![image info](https://github.com/jeremytenjo/quick-component-creator/blob/master/assets/videos/demo.gif?raw=true)
 
@@ -71,6 +71,7 @@ Properties passed to `path` and `template` functions
 
 ```js
 name: 'component name input by user',
+folderPath: 'component folder path',
 helpers: {
   changeCase: 'function to change case of a string',
   wrapInTemplateLiteral: 'helps add templates literals within a template literal'
