@@ -79,4 +79,6 @@ helpers: {
 }
 ```
 
+> NOTE: Restart VSCode after editing `qcc.schema.js`
+
 > Pro Tip: Add a perttier config file path to format your created files.
