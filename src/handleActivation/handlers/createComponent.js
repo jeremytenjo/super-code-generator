@@ -16,7 +16,11 @@ module.exports = async function createComponent({
   try {
     await Promise.all(
       componentConfig.files.map(async (file) => {
-        const componentProperties = { name, helpers }
+        const componentProperties = {
+          name,
+          helpers,
+          folderPath: componentOutputPath
+        }
         const outputPath = path.join(
           componentOutputPath,
           name,
