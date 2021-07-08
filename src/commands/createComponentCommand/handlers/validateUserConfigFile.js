@@ -1,4 +1,4 @@
-const logError = require('../../../utils/log/logError')
+const logError = require('../../../../utils/log/logError')
 
 module.exports = function validateUserConfigFile(userConfigFile) {
   if (!userConfigFile) {

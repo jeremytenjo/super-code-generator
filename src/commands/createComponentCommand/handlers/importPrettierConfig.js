@@ -1,4 +1,4 @@
-const getWorkspacePath = require('../../../utils/workspace/getWorkspacePath')
+const getWorkspacePath = require('../../../../utils/workspace/getWorkspacePath')
 
 module.exports = function importPrettierConfig({ prettierConfigPath }) {
   const workspacePath = getWorkspacePath(prettierConfigPath)

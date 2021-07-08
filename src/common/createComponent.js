@@ -1,9 +1,9 @@
-const createFile = require('../../../utils/folderFiles/createFile')
-const logError = require('../../../utils/log/logError')
+const createFile = require('../../utils/folderFiles/createFile')
+const logError = require('../../utils/log/logError')
 const path = require('path')
-const doesFolderOrFileExist = require('../../../utils/folderFiles/doesFolderOrFileExist')
-const prettifyFile = require('../../../utils/folderFiles/prettifyFile')
-const openFile = require('../../../utils/folderFiles/openFile')
+const doesFolderOrFileExist = require('../../utils/folderFiles/doesFolderOrFileExist')
+const prettifyFile = require('../../utils/folderFiles/prettifyFile')
+const openFile = require('../../utils/folderFiles/openFile')
 
 module.exports = async function createComponent({
   name,

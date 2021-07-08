@@ -11,7 +11,8 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:quickComponentCreator.createComponent"
+		"onCommand:quickComponentCreator.createComponent",
+		"onCommand:quickComponentCreator.createComponentInFolder"
 	],
 	"main": "./out/index.js",
 	"scripts": {
@@ -48,6 +49,10 @@
 			{
 				"command": "quickComponentCreator.createComponent",
 				"title": "Create Component"
+			},
+			{
+				"command": "quickComponentCreator.createComponentInFolder",
+				"title": "Create Component in folder"
 			}
 		],
 		"menus": {

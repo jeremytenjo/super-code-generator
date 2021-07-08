@@ -1,14 +1,14 @@
 const vscode = require('vscode')
 
-const createComponent = require('./handlers/createComponent')
+const createComponent = require('../../common/createComponent')
 const helpers = require('./handlers/helpers')
-const importFileInWorkspace = require('../../utils/folderFiles/importFileInWorkspace')
-const logError = require('../../utils/log/logError')
+const importFileInWorkspace = require('../../../utils/folderFiles/importFileInWorkspace')
+const logError = require('../../../utils/log/logError')
 const validateUserConfigFile = require('./handlers/validateUserConfigFile')
-const getActiveFileFolderPath = require('../../utils/folderFiles/getActiveFileFolderPath')
+const getActiveFileFolderPath = require('../../../utils/folderFiles/getActiveFileFolderPath')
 const importPrettierConfig = require('./handlers/importPrettierConfig')
 
-module.exports = async function handleActivation(
+module.exports = async function createComponentCommand(
   { path: componentOutputPath } = { path: getActiveFileFolderPath() }
 ) {
   try {
