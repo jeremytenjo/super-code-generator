@@ -1,4 +1,5 @@
 module.exports = function useRecentSelectedPaths(context) {
+  // https://code.visualstudio.com/api/references/vscode-api#Memento
   let recentSelectedPaths =
     context.workspaceState.get('recentSelectedPaths') || []
 
