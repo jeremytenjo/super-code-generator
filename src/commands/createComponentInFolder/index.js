@@ -1,20 +1,22 @@
 const vscode = require('vscode')
 
 const logError = require('../../../utils/log/logError')
+const genFolderSelectionList = require('./handlers/genFolderSelectionList')
+const createComponent = require('../../common/createComponent')
 
 /**
  * User selects folder from a dropdown to put component in
  */
 module.exports = async function createComponentInFolder() {
   try {
-    const workplaceFiles = [{ label: 'ehhlo' }, { label: 'hello2' }]
+    const folderSelectionList = await genFolderSelectionList()
     const quickPick = vscode.window.createQuickPick()
-    quickPick.items = workplaceFiles
+    quickPick.items = folderSelectionList
 
     quickPick.onDidChangeSelection(async (selection) => {
       const [selectedFile] = selection
 
-      console.log(selectedFile)
+      await createComponent({ outputPath: selectedFile.path })
     })
 
     quickPick.onDidHide(() => quickPick.dispose())
