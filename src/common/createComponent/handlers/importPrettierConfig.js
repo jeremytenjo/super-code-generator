@@ -3,7 +3,6 @@ const getWorkspacePath = require('../../../../utils/workspace/getWorkspacePath')
 module.exports = async function importPrettierConfig({ prettierConfigPath }) {
   const workspacePath = await getWorkspacePath(prettierConfigPath)
   let prettierConfig = false
-  console.log(workspacePath)
   const isJsFile = workspacePath.includes('.js')
 
   if (isJsFile) {
