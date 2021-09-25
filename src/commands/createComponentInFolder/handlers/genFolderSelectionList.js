@@ -10,10 +10,8 @@ module.exports = async function genFolderSelectionList() {
     label:
       wsFile.replace(workspacePath, '') === '/'
         ? '/'
-        : removeFirstCharacter(
-            removeLastCharacter(wsFile.replace(workspacePath, ''))
-          ),
-    path: wsFile
+        : removeFirstCharacter(removeLastCharacter(wsFile.replace(workspacePath, ''))),
+    path: wsFile,
   }))
 
   return folderSelectionList

@@ -10,7 +10,7 @@ module.exports = async function create({
   helpers,
   componentConfig,
   componentOutputPath,
-  prettierConfig = {}
+  prettierConfig = {},
 }) {
   try {
     await Promise.all(
@@ -19,16 +19,16 @@ module.exports = async function create({
         const componentProperties = {
           name,
           helpers,
-          folderPath: componentOutputPath
+          folderPath: componentOutputPath,
         }
         const outputPath = path.join(
           componentOutputPath,
           name,
-          file.path(componentProperties)
+          file.path(componentProperties),
         )
         const content = prettifyFile({
           content: file.template(componentProperties),
-          prettierConfig
+          prettierConfig,
         })
         const doesExist = await doesFolderOrFileExist(outputPath)
 
@@ -36,7 +36,7 @@ module.exports = async function create({
 
         await createFile(outputPath, content)
         if (openOnCreate) openFile(outputPath)
-      })
+      }),
     )
   } catch (error) {
     logError(error)

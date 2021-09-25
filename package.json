@@ -1,84 +1,85 @@
 {
-	"name": "quick-component-creator",
-	"displayName": "Quick Component Creator",
-	"description": "Quickly create React, Vue, Angular, Svelte components with your own templates",
-	"publisher": "tenjojeremy",
-	"version": "2.32.0",
-	"engines": {
-		"vscode": "^1.55.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"onCommand:quickComponentCreator.createComponent",
-		"onCommand:quickComponentCreator.createComponentInFolder"
-	],
-	"main": "./out/index.js",
-	"scripts": {
-		"dev": "npm run -S build -- --sourcemap --watch",
-		"build": "esbuild ./src/index.ts --bundle --outfile=out/index.js --external:vscode --format=cjs --platform=node",
-		"lint": "eslint .",
-		"pretest": "npm run lint",
-		"test": "",
-		"publish": "vsce publish minor",
-		"vscode:prepublish": "npm run -S build -- --minify"
-	},
-	"icon": "assets/images/logo.png",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/jeremytenjo/quick-component-creator"
-	},
-	"contributes": {
-		"configuration": {
-			"title": "Quick Component Creator",
-			"properties": {
-				"quickComponentCreator.schemaFilePath": {
-					"type": "string",
-					"default": "qcc.schema.js",
-					"description": "Schema file path"
-				},
-				"quickComponentCreator.prettierConfigFilePath": {
-					"type": "string",
-					"default": ".prettierrc.js",
-					"description": "Prettier config file path (Optional)"
-				}
-			}
-		},
-		"commands": [
-			{
-				"command": "quickComponentCreator.createComponent",
-				"title": "Create Component"
-			},
-			{
-				"command": "quickComponentCreator.createComponentInFolder",
-				"title": "Create Component in folder"
-			}
-		],
-		"menus": {
-			"explorer/context": [
-				{
-					"when": "explorerResourceIsFolder",
-					"command": "quickComponentCreator.createComponent",
-					"group": "YourGroup@1"
-				}
-			]
-		}
-	},
-	"dependencies": {
-		"change-case": "^4.1.2",
-		"prettier": "^2.3.0"
-	},
-	"devDependencies": {
-		"@types/glob": "^7.1.3",
-		"@types/mocha": "^8.0.4",
-		"@types/node": "^12.11.7",
-		"@types/vscode": "^1.55.0",
-		"esbuild": "^0.12.3",
-		"eslint": "^7.19.0",
-		"glob": "^7.1.7",
-		"mocha": "^8.2.1",
-		"typescript": "^4.1.3",
-		"vscode-test": "^1.5.0"
-	}
+  "name": "quick-component-creator",
+  "displayName": "Quick Component Creator",
+  "description": "Quickly create React, Vue, Angular, Svelte components with your own templates",
+  "publisher": "tenjojeremy",
+  "version": "2.32.0",
+  "engines": {
+    "vscode": "^1.55.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:quickComponentCreator.createComponent",
+    "onCommand:quickComponentCreator.createComponentInFolder"
+  ],
+  "main": "./out/index.js",
+  "scripts": {
+    "dev": "npm run -S build -- --sourcemap --watch",
+    "build": "esbuild ./src/index.ts --bundle --outfile=out/index.js --external:vscode --format=cjs --platform=node",
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "prettify": "prettier --write '{**/*,*}.{js,jsx,json}'",
+    "test": "",
+    "publish": "vsce publish minor",
+    "vscode:prepublish": "npm run -S build -- --minify"
+  },
+  "icon": "assets/images/logo.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeremytenjo/quick-component-creator"
+  },
+  "contributes": {
+    "configuration": {
+      "title": "Quick Component Creator",
+      "properties": {
+        "quickComponentCreator.schemaFilePath": {
+          "type": "string",
+          "default": "qcc.schema.js",
+          "description": "Schema file path"
+        },
+        "quickComponentCreator.prettierConfigFilePath": {
+          "type": "string",
+          "default": ".prettierrc.js",
+          "description": "Prettier config file path (Optional)"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "quickComponentCreator.createComponent",
+        "title": "Create Component"
+      },
+      {
+        "command": "quickComponentCreator.createComponentInFolder",
+        "title": "Create Component in folder"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "when": "explorerResourceIsFolder",
+          "command": "quickComponentCreator.createComponent",
+          "group": "YourGroup@1"
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "change-case": "^4.1.2",
+    "prettier": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.0.4",
+    "@types/node": "^12.11.7",
+    "@types/vscode": "^1.55.0",
+    "esbuild": "^0.12.3",
+    "eslint": "^7.19.0",
+    "glob": "^7.1.7",
+    "mocha": "^8.2.1",
+    "typescript": "^4.1.3",
+    "vscode-test": "^1.5.0"
+  }
 }

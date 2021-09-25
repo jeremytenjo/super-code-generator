@@ -3,8 +3,8 @@ module.exports = function removeFromArray(
   word,
   options = {
     split: '/',
-    join: ''
-  }
+    join: '',
+  },
 ) {
   const index = string.split('/').findIndex((i) => i === word)
   return string

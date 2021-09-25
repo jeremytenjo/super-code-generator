@@ -1,6 +1,10 @@
 module.exports = [
   {
     type: 'React component',
+    onCreate: ({ shell, outputDir }) => {
+      console.log(shell)
+      console.log(outputDir)
+    },
     files: [
       {
         path: ({ name, helpers: { changeCase } }) => changeCase.paramCase(name) + '.jsx',
