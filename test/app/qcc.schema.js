@@ -1,9 +1,10 @@
 module.exports = [
   {
     type: 'React component',
-    onCreate: ({ shell, outputDir }) => {
-      console.log(shell)
-      console.log(outputDir)
+    hooks: {
+      onCreate: ({ outputPath }) => {
+        console.log(outputPath)
+      },
     },
     files: [
       {

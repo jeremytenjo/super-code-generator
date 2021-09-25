@@ -59,6 +59,10 @@ module.exports = async function createComponent({ outputPath }) {
       }),
     )
 
+    if (selectedComponentTypeConfig?.hooks?.onCreate) {
+      selectedComponentTypeConfig?.hooks?.onCreate({ outputPath })
+    }
+
     vscode.window.showInformationMessage(`${componentName} created!`)
     quickPick.dispose()
   })
