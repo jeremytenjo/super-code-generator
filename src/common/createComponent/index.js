@@ -1,4 +1,5 @@
 const vscode = require('vscode')
+const path = require('path')
 
 const logError = require('../../../utils/log/logError')
 const helpers = require('./handlers/helpers')
@@ -49,8 +50,15 @@ module.exports = async function createComponent({ outputPath }) {
 
     await Promise.all(
       componentNames.map(async (componentName) => {
+        const componentNameTrimmed = componentName.trim()
+        const folderName = path.join(outputPath, componentNameTrimmed)
+
+        if (selectedComponentTypeConfig?.hooks?.onCreate) {
+          await selectedComponentTypeConfig?.hooks?.onCreate({ outputPath: folderName })
+        }
+
         await create({
-          name: componentName.trim(),
+          name: componentNameTrimmed,
           helpers,
           componentConfig: selectedComponentTypeConfig,
           componentOutputPath: outputPath,
@@ -58,10 +66,6 @@ module.exports = async function createComponent({ outputPath }) {
         })
       }),
     )
-
-    if (selectedComponentTypeConfig?.hooks?.onCreate) {
-      await selectedComponentTypeConfig?.hooks?.onCreate({ outputPath })
-    }
 
     vscode.window.showInformationMessage(`${componentName} created!`)
     quickPick.dispose()

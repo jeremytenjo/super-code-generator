@@ -6,7 +6,7 @@ module.exports = [
     hooks: {
       onCreate: async ({ outputPath }) => {
         console.log(outputPath)
-        cp.exec(`cd ${outputPath} && echo This is some text > myfile.txt`)
+        cp.exec(`cd ${outputPath} && touch file_name.txt`)
       },
     },
     files: [
