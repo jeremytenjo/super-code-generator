@@ -53,10 +53,6 @@ module.exports = async function createComponent({ outputPath }) {
         const componentNameTrimmed = componentName.trim()
         const folderName = path.join(outputPath, componentNameTrimmed)
 
-        if (selectedComponentTypeConfig?.hooks?.onCreate) {
-          await selectedComponentTypeConfig?.hooks?.onCreate({ outputPath: folderName })
-        }
-
         await create({
           name: componentNameTrimmed,
           helpers,
@@ -64,6 +60,10 @@ module.exports = async function createComponent({ outputPath }) {
           componentOutputPath: outputPath,
           prettierConfig,
         })
+
+        if (selectedComponentTypeConfig?.hooks?.onCreate) {
+          await selectedComponentTypeConfig?.hooks?.onCreate({ outputPath: folderName })
+        }
       }),
     )
 
