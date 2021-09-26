@@ -1,9 +1,12 @@
+const cp = require('child_process')
+
 module.exports = [
   {
     type: 'React component',
     hooks: {
-      onCreate: ({ outputPath }) => {
+      onCreate: async ({ outputPath }) => {
         console.log(outputPath)
+        cp.exec(`cd ${outputPath} && echo This is some text > myfile.txt`)
       },
     },
     files: [
