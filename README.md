@@ -65,6 +65,39 @@ export default function Button() {
 }
 ```
 
+## Hooks
+
+`onCreate`
+
+Trigger function after component is created.
+
+```js
+const shell = require('child_process')
+
+module.exports = [
+  {
+    type: 'React component',
+    hooks: {
+      onCreate: ({ outputPath }) => {
+        shell.exec(`cd ${outputPath}`)
+      },
+    },
+    files: [
+      {
+        path: () => 'src/index.jsx',
+        template: ({ name, helpers: { changeCase } }) => `
+        import React from 'react';
+        
+        export default function ${changeCase.pascalCase(name)}() {
+          return <div>${changeCase.pascalCase(name)}</div>
+        }
+          `,
+      },
+    ],
+  },
+] 
+```
+
 ## Component Type properties
 
 Properties passed to `path` and `template` functions
