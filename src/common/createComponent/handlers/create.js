@@ -13,6 +13,10 @@ module.exports = async function create({
   prettierConfig = {},
 }) {
   try {
+    if (!componentConfig.files) {
+      throw new Error(`Property 'files' missing from ${componentConfig.type}`)
+    }
+
     await Promise.all(
       componentConfig.files.map(async (file, index) => {
         const openOnCreate = index === 0
