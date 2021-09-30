@@ -14,7 +14,7 @@ module.exports = async function create({
 }) {
   try {
     if (!componentConfig.files) {
-      throw new Error(`Property 'files' missing from ${componentConfig.type}`)
+      return logError(`Property 'files' missing from type ${componentConfig.type}`)
     }
 
     await Promise.all(

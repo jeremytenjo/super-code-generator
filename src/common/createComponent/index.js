@@ -48,27 +48,32 @@ module.exports = async function createComponent({ outputPath }) {
 
     const componentNames = componentName.split(',')
 
-    await Promise.all(
-      componentNames.map(async (componentName) => {
-        const componentNameTrimmed = componentName.trim()
-        const folderName = path.join(outputPath, componentNameTrimmed)
+    try {
+      await Promise.all(
+        componentNames.map(async (componentName) => {
+          const componentNameTrimmed = componentName.trim()
+          const folderName = path.join(outputPath, componentNameTrimmed)
 
-        await create({
-          name: componentNameTrimmed,
-          helpers,
-          componentConfig: selectedComponentTypeConfig,
-          componentOutputPath: outputPath,
-          prettierConfig,
-        })
+          await create({
+            name: componentNameTrimmed,
+            helpers,
+            componentConfig: selectedComponentTypeConfig,
+            componentOutputPath: outputPath,
+            prettierConfig,
+          })
 
-        if (selectedComponentTypeConfig?.hooks?.onCreate) {
-          await selectedComponentTypeConfig?.hooks?.onCreate({ outputPath: folderName })
-        }
-      }),
-    )
+          if (selectedComponentTypeConfig?.hooks?.onCreate) {
+            await selectedComponentTypeConfig?.hooks?.onCreate({ outputPath: folderName })
+          }
+        }),
+      )
 
-    vscode.window.showInformationMessage(`${componentName} created!`)
-    quickPick.dispose()
+      vscode.window.showInformationMessage(`${componentName} created!`)
+    } catch (error) {
+      logError(error)
+    } finally {
+      quickPick.dispose()
+    }
   })
 
   quickPick.onDidHide(() => quickPick.dispose())
