@@ -12,12 +12,8 @@ module.exports = [
     type: 'React component',
     files: [
       {
-        path: ({ name, helpers: { changeCase } }) =>
-          changeCase.paramCase(name) + '.jsx',
-        template: ({
-          name,
-          helpers: { wrapInTemplateLiteral, changeCase }
-        }) => `
+        path: ({ name, helpers: { changeCase } }) => changeCase.paramCase(name) + '.jsx',
+        template: ({ name, helpers: { wrapInTemplateLiteral, changeCase } }) => `
         import React from 'react';
         import styles from './${changeCase.paramCase(name)}.css';
 
@@ -28,15 +24,14 @@ module.exports = [
             </div>
           );
         }
-          `
+          `,
       },
       {
-        path: ({ name, helpers: { changeCase } }) =>
-          changeCase.paramCase(name) + '.css',
-        template: () => `.wrapper {}`
-      }
-    ]
-  }
+        path: ({ name, helpers: { changeCase } }) => changeCase.paramCase(name) + '.css',
+        template: () => `.wrapper {}`,
+      },
+    ],
+  },
 ]
 ```
 
@@ -44,6 +39,8 @@ module.exports = [
 3. Pick component type
 4. Add component names
 5. Profit! ✨
+
+> run `Developer: Reload Window` after making changes to your `qcc.schema.js` file to update output
 
 Creates the following component when selecting type `React component` and inputting name `button`
 
@@ -95,7 +92,7 @@ module.exports = [
       },
     ],
   },
-] 
+]
 ```
 
 ## Component Type properties
