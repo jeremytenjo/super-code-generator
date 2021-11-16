@@ -3,7 +3,7 @@
   "displayName": "Quick Component Creator",
   "description": "Quickly create React, Vue, Angular, Svelte components with your own templates",
   "publisher": "tenjojeremy",
-  "version": "2.44.0",
+  "version": "2.45.0",
   "engines": {
     "vscode": "^1.55.0"
   },
