@@ -3,7 +3,7 @@
   "displayName": "Quick Component Creator",
   "description": "Quickly create React, Vue, Angular, Svelte components with your own templates",
   "publisher": "tenjojeremy",
-  "version": "2.45.0",
+  "version": "3.0.0",
   "engines": {
     "vscode": "^1.55.0"
   },
@@ -22,7 +22,7 @@
     "pretest": "npm run lint",
     "prettify": "prettier --write '{**/*,*}.{js,jsx,json}'",
     "test": "",
-    "publish": "vsce publish minor",
+    "publish": "vsce publish",
     "vscode:prepublish": "npm run -S build -- --minify"
   },
   "icon": "assets/images/logo.png",

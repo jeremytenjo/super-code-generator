@@ -25,11 +25,7 @@ module.exports = async function create({
           helpers,
           folderPath: componentOutputPath,
         }
-        const outputPath = path.join(
-          componentOutputPath,
-          name,
-          file.path(componentProperties),
-        )
+        const outputPath = path.join(componentOutputPath, file.path(componentProperties))
         const content = prettifyFile({
           content: file.template(componentProperties),
           prettierConfig,
