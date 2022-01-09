@@ -62,6 +62,12 @@ export default function Button() {
 }
 ```
 
+## Options
+
+`createNamedFolder` - default `true`
+
+Creates files inside a folder named based on the component name
+
 ## Hooks
 
 `onCreate`
