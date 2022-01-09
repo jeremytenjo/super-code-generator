@@ -17,6 +17,11 @@ module.exports = async function create({
       return logError(`Property 'files' missing from type ${componentConfig.type}`)
     }
 
+    let createNamedFolder = true
+    if (componentConfig?.options?.createNamedFolder !== undefined) {
+      createNamedFolder = componentConfig?.options?.createNamedFolder
+    }
+
     await Promise.all(
       componentConfig.files.map(async (file, index) => {
         const openOnCreate = index === 0
@@ -25,7 +30,11 @@ module.exports = async function create({
           helpers,
           folderPath: componentOutputPath,
         }
-        const outputPath = path.join(componentOutputPath, file.path(componentProperties))
+        const outputPath = path.join(
+          componentOutputPath,
+          createNamedFolder ? name : '',
+          file.path(componentProperties),
+        )
         const content = prettifyFile({
           content: file.template(componentProperties),
           prettierConfig,

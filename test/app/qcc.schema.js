@@ -53,6 +53,9 @@ const cloudFunctionTemplate = {
       fs.appendFileSync(functionsFile, 'data to append')
     },
   },
+  options: {
+    createNamedFolder: false,
+  },
 }
 
 module.exports = [reactComponent, cloudFunctionTemplate]
