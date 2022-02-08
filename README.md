@@ -115,6 +115,8 @@ helpers: {
 }
 ```
 
+Change case uses the [change-case](https://github.com/blakeembrey/change-case#core) library
+
 > NOTE: Restart VSCode after editing `qcc.schema.js`
 
-> Pro Tip: Add a perttier config file path to format your created files.
+> Pro Tip: Add a prettier config file path to format your created files.
