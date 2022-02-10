@@ -10,6 +10,13 @@
   "categories": [
     "Other"
   ],
+  "keywords": [
+    "generator",
+    "component",
+    "react",
+    "vue",
+    "template"
+  ],
   "activationEvents": [
     "onCommand:quickComponentCreator.createComponent",
     "onCommand:quickComponentCreator.createComponentInFolder"
