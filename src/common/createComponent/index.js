@@ -32,7 +32,7 @@ module.exports = async function createComponent({ outputPath }) {
     const [selectedComponentType] = selection
     const componentName = await vscode.window.showInputBox({
       value: '',
-      title: 'Component Name',
+      title: `${selectedComponentType.label} Name`,
       placeHolder:
         'Create multiple components by separating names with commas eg button, modal',
       validateInput: (value) => {
