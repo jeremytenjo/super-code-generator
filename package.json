@@ -68,7 +68,7 @@
         {
           "when": "explorerResourceIsFolder",
           "command": "quickComponentCreator.createComponent",
-          "group": "YourGroup@1"
+          "group": "2_workspace"
         }
       ]
     }
