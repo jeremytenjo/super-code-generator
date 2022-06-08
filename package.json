@@ -1,7 +1,7 @@
 {
   "name": "super-code-generator",
   "displayName": "Super Code Generator",
-  "description": "The simple, fast, and scalable code generator that lives in your project.",
+  "description": "A powerful, fast, and scalable code generator that lives in your project",
   "publisher": "tenjojeremy",
   "version": "1.2.0",
   "engines": {

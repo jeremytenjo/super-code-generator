@@ -1,6 +1,6 @@
 # Super Code Generator
 
-The simple, fast, and scalable code generator that lives in your project.
+A powerful, fast, and scalable code generator that lives in your project
 
 ![image info](https://github.com/jeremytenjo/super-code-generator/blob/main/assets/videos/demo.gif?raw=true)
 
