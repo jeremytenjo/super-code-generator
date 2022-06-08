@@ -1,10 +1,10 @@
-# Quick Component Creator
+# Super Code Generator
 
 Quickly create React, Vue, Angular, Svelte components with your own templates
 
-![image info](https://github.com/jeremytenjo/quick-component-creator/blob/master/assets/videos/demo.gif?raw=true)
+![image info](https://github.com/jeremytenjo/super-code-generator/blob/master/assets/videos/demo.gif?raw=true)
 
-1. Create `qcc.schema.js`
+1. Create `superCodeGen.schema.js`
 
 ```js
 module.exports = [
@@ -40,7 +40,7 @@ module.exports = [
 4. Add component names
 5. Profit! ✨
 
-> run `Developer: Reload Window` after making changes to your `qcc.schema.js` file to update output
+> run `Developer: Reload Window` after making changes to your `superCodeGen.schema.js` file to update output
 
 Creates the following component when selecting type `React component` and inputting name `button`
 
@@ -117,6 +117,6 @@ helpers: {
 
 Change case uses the [change-case](https://github.com/blakeembrey/change-case#core) library
 
-> NOTE: Restart VSCode after editing `qcc.schema.js`
+> NOTE: Restart VSCode after editing `superCodeGen.schema.js`
 
 > Pro Tip: Add a prettier config file path to format your created files.

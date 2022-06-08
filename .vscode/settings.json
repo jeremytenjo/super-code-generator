@@ -1,4 +1,4 @@
 {
-  "quickComponentCreator.schemaFilePath": "test/app/qcc.schema.js",
-  "quickComponentCreator.prettierConfigFilePath": "test/app/.prettierrc.js"
+  "superCodeGenerator.schemaFilePath": "test/app/superCodeGen.schema.js",
+  "superCodeGenerator.prettierConfigFilePath": "test/app/.prettierrc.js"
 }

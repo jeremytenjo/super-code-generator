@@ -1,6 +1,6 @@
 const vscode = require('vscode')
-const createComponent = require('./commands/createComponentCommand')
-const createComponentInFolder = require('./commands/createComponentInFolder')
+const generateCode = require('./commands/generateCodeCommand')
+const generateCodeInFolder = require('./commands/generateCodeInFolder')
 const pkgJson = require('../package.json')
 
 /**
@@ -11,17 +11,13 @@ function activate(context) {
   console.log(`${pkgJson.name} activated!`)
 
   context.subscriptions.push(
-    vscode.commands.registerCommand(
-      'quickComponentCreator.createComponent',
-      createComponent
-    )
+    vscode.commands.registerCommand('superCodeGenerator.generateCode', generateCode),
   )
 
   context.subscriptions.push(
-    vscode.commands.registerCommand(
-      'quickComponentCreator.createComponentInFolder',
-      () => createComponentInFolder(context)
-    )
+    vscode.commands.registerCommand('superCodeGenerator.generateCodeInFolder', () =>
+      generateCodeInFolder(context),
+    ),
   )
 }
 
@@ -32,5 +28,5 @@ function deactivate() {
 
 module.exports = {
   activate,
-  deactivate
+  deactivate,
 }

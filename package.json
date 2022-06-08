@@ -1,9 +1,9 @@
 {
-  "name": "quick-component-creator",
-  "displayName": "Quick Component Creator",
-  "description": "Quickly create React, Vue, Angular, Svelte components with your own templates",
+  "name": "super-code-generator",
+  "displayName": "Super Code Generator",
+  "description": "Quickly generate code with your own templates",
   "publisher": "tenjojeremy",
-  "version": "4.3.0",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.55.0"
   },
@@ -18,8 +18,8 @@
     "template"
   ],
   "activationEvents": [
-    "onCommand:quickComponentCreator.createComponent",
-    "onCommand:quickComponentCreator.createComponentInFolder"
+    "onCommand:superCodeGenerator.generateCode",
+    "onCommand:superCodeGenerator.generateCodeInFolder"
   ],
   "main": "./out/index.js",
   "scripts": {
@@ -35,18 +35,18 @@
   "icon": "assets/images/logo.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jeremytenjo/quick-component-creator"
+    "url": "https://github.com/jeremytenjo/super-code-generator"
   },
   "contributes": {
     "configuration": {
-      "title": "Quick Component Creator",
+      "title": "Super Code Generator",
       "properties": {
-        "quickComponentCreator.schemaFilePath": {
+        "superCodeGenerator.schemaFilePath": {
           "type": "string",
-          "default": "qcc.schema.js",
+          "default": "superCodeGen.schema.js",
           "description": "Schema file path"
         },
-        "quickComponentCreator.prettierConfigFilePath": {
+        "superCodeGenerator.prettierConfigFilePath": {
           "type": "string",
           "default": ".prettierrc.js",
           "description": "Prettier config file path (Optional)"
@@ -55,19 +55,19 @@
     },
     "commands": [
       {
-        "command": "quickComponentCreator.createComponent",
-        "title": "Create Component"
+        "command": "superCodeGenerator.generateCode",
+        "title": "Generate Code"
       },
       {
-        "command": "quickComponentCreator.createComponentInFolder",
-        "title": "Create Component in folder"
+        "command": "superCodeGenerator.generateCodeInFolder",
+        "title": "Generate Code in folder"
       }
     ],
     "menus": {
       "explorer/context": [
         {
           "when": "explorerResourceIsFolder",
-          "command": "quickComponentCreator.createComponent",
+          "command": "superCodeGenerator.generateCode",
           "group": "2_workspace"
         }
       ]
