@@ -56,11 +56,11 @@
     "commands": [
       {
         "command": "superCodeGenerator.generateCode",
-        "title": "Generate Code"
+        "title": "Super Code Gen: Generate Code"
       },
       {
         "command": "superCodeGenerator.generateCodeInFolder",
-        "title": "Generate Code in folder"
+        "title": "Super Code Gen: Generate Code in folder"
       }
     ],
     "menus": {
