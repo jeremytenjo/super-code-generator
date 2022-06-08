@@ -1,14 +1,14 @@
 const vscode = require('vscode')
 
 const logError = require('../../../utils/log/logError')
-const createComponent = require('../../common/createComponent')
+const generateCode = require('../../common/generateCode')
 const genFolderSelectionList = require('./handlers/genFolderSelectionList')
 const useRecentSelectedPaths = require('./handlers/useRecentSelectedPaths')
 
 /**
  * User selects folder from a dropdown to put component in
  */
-module.exports = async function createComponentInFolder(context) {
+module.exports = async function generateCodeInFolder(context) {
   try {
     const folderSelectionList = await genFolderSelectionList()
     const recentSelectedPaths = useRecentSelectedPaths(context).get()
@@ -19,7 +19,7 @@ module.exports = async function createComponentInFolder(context) {
       const [selectedFile] = selection
       useRecentSelectedPaths(context).update(selectedFile)
 
-      await createComponent({
+      await generateCode({
         outputPath: selectedFile.path,
         prefixedPaths: recentSelectedPaths,
       })

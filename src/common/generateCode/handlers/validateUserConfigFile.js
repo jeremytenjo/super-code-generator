@@ -3,7 +3,7 @@ const logError = require('../../../../utils/log/logError')
 module.exports = function validateUserConfigFile(userConfigFile) {
   if (!userConfigFile) {
     logError(
-      `Config file not found. Please add path to extension settings under quickComponentCreator.userConfigFilePath`,
+      `Config file not found. Please add path to extension settings under superCodeGenerator.userConfigFilePath`,
     )
   }
   if (!Array.isArray(userConfigFile)) {

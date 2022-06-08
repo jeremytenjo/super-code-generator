@@ -8,8 +8,8 @@ const validateUserConfigFile = require('./handlers/validateUserConfigFile')
 const importPrettierConfig = require('./handlers/importPrettierConfig')
 const create = require('./handlers/create')
 
-module.exports = async function createComponent({ outputPath }) {
-  const userConfig = vscode.workspace.getConfiguration('quickComponentCreator')
+module.exports = async function generateCode({ outputPath }) {
+  const userConfig = vscode.workspace.getConfiguration('superCodeGenerator')
   const configFile = importFileInWorkspace(userConfig.schemaFilePath)
 
   validateUserConfigFile(configFile)
