@@ -2,7 +2,7 @@
 
 Quickly create React, Vue, Angular, Svelte components with your own templates
 
-![image info](https://github.com/jeremytenjo/super-code-generator/blob/master/assets/videos/demo.gif?raw=true)
+![image info](https://github.com/jeremytenjo/super-code-generator/blob/main/assets/videos/demo.gif?raw=true)
 
 1. Create `superCodeGen.schema.js`
 
