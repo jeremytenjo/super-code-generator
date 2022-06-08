@@ -3,7 +3,7 @@
   "displayName": "Super Code Generator",
   "description": "The simple, fast, and scalable code generator that lives in your project.",
   "publisher": "tenjojeremy",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "engines": {
     "vscode": "^1.55.0"
   },
