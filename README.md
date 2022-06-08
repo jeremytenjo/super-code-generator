@@ -1,6 +1,6 @@
 # Super Code Generator
 
-Quickly create React, Vue, Angular, Svelte components with your own templates
+The simple, fast, and scalable code generator that lives in your project.
 
 ![image info](https://github.com/jeremytenjo/super-code-generator/blob/main/assets/videos/demo.gif?raw=true)
 
