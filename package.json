@@ -3,7 +3,7 @@
   "displayName": "Super Code Generator",
   "description": "A powerful, fast, and scalable code generator that saves you time",
   "publisher": "tenjojeremy",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "engines": {
     "vscode": "^1.55.0"
   },
@@ -68,7 +68,7 @@
         {
           "when": "explorerResourceIsFolder",
           "command": "superCodeGenerator.generateCode",
-          "group": "2_workspace"
+          "group": "navigation@1"
         }
       ]
     }
