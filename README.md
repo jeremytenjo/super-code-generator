@@ -2,9 +2,9 @@
   <a href="https://hayletenjo.com/" rel="noopener" target="_blank"><img width="200" src="https://github.com/jeremytenjo/super-code-generator/blob/main/assets/images/logo.png" alt="Create Modern App Logo"></a></p>
 </p>
 
-# Super Code Generator
+<h1 align="center">Super Code Generator</h1>
 
-A powerful, fast, and scalable code generator that saves you time
+<p align="center">A powerful, fast, and scalable code generator that saves you time</p>
 
 ![image info](https://github.com/jeremytenjo/super-code-generator/blob/main/assets/videos/demo.gif?raw=true)
 
