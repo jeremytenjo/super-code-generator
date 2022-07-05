@@ -53,12 +53,19 @@ module.exports = async function generateCode({ outputPath }) {
         componentNames.map(async (componentName) => {
           const componentNameTrimmed = componentName.trim()
           const folderName = path.join(outputPath, componentNameTrimmed)
+          let componentOutputPath = outputPath
+
+          if (selectedComponentTypeConfig.outputWithoutParentDir) {
+            componentOutputPath = componentOutputPath.split('/')
+            componentOutputPath.pop()
+            componentOutputPath = componentOutputPath.join('/')
+          }
 
           await create({
             name: componentNameTrimmed,
             helpers,
             componentConfig: selectedComponentTypeConfig,
-            componentOutputPath: outputPath,
+            componentOutputPath,
             prettierConfig,
           })
 

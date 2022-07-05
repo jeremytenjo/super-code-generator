@@ -58,4 +58,33 @@ const cloudFunctionTemplate = {
   },
 }
 
-module.exports = [reactComponent, cloudFunctionTemplate]
+// Story example
+const story = {
+  type: 'Story',
+  outputWithoutParentDir: true,
+  files: [
+    {
+      path: ({ name, helpers: { changeCase } }) =>
+        'stories/' + changeCase.paramCase(name) + '.stories.jsx',
+      template: ({ name, helpers: { wrapInTemplateLiteral, changeCase } }) => `
+      import React from 'react';
+      import styles from './${changeCase.paramCase(name)}.css';
+      
+      export default function ${changeCase.pascalCase(name)}() {
+        return (
+          <div className={${wrapInTemplateLiteral('styles.wrapper')}}>
+           ${name}
+          </div>
+        );
+      }
+        `,
+    },
+    {
+      path: ({ name, helpers: { changeCase } }) =>
+        'stories/' + changeCase.paramCase(name) + '.css',
+      template: () => `.wrapper {}`,
+    },
+  ],
+}
+
+module.exports = [reactComponent, cloudFunctionTemplate, story]

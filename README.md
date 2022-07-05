@@ -62,6 +62,20 @@ export default function Button() {
 }
 ```
 
+## Array Properties
+
+**type**
+
+Name of the scaffold eg React Component
+
+**files**
+
+Array of files to generate
+
+**outputWithoutParentDir** Optional
+
+Determined whether to output generated code inside the parent directory
+
 ## Options
 
 `createNamedFolder` - default `true`
