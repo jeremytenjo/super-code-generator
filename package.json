@@ -28,7 +28,7 @@
     "lint": "eslint .",
     "pretest": "npm run lint",
     "prettify": "prettier --write '{**/*,*}.{js,jsx,json}'",
-    "test": "",
+    "deploy": "npm run publish",
     "publish": "vsce publish",
     "vscode:prepublish": "npm run -S build -- --minify"
   },
