@@ -30,9 +30,10 @@ module.exports = async function create({
           helpers,
           folderPath: componentOutputPath,
         }
+        const parentFolderName = file?.parentFolderName?.(fileProperties) || name || ''
         const outputPath = path.join(
           componentOutputPath,
-          createNamedFolder ? name : '',
+          createNamedFolder ? parentFolderName : '',
           file.path(componentProperties),
         )
         const content = prettifyFile({
