@@ -25,7 +25,7 @@ module.exports = async function create({
     await Promise.all(
       componentConfig.files.map(async (file, index) => {
         const openOnCreate = index === 0
-        const componentProperties = {
+        const fileProperties = {
           name,
           helpers,
           folderPath: componentOutputPath,
@@ -34,10 +34,10 @@ module.exports = async function create({
         const outputPath = path.join(
           componentOutputPath,
           createNamedFolder ? parentFolderName : '',
-          file.path(componentProperties),
+          file.path(fileProperties),
         )
         const content = prettifyFile({
-          content: file.template(componentProperties),
+          content: file.template(fileProperties),
           prettierConfig,
         })
         const doesExist = await doesFolderOrFileExist(outputPath)
