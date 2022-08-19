@@ -4,6 +4,7 @@ const doesFolderOrFileExist = require('../../../../utils/folderFiles/doesFolderO
 const prettifyFile = require('../../../../utils/folderFiles/prettifyFile')
 const openFile = require('../../../../utils/folderFiles/openFile')
 const logError = require('../../../../utils/log/logError')
+const getWorkspacePath = require('../../../../utils/workspace/getWorkspacePath')
 
 module.exports = async function create({
   name,
@@ -22,6 +23,11 @@ module.exports = async function create({
       createNamedFolder = componentConfig?.options?.createNamedFolder
     }
 
+    let outputInRootFolder = false
+    if (componentConfig?.options?.outputInRootFolder !== undefined) {
+      outputInRootFolder = componentConfig?.options?.outputInRootFolder
+    }
+
     await Promise.all(
       componentConfig.files.map(async (file, index) => {
         const openOnCreate = index === 0
@@ -32,7 +38,7 @@ module.exports = async function create({
         }
         const parentFolderName = file?.parentFolderName?.(fileProperties) || name || ''
         const outputPath = path.join(
-          componentOutputPath,
+          !outputInRootFolder ? componentOutputPath : await getWorkspacePath(),
           createNamedFolder ? parentFolderName : '',
           file.path(fileProperties),
         )

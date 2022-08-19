@@ -86,6 +86,10 @@ Determined whether to output generated code inside the parent directory
 
 Creates files inside a folder named based on the component name
 
+`outputInRootFolder` - default `false`
+
+Always output code in root folder
+
 ## Hooks
 
 `onCreate`
