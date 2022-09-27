@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://hayletenjo.com/" rel="noopener" target="_blank"><img width="200" src="https://github.com/jeremytenjo/super-code-generator/blob/main/assets/images/logo.png" alt="Create Modern App Logo"></a></p>
+  <a href="https://hayletenjo.com/" rel="noopener" target="_blank"><img width="200" src="https://github.com/jeremytenjo/super-code-generator/blob/main/assets/images/logo.png?raw=true" alt="Create Modern App Logo"></a></p>
 </p>
 
 <h1 align="center">Super Code Generator</h1>
