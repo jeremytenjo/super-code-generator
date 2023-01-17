@@ -35,6 +35,7 @@ module.exports = async function create({
           name,
           helpers,
           folderPath: componentOutputPath,
+          type: componentConfig.type,
         }
         const parentFolderName = file?.parentFolderName?.(fileProperties) || name || ''
         const outputPath = path.join(
