@@ -43,7 +43,7 @@ module.exports = async function create({
           createNamedFolder ? parentFolderName : '',
           file.path(fileProperties),
         )
-        const content = prettifyFile({
+        const content = await prettifyFile({
           content: file.template(fileProperties),
           prettierConfig,
         })

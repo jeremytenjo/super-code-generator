@@ -1,11 +1,15 @@
 const prettier = require('prettier')
+const eslint = require('eslint')
 
-module.exports = function prettifyFile({ prettierConfig = {}, content = '' }) {
+module.exports = async function prettifyFile({ prettierConfig = {}, content = '' }) {
   try {
-    const prettifiedContent = prettier.format(content, {
+    let prettifiedContent = prettier.format(content, {
       ...prettierConfig,
       parser: 'babel',
     })
+
+    prettifiedContent = await eslint.lintText(prettifiedContent)
+
     return prettifiedContent
   } catch (error) {
     return content
