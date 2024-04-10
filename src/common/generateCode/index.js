@@ -30,11 +30,9 @@ module.exports = async function generateCode({ outputPath }) {
   quickPick.items = optionsList
   quickPick.onDidChangeSelection(async (selection) => {
     const [selectedComponentType] = selection
-    console.log('selection', selection)
-    console.log('selection', selection)
 
-    console.log('optionsList', optionsList)
-    console.log('optionsList', optionsList)
+    vscode.window.createOutputChannel(`'selection' ${selection}`).show()
+    vscode.window.createOutputChannel(`'optionsList' ${optionsList}`).show()
 
     const componentName = await vscode.window.showInputBox({
       value: '',
