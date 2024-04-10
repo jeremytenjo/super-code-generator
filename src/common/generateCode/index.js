@@ -30,6 +30,12 @@ module.exports = async function generateCode({ outputPath }) {
   quickPick.items = optionsList
   quickPick.onDidChangeSelection(async (selection) => {
     const [selectedComponentType] = selection
+    console.log('selection', selection)
+    console.log('selection', selection)
+
+    console.log('optionsList', optionsList)
+    console.log('optionsList', optionsList)
+
     const componentName = await vscode.window.showInputBox({
       value: '',
       title: `${selectedComponentType.label} Name`,
@@ -38,6 +44,7 @@ module.exports = async function generateCode({ outputPath }) {
       validateInput: (value) => {
         if (value === '') return 'Missing name'
       },
+      prompt: 'Used for this yeah',
     })
 
     if (!componentName) return null
