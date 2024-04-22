@@ -50,6 +50,7 @@ module.exports = async function create({
 
           parentFolderName = componentConfig?.options?.formatParentFolderName({
             currentName: name,
+            helpers,
           })?.newName
         }
 
