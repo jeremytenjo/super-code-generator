@@ -43,7 +43,7 @@ module.exports = async function generateCode({ outputPath }) {
       validateInput: (value) => {
         if (value === '') return 'Missing name'
       },
-      prompt: selectedComponentTypeConfig?.description,
+      prompt: selectedComponentTypeConfig?.usageInstructions,
     })
 
     if (!componentName) return null

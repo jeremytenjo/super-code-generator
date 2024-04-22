@@ -66,7 +66,7 @@ export default function Button() {
 }
 ```
 
-## Array Properties
+## Generator Properties
 
 **type**
 
@@ -76,11 +76,15 @@ Name of the scaffold eg React Component
 
 Array of files to generate
 
+**usageInstructions** Optional
+
+Instructions the user will see when they type the component name
+
 **outputWithoutParentDir** Optional
 
 Determined whether to output generated code inside the parent directory
 
-## Options
+**Options**
 
 `createNamedFolder` - default `true`
 
