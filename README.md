@@ -90,6 +90,10 @@ Creates files inside a folder named based on the component name
 
 Always output code in root folder
 
+`formatParentFolderName` - default `undefined`
+
+Format the parent folder name, must be a function that takes { currentName: string } and returns { newName: string }
+
 ## Hooks
 
 `onCreate`

@@ -37,7 +37,22 @@ module.exports = async function create({
           folderPath: componentOutputPath,
           type: componentConfig.type,
         }
-        const parentFolderName = file?.parentFolderName?.(fileProperties) || name || ''
+        let parentFolderName = file?.parentFolderName?.(fileProperties) || name || ''
+
+        // Format parentFolderName (optional)
+        if (componentConfig?.options?.formatParentFolderName) {
+          if (typeof componentConfig?.options?.formatParentFolderName !== 'function') {
+            return logError(
+              `formatParentFolderName must be a function. Received ${typeof componentConfig
+                ?.options?.formatParentFolderName}`,
+            )
+          }
+
+          parentFolderName = componentConfig?.options?.formatParentFolderName({
+            currentName: name,
+          })?.newName
+        }
+
         const outputPath = path.join(
           !outputInRootFolder ? componentOutputPath : await getWorkspacePath(),
           createNamedFolder ? parentFolderName : '',

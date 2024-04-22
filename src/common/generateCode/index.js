@@ -30,6 +30,11 @@ module.exports = async function generateCode({ outputPath }) {
   quickPick.items = optionsList
   quickPick.onDidChangeSelection(async (selection) => {
     const [selectedComponentType] = selection
+
+    const selectedComponentTypeConfig = configFile.find(
+      ({ type }) => type === selectedComponentType.label,
+    )
+
     const componentName = await vscode.window.showInputBox({
       value: '',
       title: `${selectedComponentType.label} Name`,
@@ -38,14 +43,10 @@ module.exports = async function generateCode({ outputPath }) {
       validateInput: (value) => {
         if (value === '') return 'Missing name'
       },
-      prompt: 'Used for this yeah',
+      prompt: selectedComponentTypeConfig?.description,
     })
 
     if (!componentName) return null
-
-    const selectedComponentTypeConfig = configFile.find(
-      ({ type }) => type === selectedComponentType.label,
-    )
 
     const componentNames = componentName.split(',')
 
