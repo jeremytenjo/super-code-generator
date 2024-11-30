@@ -3,7 +3,7 @@ import { lowerCase } from 'lower-case'
 import wrapInTemplateLiteral from './wrapInTemplateLiteral'
 import addEmptyTemplateLiteral from './addEmptyTemplateLiteral'
 
-export = {
+export default {
   changeCase: {
     ...changeCase,
     lowerCase,
