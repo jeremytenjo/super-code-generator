@@ -28,7 +28,8 @@
     "pretest": "npm run lint",
     "prettify": "prettier --write '{**/*,*}.{js,jsx,json}'",
     "deploy": "npm run types:generate && npm run tests:ts-types && npm verison minor && vsce publish && npm publish --access public",
-    "vscode:prepublish": "npm run -S build -- --minify"
+    "vscode:prepublish": "npm run -S build -- --minify",
+    "npm:publish": "node ./scripts/publishToNpm/publishToNpm.cjs"
   },
   "icon": "assets/images/logo.png",
   "repository": {
