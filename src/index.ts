@@ -2,6 +2,10 @@ import vscode from 'vscode'
 import generateCode from './commands/generateCodeCommand'
 import generateCodeInFolder from './commands/generateCodeInFolder'
 
+export type FileProps = {
+  name: string
+}
+
 const extensionName = 'superCodeGenerator'
 
 /**

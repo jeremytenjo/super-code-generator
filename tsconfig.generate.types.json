@@ -2,7 +2,9 @@
   "compilerOptions": {
     "outDir": "./out",
     "declaration": true,
-    "emitDeclarationOnly": true
+    "emitDeclarationOnly": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true
   },
   "include": ["src/**/*", "utils/**/*"]
 }

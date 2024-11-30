@@ -6,10 +6,6 @@ import openFile from '../../../../utils/folderFiles/openFile'
 import logError from '../../../../utils/log/logError'
 import getWorkspacePath from '../../../../utils/workspace/getWorkspacePath'
 
-export type FileProps = {
-  name: string
-}
-
 export default async function create({
   name,
   helpers,
