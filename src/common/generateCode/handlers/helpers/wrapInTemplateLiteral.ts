@@ -1,4 +1,4 @@
-module.exports = function wrapInTemplateLiteral(string) {
+export default function wrapInTemplateLiteral(string) {
   const stringWrappedInTemplateLiteral = `${'`${'}${string}${'}`'}`
 
   return stringWrappedInTemplateLiteral

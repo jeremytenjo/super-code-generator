@@ -1,12 +1,12 @@
-const path = require('path')
-const createFile = require('../../../../utils/folderFiles/createFile')
-const doesFolderOrFileExist = require('../../../../utils/folderFiles/doesFolderOrFileExist')
-const prettifyFile = require('../../../../utils/folderFiles/prettifyFile')
-const openFile = require('../../../../utils/folderFiles/openFile')
-const logError = require('../../../../utils/log/logError')
-const getWorkspacePath = require('../../../../utils/workspace/getWorkspacePath')
+import path from 'path'
+import createFile from '../../../../utils/folderFiles/createFile'
+import doesFolderOrFileExist from '../../../../utils/folderFiles/doesFolderOrFileExist'
+import prettifyFile from '../../../../utils/folderFiles/prettifyFile'
+import openFile from '../../../../utils/folderFiles/openFile'
+import logError from '../../../../utils/log/logError'
+import getWorkspacePath from '../../../../utils/workspace/getWorkspacePath'
 
-module.exports = async function create({
+export default async function create({
   name,
   helpers,
   componentConfig,

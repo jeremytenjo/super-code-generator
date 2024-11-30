@@ -1,4 +1,4 @@
-module.exports = function addEmptyTemplateLiteral() {
+export default function addEmptyTemplateLiteral() {
   const emptyTemplateLiteral = `${'``'}`
 
   return emptyTemplateLiteral

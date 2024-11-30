@@ -1,6 +1,6 @@
-const logError = require('../../../../utils/log/logError')
+import logError from '../../../../utils/log/logError'
 
-module.exports = function validateUserConfigFile(userConfigFile) {
+export default function validateUserConfigFile(userConfigFile) {
   if (!userConfigFile) {
     logError(
       `Config file not found. Please add path to extension settings under superCodeGenerator.userConfigFilePath`,
