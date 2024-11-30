@@ -10,7 +10,6 @@
   "categories": [
     "Other"
   ],
-  "type": "module",
   "keywords": [
     "generator",
     "component",
@@ -73,8 +72,7 @@
   "dependencies": {
     "change-case": "^4.1.2",
     "lower-case": "^2.0.2",
-    "prettier": "^2.3.0",
-    "ts-import": "5.0.0-beta.0"
+    "prettier": "^2.3.0"
   },
   "devDependencies": {
     "@types/glob": "^7.1.3",
