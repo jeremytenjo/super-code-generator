@@ -8,19 +8,23 @@ export default async function importFileInWorkspace(uri) {
   const uriPath = path.join(vscode.workspace.workspaceFolders[0].uri.path, uri)
   const uriPathExists = doesFileExist(uriPath)
 
-  const fileeee = await importTs({
-    filePath: uriPath,
-  })
-
-  console.log({
-    fileeee,
-  })
-
-  process.exit(0)
-
   assert(uriPathExists, `Schema not found at ${uriPath}`)
-  const fileData = require(uriPath)
-  console.log('fileData', fileData)
 
-  return fileData
+  if (uriPath.includes('.ts')) {
+    console.log('importing ts file', uriPath)
+
+    const fileData = await importTs({
+      filePath: uriPath,
+    })
+
+    console.log({
+      fileData,
+    })
+
+    return fileData
+  } else {
+    const fileData = require(uriPath)
+
+    return fileData
+  }
 }
