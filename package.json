@@ -10,6 +10,7 @@
   "categories": [
     "Other"
   ],
+  "type": "module",
   "keywords": [
     "generator",
     "component",
@@ -20,7 +21,7 @@
   "main": "./out/index.js",
   "scripts": {
     "dev": "npm run -S build -- --sourcemap --watch",
-    "build": "esbuild ./src/index.ts --bundle --outfile=out/index.js --external:vscode --format=cjs --platform=node",
+    "build": "esbuild ./src/index.ts --bundle --outfile=out/index.js --external:vscode --format=esm --platform=node",
     "lint": "eslint .",
     "tests:ts-types": "tsc --noemit",
     "pretest": "npm run lint",
@@ -72,7 +73,8 @@
   "dependencies": {
     "change-case": "^4.1.2",
     "lower-case": "^2.0.2",
-    "prettier": "^2.3.0"
+    "prettier": "^2.3.0",
+    "ts-import": "5.0.0-beta.0"
   },
   "devDependencies": {
     "@types/glob": "^7.1.3",
