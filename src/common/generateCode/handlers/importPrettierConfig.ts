@@ -6,7 +6,7 @@ export default async function importPrettierConfig({ prettierConfigPath }) {
   const isJsFile = workspacePath.includes('.js')
 
   if (isJsFile) {
-    prettierConfig = require(workspacePath)
+    prettierConfig = await import(workspacePath).then((p) => p.default)
   } else {
     console.warn('Quick Component Create: Prettier config should be a JS file')
   }
