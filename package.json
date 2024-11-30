@@ -18,14 +18,16 @@
     "template"
   ],
   "main": "./out/index.js",
+  "types": "./out/index.d.ts",
   "scripts": {
     "dev": "npm run -S build -- --sourcemap --watch",
     "build": "esbuild ./src/index.ts --bundle --outfile=out/index.js --external:vscode --external:esbuild --format=cjs --platform=node",
     "lint": "eslint .",
     "tests:ts-types": "tsc --noemit",
+    "types:generate": "tsc -p tsconfig.generate.types.json --declaration --emitDeclarationOnly --showConfig",
     "pretest": "npm run lint",
     "prettify": "prettier --write '{**/*,*}.{js,jsx,json}'",
-    "deploy": "npm run tests:ts-types && npm verison minor && vsce publish && npm publish --access public",
+    "deploy": "npm run types:generate && npm run tests:ts-types && npm verison minor && vsce publish && npm publish --access public",
     "vscode:prepublish": "npm run -S build -- --minify"
   },
   "icon": "assets/images/logo.png",

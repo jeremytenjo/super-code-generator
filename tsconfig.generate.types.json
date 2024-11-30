@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "outDir": "./out",
+    "declaration": true,
+    "strict": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "types": ["node"],
+    "moduleResolution": "node"
+  },
+  "include": ["src/**/*", "utils/**/*"]
+}

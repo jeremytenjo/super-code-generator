@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "outDir": "./out",
+    "strict": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*", "utils/**/*"]
+}
