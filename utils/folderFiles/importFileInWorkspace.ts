@@ -11,14 +11,8 @@ export default async function importFileInWorkspace(uri) {
   assert(uriPathExists, `Schema not found at ${uriPath}`)
 
   if (uriPath.includes('.ts')) {
-    console.log('importing ts file', uriPath)
-
     const fileData = await importTs({
       filePath: uriPath,
-    })
-
-    console.log({
-      fileData,
     })
 
     return fileData

@@ -6,15 +6,12 @@ import { join } from 'path'
 
 export default async function importTs(props: { filePath: string }) {
   // Compile the TypeScript file with esbuild
-  console.log('start')
-
   const result = await build({
     entryPoints: [props.filePath],
     format: 'esm', // Use ES Module format
     platform: 'node',
     write: false, // Don't write the output to disk
     bundle: true, // Bundle all dependencies
-    logLevel: 'debug',
   })
 
   // Write the compiled code to a temporary file

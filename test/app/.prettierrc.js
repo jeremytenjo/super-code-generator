@@ -1,4 +1,4 @@
-{
+module.exports = {
   "printWidth": 90,
   "trailingComma": "all",
   "tabWidth": 2,
@@ -7,3 +7,4 @@
   "jsxSingleQuote": true,
   "arrowParens": "always"
 }
+  

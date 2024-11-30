@@ -10,7 +10,9 @@ import create from './handlers/create'
 
 export default async function generateCode({ outputPath }) {
   const userConfig = vscode.workspace.getConfiguration('superCodeGenerator')
-  const configFile = await importFileInWorkspace(userConfig.schemaFilePath)
+  const configFile = await importFileInWorkspace(userConfig.schemaFilePath).then(
+    (res) => res.default,
+  )
 
   validateUserConfigFile(configFile)
 
