@@ -1,13 +1,14 @@
-const vscode = require('vscode')
-const path = require('path')
-const doesFileExist = require('./doesFolderOrFileExist')
-const assert = require('../log/assert')
+import vscode from 'vscode'
+import path from 'path'
+import doesFileExist from './doesFolderOrFileExist'
+import assert from '../log/assert'
 
-module.exports = function importFileInWorkspace(uri) {
+export default function importFileInWorkspace(uri) {
   const uriPath = path.join(vscode.workspace.workspaceFolders[0].uri.path, uri)
   const uriPathExists = doesFileExist(uriPath)
   assert(uriPathExists, `Schema not found at ${uriPath}`)
   const fileData = require(uriPath)
+  console.log('fileData', fileData)
 
   return fileData
 }

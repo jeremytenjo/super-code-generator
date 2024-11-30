@@ -1,4 +1,4 @@
 {
-  "superCodeGenerator.schemaFilePath": "test/app/superCodeGen.schema.js",
+  "superCodeGenerator.schemaFilePath": "test/app/superCodeGen.schema.ts",
   "superCodeGenerator.prettierConfigFilePath": "test/app/.prettierrc.js"
 }

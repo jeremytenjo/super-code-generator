@@ -8,7 +8,7 @@
 
 ![image info](https://github.com/jeremytenjo/super-code-generator/blob/main/assets/videos/demo.gif?raw=true)
 
-1. Create `superCodeGen.schema.js`
+1. Create `superCodeGen.schema.ts`
 
 ```js
 module.exports = [
@@ -44,7 +44,7 @@ module.exports = [
 4. Add component names
 5. Profit! ✨
 
-> run `Developer: Reload Window` after making changes to your `superCodeGen.schema.js` file to update output
+> run `Developer: Reload Window` after making changes to your `superCodeGen.schema.ts` file to update output
 
 Creates the following component when selecting type `React component` and inputting name `button`
 
@@ -147,6 +147,6 @@ helpers: {
 
 Change case uses the [change-case](https://github.com/blakeembrey/change-case#core) library
 
-> NOTE: Restart VSCode after editing `superCodeGen.schema.js`
+> NOTE: Restart VSCode after editing `superCodeGen.schema.ts`
 
 > Pro Tip: Add a prettier config file path to format your created files.

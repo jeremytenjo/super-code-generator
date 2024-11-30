@@ -1,4 +1,4 @@
-const forwardSlash = require('./forwardSlash')
+import forwardSlash from './forwardSlash'
 
 /**
  * Supports Mac and Windows
@@ -7,6 +7,6 @@ const forwardSlash = require('./forwardSlash')
  *
  * returns ['project', 'heoo']
  */
-module.exports = function splitPath(path) {
+export default function splitPath(path) {
   return path.toString().split(forwardSlash)
 }

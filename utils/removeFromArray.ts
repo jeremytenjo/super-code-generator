@@ -1,4 +1,4 @@
-module.exports = function removeFromArray(
+export default function removeFromArray(
   string,
   word,
   options = {
@@ -7,6 +7,7 @@ module.exports = function removeFromArray(
   },
 ) {
   const index = string.split('/').findIndex((i) => i === word)
+
   return string
     .split(options.split)
     .slice(index + 1)

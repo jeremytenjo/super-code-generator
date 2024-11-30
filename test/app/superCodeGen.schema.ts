@@ -1,6 +1,6 @@
-const cp = require('child_process')
-const path = require('path')
-const fs = require('fs')
+import cp from 'child_process'
+import path from 'path'
+import fs from 'fs'
 
 // React component example
 const reactComponent = {
@@ -87,4 +87,4 @@ const story = {
   ],
 }
 
-module.exports = [reactComponent, cloudFunctionTemplate, story]
+export default [reactComponent, cloudFunctionTemplate, story]

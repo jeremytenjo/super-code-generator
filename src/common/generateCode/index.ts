@@ -1,14 +1,14 @@
-const vscode = require('vscode')
-const path = require('path')
+import vscode from 'vscode'
+import path from 'path'
 
-const logError = require('../../../utils/log/logError')
-const helpers = require('./handlers/helpers')
-const importFileInWorkspace = require('../../../utils/folderFiles/importFileInWorkspace')
-const validateUserConfigFile = require('./handlers/validateUserConfigFile')
-const importPrettierConfig = require('./handlers/importPrettierConfig')
-const create = require('./handlers/create')
+import logError from '../../../utils/log/logError'
+import helpers from './handlers/helpers'
+import importFileInWorkspace from '../../../utils/folderFiles/importFileInWorkspace'
+import validateUserConfigFile from './handlers/validateUserConfigFile'
+import importPrettierConfig from './handlers/importPrettierConfig'
+import create from './handlers/create'
 
-module.exports = async function generateCode({ outputPath }) {
+export default async function generateCode({ outputPath }) {
   const userConfig = vscode.workspace.getConfiguration('superCodeGenerator')
   const configFile = importFileInWorkspace(userConfig.schemaFilePath)
 

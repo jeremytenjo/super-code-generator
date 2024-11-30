@@ -1,6 +1,6 @@
-const vscode = require('vscode')
+import vscode from 'vscode'
 
-module.exports = function createUri(uri) {
+export default function createUri(uri) {
   const folderUri = vscode.workspace.workspaceFolders[0].uri
   const fileUri = folderUri.with({
     path: uri,

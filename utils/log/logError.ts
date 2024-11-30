@@ -1,6 +1,6 @@
-const vscode = require('vscode')
+import vscode from 'vscode'
 
-module.exports = function logError(errorMessage, options = { silent: false }) {
+export default function logError(errorMessage, options = { silent: false }) {
   if (options.silent) {
     throw new Error(errorMessage)
   } else {

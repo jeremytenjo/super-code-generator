@@ -1,6 +1,6 @@
-const prettier = require('prettier')
+import prettier from 'prettier'
 
-module.exports = async function prettifyFile({ prettierConfig = {}, content = '' }) {
+export default async function prettifyFile({ prettierConfig = {}, content = '' }) {
   try {
     const prettifiedContent = prettier.format(content, {
       ...prettierConfig,

@@ -1,9 +1,9 @@
-const vscode = require('vscode')
-const doesFolderOrFileExist = require('./doesFolderOrFileExist')
-const createUri = require('./createUri')
-const logError = require('../log/logError')
+import vscode from 'vscode'
+import doesFolderOrFileExist from './doesFolderOrFileExist'
+import createUri from './createUri'
+import logError from '../log/logError'
 
-module.exports = async function createFile(outputPath, content) {
+export default async function createFile(outputPath, content) {
   const writeData = Buffer.from(content, 'utf8')
   const folderUri = createUri(outputPath)
 

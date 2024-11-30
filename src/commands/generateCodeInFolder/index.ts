@@ -1,14 +1,14 @@
-const vscode = require('vscode')
+import vscode from 'vscode'
 
-const logError = require('../../../utils/log/logError')
-const generateCode = require('../../common/generateCode')
-const genFolderSelectionList = require('./handlers/genFolderSelectionList')
-const useRecentSelectedPaths = require('./handlers/useRecentSelectedPaths')
+import logError from '../../../utils/log/logError'
+import generateCode from '../../common/generateCode'
+import genFolderSelectionList from './handlers/genFolderSelectionList'
+import useRecentSelectedPaths from './handlers/useRecentSelectedPaths'
 
 /**
  * User selects folder from a dropdown to put component in
  */
-module.exports = async function generateCodeInFolder(context) {
+export default async function generateCodeInFolder(context) {
   try {
     const folderSelectionList = await genFolderSelectionList()
     const recentSelectedPaths = useRecentSelectedPaths(context).get()
@@ -19,9 +19,10 @@ module.exports = async function generateCodeInFolder(context) {
       const [selectedFile] = selection
       useRecentSelectedPaths(context).update(selectedFile)
 
+      console.log(selectedFile)
+
       await generateCode({
         outputPath: selectedFile.path,
-        prefixedPaths: recentSelectedPaths,
       })
     })
 

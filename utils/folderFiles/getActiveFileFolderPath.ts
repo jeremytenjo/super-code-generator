@@ -1,10 +1,10 @@
-const getActiveFilePath = require('./getActiveFilePath')
-const splitPath = require('../splitPath')
+import getActiveFilePath from './getActiveFilePath'
+import splitPath from '../splitPath'
 
 /**
  * Get the folder path of the currently open and active vscode file
  */
-module.exports = function getActiveFileFolderPath() {
+export default function getActiveFileFolderPath() {
   const activeFilePath = getActiveFilePath()
   let activeFileFolder = splitPath(activeFilePath)
 

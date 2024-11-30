@@ -42,7 +42,7 @@
       "properties": {
         "superCodeGenerator.schemaFilePath": {
           "type": "string",
-          "default": "superCodeGen.schema.js",
+          "default": "superCodeGen.schema.ts",
           "description": "Schema file path"
         },
         "superCodeGenerator.prettierConfigFilePath": {

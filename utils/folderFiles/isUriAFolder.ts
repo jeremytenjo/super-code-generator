@@ -1,6 +1,6 @@
-const vscode = require('vscode')
+import vscode from 'vscode'
 
-module.exports = async function isUriAFolder(uri) {
+export default async function isUriAFolder(uri) {
   const itemStats = await vscode.workspace.fs.stat(uri)
   const isFolder = itemStats.type === 2
 

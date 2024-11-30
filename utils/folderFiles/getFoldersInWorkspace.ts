@@ -1,7 +1,7 @@
-const { glob } = require('glob')
-const getWorkspacePath = require('../workspace/getWorkspacePath')
+import { glob } from 'glob'
+import getWorkspacePath from '../workspace/getWorkspacePath'
 
-module.exports = async function getFoldersInWorkspace() {
+export default async function getFoldersInWorkspace() {
   const workspacePath = await getWorkspacePath()
   const foldersInWorkspace = await glob.sync(workspacePath + '/**/', {
     ignore: ['**/node_modules/**', './node_modules/**'],

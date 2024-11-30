@@ -1,9 +1,9 @@
-const fs = require('fs')
+import fs from 'fs'
 
 /**
  * @example
  * doesFolderOrFileExist(dir)
  */
-module.exports = function doesFolderOrFileExist(path) {
+export default function doesFolderOrFileExist(path) {
   return fs.existsSync(path)
 }
