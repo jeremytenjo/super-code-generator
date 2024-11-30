@@ -27,7 +27,7 @@
     "types:generate": "tsc -p tsconfig.generate.types.json",
     "pretest": "npm run lint",
     "prettify": "prettier --write '{**/*,*}.{js,jsx,json}'",
-    "deploy": "npm run types:generate && npm run tests:ts-types && npm verison minor && vsce publish && npm publish --access public",
+    "deploy": "npm run types:generate && npm run tests:ts-types && npm verison minor && vsce publish && npm run npm:publish",
     "vscode:prepublish": "npm run -S build -- --minify",
     "npm:publish": "node ./scripts/publishToNpm/publishToNpm.cjs"
   },

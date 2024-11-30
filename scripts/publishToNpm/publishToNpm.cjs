@@ -2,7 +2,7 @@ const fs = require('fs')
 const { exec } = require('child_process')
 
 function updatePackageName(props) {
-  const packageJsonPath = props.packageJsonPath
+  const packageJsonPath = './package.json'
   const newName = props.newName
 
   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'))
@@ -14,29 +14,24 @@ function updatePackageName(props) {
   return originalName
 }
 
-function publishPackage() {
+function main() {
+  const newName = '@jeremytenjo/super-code-generator'
+
+  const originalName = updatePackageName({ newName })
+
   exec('npm publish --access public', (error, stdout, stderr) => {
     if (error) {
-      console.error(`Error: ${error.message}`)
+      updatePackageName({ newName: originalName })
+
       return
     }
     if (stderr) {
-      console.error(`Stderr: ${stderr}`)
+      updatePackageName({ newName: originalName })
+
       return
     }
-    console.log(`Stdout: ${stdout}`)
+    updatePackageName({ newName: originalName })
   })
-}
-
-function main() {
-  const packageJsonPath = './package.json'
-  const newName = '@scg/super-code-generator'
-
-  const originalName = updatePackageName({ packageJsonPath, newName })
-
-  publishPackage({})
-
-  updatePackageName({ packageJsonPath, newName: originalName })
 }
 
 main()
