@@ -3,7 +3,7 @@
   "displayName": "Super Code Generator",
   "description": "A powerful, fast, and scalable code generator that saves you time",
   "publisher": "tenjojeremy",
-  "version": "3.7.0",
+  "version": "3.6.0",
   "engines": {
     "vscode": "^1.95.0"
   },
@@ -35,6 +35,10 @@
     "type": "git",
     "url": "https://github.com/jeremytenjo/super-code-generator"
   },
+  "activationEvents": [
+    "onCommand:superCodeGenerator.generateCode",
+    "onCommand:superCodeGenerator.generateCodeInFolder"
+  ],
   "contributes": {
     "configuration": {
       "title": "Super Code Generator",
