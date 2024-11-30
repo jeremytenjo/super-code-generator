@@ -1,4 +1,4 @@
-import { buildSync } from 'esbuild'
+import { build } from 'esbuild'
 import { pathToFileURL } from 'url'
 import { writeFileSync } from 'fs'
 import { tmpdir } from 'os'
@@ -6,27 +6,22 @@ import { join } from 'path'
 
 export default async function importTs(props: { filePath: string }) {
   // Compile the TypeScript file with esbuild
+  console.log('start')
 
-  const result = buildSync({
+  const result = await build({
     entryPoints: [props.filePath],
-    bundle: true, // Bundle dependencies into a single output
-    platform: 'node', // Target Node.js
     format: 'esm', // Use ES Module format
-    write: false, // Don't write to disk
+    platform: 'node',
+    write: false, // Don't write the output to disk
+    bundle: true, // Bundle all dependencies
+    logLevel: 'debug',
   })
-
-  console.log('HERE!')
 
   // Write the compiled code to a temporary file
   const tmpFilePath = join(tmpdir(), `compiled-${Date.now()}.mjs`)
   writeFileSync(tmpFilePath, result.outputFiles[0].text)
 
-  console.log('tmpFilePath', tmpFilePath)
-
   // Dynamically import the compiled file
   const res = await import(pathToFileURL(tmpFilePath).href)
-
-  console.log('res', res)
-
   return res
 }

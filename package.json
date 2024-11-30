@@ -20,7 +20,7 @@
   "main": "./out/index.js",
   "scripts": {
     "dev": "npm run -S build -- --sourcemap --watch",
-    "build": "esbuild ./src/index.ts --bundle --outfile=out/index.js --external:vscode --format=cjs --platform=node",
+    "build": "esbuild ./src/index.ts --bundle --outfile=out/index.js --external:vscode --external:esbuild --format=cjs --platform=node",
     "lint": "eslint .",
     "tests:ts-types": "tsc --noemit",
     "pretest": "npm run lint",
