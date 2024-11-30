@@ -26,9 +26,10 @@
     "dev": "npm run -S build -- --sourcemap --watch",
     "build": "esbuild ./src/index.ts --bundle --outfile=out/index.js --external:vscode --format=cjs --platform=node",
     "lint": "eslint .",
+    "tests:ts-types": "tsc --noemit",
     "pretest": "npm run lint",
     "prettify": "prettier --write '{**/*,*}.{js,jsx,json}'",
-    "deploy": "npm verison minor && vsce publish",
+    "deploy": "npm run tests:ts-types && npm verison minor && vsce publish",
     "vscode:prepublish": "npm run -S build -- --minify"
   },
   "icon": "assets/images/logo.png",

@@ -1,14 +1,15 @@
-const vscode = require('vscode')
-const generateCode = require('./commands/generateCodeCommand')
-const generateCodeInFolder = require('./commands/generateCodeInFolder')
-const pkgJson = require('../package.json')
+import vscode from 'vscode'
+import generateCode from './commands/generateCodeCommand'
+import generateCodeInFolder from './commands/generateCodeInFolder'
+
+const extensionName = 'superCodeGenerator'
 
 /**
  * @param {vscode.ExtensionContext} context
  * {@Link https://code.visualstudio.com/api/references/vscode-api#ExtensionContext|ExtensionContext API}
  */
 function activate(context) {
-  console.log(`${pkgJson.name} activated!`)
+  console.log(`${extensionName} activated!`)
 
   context.subscriptions.push(
     vscode.commands.registerCommand('superCodeGenerator.generateCode', generateCode),
@@ -23,10 +24,7 @@ function activate(context) {
 
 // this method is called when your extension is deactivated
 function deactivate() {
-  console.log(`${pkgJson.name} deactivated!`)
+  console.log(`${extensionName} deactivated!`)
 }
 
-module.exports = {
-  activate,
-  deactivate,
-}
+export { activate, deactivate }

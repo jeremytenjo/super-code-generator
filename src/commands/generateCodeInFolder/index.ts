@@ -19,7 +19,7 @@ export default async function generateCodeInFolder(context) {
       const [selectedFile] = selection
       useRecentSelectedPaths(context).update(selectedFile)
 
-      console.log(selectedFile)
+      console.log('selectedFile', selectedFile)
 
       await generateCode({
         outputPath: selectedFile.path,
