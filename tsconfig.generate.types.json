@@ -2,11 +2,7 @@
   "compilerOptions": {
     "outDir": "./out",
     "declaration": true,
-    "strict": false,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "types": ["node"],
-    "moduleResolution": "node"
+    "emitDeclarationOnly": true
   },
   "include": ["src/**/*", "utils/**/*"]
 }
