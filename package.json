@@ -1,5 +1,5 @@
 {
-  "name": "@jt-vscode-plugins/super-code-generator",
+  "name": "@scg/super-code-generator",
   "displayName": "Super Code Generator",
   "description": "A powerful, fast, and scalable code generator that saves you time",
   "publisher": "tenjojeremy",
