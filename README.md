@@ -10,13 +10,15 @@
 
 1. Create `superCodeGen.schema.ts`
 
-```js
-module.exports = [
+```ts
+import type { SuperCodeGeneratorConfigSchema } from '@jeremytenjo/super-code-generator'
+
+const superCodeGeneratorConfig: SuperCodeGeneratorConfigSchema = [
   {
     type: 'React component',
     files: [
       {
-        path: ({ name, helpers: { changeCase } }) => changeCase.paramCase(name) + '.jsx',
+        path: ({ name, helpers: { changeCase } }) => changeCase.paramCase(name) + '.tsx',
         template: ({ name, helpers: { wrapInTemplateLiteral, changeCase } }) => `
         import React from 'react';
         import styles from './${changeCase.paramCase(name)}.css';
@@ -37,6 +39,8 @@ module.exports = [
     ],
   },
 ]
+
+export default superCodeGeneratorConfig
 ```
 
 2. Click right button in mouse and selected `Create Component`
