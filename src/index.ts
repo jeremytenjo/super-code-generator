@@ -39,6 +39,11 @@ export type SuperCodeGeneratorFileProps<CustomProps = object> = {
   customProps?: CustomProps
 }
 
+export type SuperCodeGeneratorUserConfigSchema = {
+  schemaFilePath: string
+  prettierConfigFilePath: string
+}
+
 const extensionName = 'superCodeGenerator'
 
 /**

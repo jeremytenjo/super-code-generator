@@ -3,19 +3,12 @@ import path from 'path'
 
 import logError from '../../../utils/log/logError'
 import helpers from './handlers/helpers'
-import importFileInWorkspace from '../../../utils/folderFiles/importFileInWorkspace'
-import validateUserConfigFile from './handlers/validateUserConfigFile'
 import importPrettierConfig from './handlers/importPrettierConfig'
 import create from './handlers/create'
-import { SuperCodeGeneratorConfigSchema } from '../..'
+import getImportUserConfig from '../../../utils/getImportUserConfig/getImportUserConfig'
 
 export default async function generateCode({ outputPath }) {
-  const userConfig = vscode.workspace.getConfiguration('superCodeGenerator')
-  const configFile = (await importFileInWorkspace(userConfig.schemaFilePath).then(
-    (res) => res.default,
-  )) as SuperCodeGeneratorConfigSchema
-
-  validateUserConfigFile(configFile)
+  const { userConfig, configFile } = await getImportUserConfig()
 
   const optionsList = configFile.map((property, index) => {
     if (!property.type) {
