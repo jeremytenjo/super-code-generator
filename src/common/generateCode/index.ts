@@ -13,7 +13,7 @@ export default async function generateCode({ outputPath }) {
   const userConfig = vscode.workspace.getConfiguration('superCodeGenerator')
   const configFile = (await importFileInWorkspace(userConfig.schemaFilePath).then(
     (res) => res.default,
-  )) as SuperCodeGeneratorConfigSchema[]
+  )) as SuperCodeGeneratorConfigSchema
 
   validateUserConfigFile(configFile)
 

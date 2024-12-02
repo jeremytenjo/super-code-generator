@@ -11,7 +11,7 @@ import { SuperCodeGeneratorConfigSchema } from '../../..'
 export default async function create(props: {
   name: string
   helpers: SuperCodeGeneratorHelpersProps
-  componentConfig: SuperCodeGeneratorConfigSchema
+  componentConfig: SuperCodeGeneratorConfigSchema[0]
   componentOutputPath: string
   prettierConfig: any
 }) {

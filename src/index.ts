@@ -25,7 +25,7 @@ export type SuperCodeGeneratorConfigSchema = {
     template: (props: SuperCodeGeneratorFileProps) => string
     parentFolderName?: (props: SuperCodeGeneratorFileProps) => string
   }[]
-}
+}[]
 
 export type SuperCodeGeneratorFileProps = {
   name: string
