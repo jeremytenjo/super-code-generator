@@ -2,16 +2,19 @@ import * as changeCase from 'change-case'
 import { lowerCase } from 'lower-case'
 import wrapInTemplateLiteral, {
   WrapInTemplateLiteralProps,
+  WrapInTemplateLiteralReturn,
 } from './wrapInTemplateLiteral'
 import addEmptyTemplateLiteral from './addEmptyTemplateLiteral'
 
 export type SuperCodeGeneratorHelpersProps = {
   changeCase: typeof changeCase & { lowerCase: typeof lowerCase }
-  wrapInTemplateLiteral: WrapInTemplateLiteralProps
+  wrapInTemplateLiteral: (
+    props: WrapInTemplateLiteralProps,
+  ) => WrapInTemplateLiteralReturn
   addEmptyTemplateLiteral: any
 }
 
-export default {
+const helpers: SuperCodeGeneratorHelpersProps = {
   changeCase: {
     ...changeCase,
     lowerCase,
@@ -19,3 +22,5 @@ export default {
   wrapInTemplateLiteral,
   addEmptyTemplateLiteral,
 }
+
+export default helpers
