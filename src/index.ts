@@ -29,6 +29,8 @@ export type SuperCodeGeneratorConfigSchema = {
 
 export type SuperCodeGeneratorTemplateSchema = SuperCodeGeneratorConfigSchema[0]
 
+export type SuperCodeGeneratorFilesSchema = SuperCodeGeneratorTemplateSchema['files']
+
 export type SuperCodeGeneratorFileProps = {
   name: string
   helpers: SuperCodeGeneratorHelpersProps
