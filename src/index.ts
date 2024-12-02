@@ -1,9 +1,35 @@
 import vscode from 'vscode'
 import generateCode from './commands/generateCodeCommand'
 import generateCodeInFolder from './commands/generateCodeInFolder'
+import { SuperCodeGeneratorHelpersProps } from './common/generateCode/handlers/helpers'
 
-export type FileProps = {
+export type SuperCodeGeneratorConfigSchema = {
+  type: string
+  outputWithoutParentDir: boolean
+  hooks: {
+    onCreate: (props: { outputPath: string }) => void | Promise<void>
+  }
+  options: {
+    createNamedFolder: boolean
+    outputInRootFolder: boolean
+    formatParentFolderName?: (props: {
+      currentName: string
+      helpers: SuperCodeGeneratorHelpersProps
+    }) => {
+      newName: string
+    }
+  }
+  usageInstructions: string
+  files: {
+    path: (props: SuperCodeGeneratorFileProps) => string
+    template: (props: SuperCodeGeneratorFileProps) => string
+    parentFolderName?: (props: SuperCodeGeneratorFileProps) => string
+  }[]
+}
+
+export type SuperCodeGeneratorFileProps = {
   name: string
+  helpers: SuperCodeGeneratorHelpersProps
 }
 
 const extensionName = 'superCodeGenerator'

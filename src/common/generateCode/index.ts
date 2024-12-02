@@ -7,12 +7,13 @@ import importFileInWorkspace from '../../../utils/folderFiles/importFileInWorksp
 import validateUserConfigFile from './handlers/validateUserConfigFile'
 import importPrettierConfig from './handlers/importPrettierConfig'
 import create from './handlers/create'
+import { SuperCodeGeneratorConfigSchema } from '../..'
 
 export default async function generateCode({ outputPath }) {
   const userConfig = vscode.workspace.getConfiguration('superCodeGenerator')
-  const configFile = await importFileInWorkspace(userConfig.schemaFilePath).then(
+  const configFile = (await importFileInWorkspace(userConfig.schemaFilePath).then(
     (res) => res.default,
-  )
+  )) as SuperCodeGeneratorConfigSchema[]
 
   validateUserConfigFile(configFile)
 

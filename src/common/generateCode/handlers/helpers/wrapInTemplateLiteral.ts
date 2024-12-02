@@ -1,5 +1,7 @@
-export default function wrapInTemplateLiteral(string) {
-  const stringWrappedInTemplateLiteral = `${'`${'}${string}${'}`'}`
+export type WrapInTemplateLiteralProps = string
+
+export default function wrapInTemplateLiteral(text: WrapInTemplateLiteralProps) {
+  const stringWrappedInTemplateLiteral = `${'`${'}${text}${'}`'}`
 
   return stringWrappedInTemplateLiteral
 }

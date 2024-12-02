@@ -5,67 +5,72 @@ import prettifyFile from '../../../../utils/folderFiles/prettifyFile'
 import openFile from '../../../../utils/folderFiles/openFile'
 import logError from '../../../../utils/log/logError'
 import getWorkspacePath from '../../../../utils/workspace/getWorkspacePath'
+import { SuperCodeGeneratorHelpersProps } from './helpers'
+import { SuperCodeGeneratorConfigSchema } from '../../..'
 
-export default async function create({
-  name,
-  helpers,
-  componentConfig,
-  componentOutputPath,
-  prettierConfig = {},
+export default async function create(props: {
+  name: string
+  helpers: SuperCodeGeneratorHelpersProps
+  componentConfig: SuperCodeGeneratorConfigSchema
+  componentOutputPath: string
+  prettierConfig: any
 }) {
   try {
-    if (!componentConfig.files) {
-      return logError(`Property 'files' missing from type ${componentConfig.type}`)
+    if (!props.componentConfig.files) {
+      return logError(`Property 'files' missing from type ${props.componentConfig.type}`)
     }
 
     let createNamedFolder = true
-    if (componentConfig?.options?.createNamedFolder !== undefined) {
-      createNamedFolder = componentConfig?.options?.createNamedFolder
+    if (props.componentConfig?.options?.createNamedFolder !== undefined) {
+      createNamedFolder = props.componentConfig?.options?.createNamedFolder
     }
 
     let outputInRootFolder = false
-    if (componentConfig?.options?.outputInRootFolder !== undefined) {
-      outputInRootFolder = componentConfig?.options?.outputInRootFolder
+    if (props.componentConfig?.options?.outputInRootFolder !== undefined) {
+      outputInRootFolder = props.componentConfig?.options?.outputInRootFolder
     }
 
     await Promise.all(
-      componentConfig.files.map(async (file, index) => {
+      props.componentConfig.files.map(async (file, index) => {
         const openOnCreate = index === 0
         const fileProperties = {
-          name,
-          helpers,
-          folderPath: componentOutputPath,
-          type: componentConfig.type,
+          name: props.name,
+          helpers: props.helpers,
+          folderPath: props.componentOutputPath,
+          type: props.componentConfig.type,
         }
-        let parentFolderName = file?.parentFolderName?.(fileProperties) || name || ''
+        let parentFolderName =
+          file?.parentFolderName?.(fileProperties) || props.name || ''
 
         // Format parentFolderName (optional)
-        if (componentConfig?.options?.formatParentFolderName) {
-          if (typeof componentConfig?.options?.formatParentFolderName !== 'function') {
+        if (props.componentConfig?.options?.formatParentFolderName) {
+          if (
+            typeof props.componentConfig?.options?.formatParentFolderName !== 'function'
+          ) {
             return logError(
-              `formatParentFolderName must be a function. Received ${typeof componentConfig
-                ?.options?.formatParentFolderName}`,
+              `formatParentFolderName must be a function. Received ${typeof props
+                .componentConfig?.options?.formatParentFolderName}`,
             )
           }
 
-          parentFolderName = componentConfig?.options?.formatParentFolderName({
-            currentName: name,
+          parentFolderName = props.componentConfig?.options?.formatParentFolderName({
+            currentName: props.name,
             helpers,
           })?.newName
         }
 
         const outputPath = path.join(
-          !outputInRootFolder ? componentOutputPath : await getWorkspacePath(),
+          !outputInRootFolder ? props.componentOutputPath : await getWorkspacePath(),
           createNamedFolder ? parentFolderName : '',
           file.path(fileProperties),
         )
         const content = await prettifyFile({
           content: file.template(fileProperties),
-          prettierConfig,
+          prettierConfig: props.prettierConfig,
         })
         const doesExist = await doesFolderOrFileExist(outputPath)
 
-        if (doesExist) logError(`${name} already exists`, { silent: true })
+        if (doesExist) logError(`${props.name} already exists`, { silent: true })
 
         await createFile(outputPath, content)
         if (openOnCreate) openFile(outputPath)
