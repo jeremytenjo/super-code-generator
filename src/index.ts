@@ -3,13 +3,19 @@ import generateCode from './commands/generateCodeCommand'
 import generateCodeInFolder from './commands/generateCodeInFolder'
 import { SuperCodeGeneratorHelpersProps } from './common/generateCode/handlers/helpers'
 
-export type SuperCodeGeneratorConfigSchema = {
+export type SuperCodeGeneratorConfigSchema<CustomProps = object> = {
   type: string
-  outputWithoutParentDir: boolean
-  hooks: {
+  files: {
+    path: (props: SuperCodeGeneratorFileProps<CustomProps>) => string
+    template: (props: SuperCodeGeneratorFileProps<CustomProps>) => string
+    parentFolderName?: (props: SuperCodeGeneratorFileProps<CustomProps>) => string
+  }[]
+  outputWithoutParentDir?: boolean
+  usageInstructions?: string
+  hooks?: {
     onCreate: (props: { outputPath: string }) => void | Promise<void>
   }
-  options: {
+  options?: {
     createNamedFolder: boolean
     outputInRootFolder: boolean
     formatParentFolderName?: (props: {
@@ -19,21 +25,18 @@ export type SuperCodeGeneratorConfigSchema = {
       newName: string
     }
   }
-  usageInstructions: string
-  files: {
-    path: (props: SuperCodeGeneratorFileProps) => string
-    template: (props: SuperCodeGeneratorFileProps) => string
-    parentFolderName?: (props: SuperCodeGeneratorFileProps) => string
-  }[]
 }[]
 
-export type SuperCodeGeneratorTemplateSchema = SuperCodeGeneratorConfigSchema[0]
+export type SuperCodeGeneratorTemplateSchema<CustomProps = object> =
+  SuperCodeGeneratorConfigSchema<CustomProps>[0]
 
-export type SuperCodeGeneratorFilesSchema = SuperCodeGeneratorTemplateSchema['files']
+export type SuperCodeGeneratorFilesSchema<CustomProps = object> =
+  SuperCodeGeneratorTemplateSchema<CustomProps>['files']
 
-export type SuperCodeGeneratorFileProps = {
+export type SuperCodeGeneratorFileProps<CustomProps = object> = {
   name: string
   helpers: SuperCodeGeneratorHelpersProps
+  customProps?: CustomProps
 }
 
 const extensionName = 'superCodeGenerator'
