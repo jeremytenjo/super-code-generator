@@ -19,6 +19,9 @@
   ],
   "main": "./out/index.js",
   "types": "./out/src/index.d.ts",
+  "files": [
+    "out"
+  ],
   "scripts": {
     "dev": "npm run -S build -- --sourcemap --watch",
     "build": "esbuild ./src/index.ts --bundle --outfile=out/index.js --external:vscode --external:esbuild --format=cjs --platform=node",
