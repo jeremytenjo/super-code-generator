@@ -35,7 +35,7 @@ export type SuperCodeGeneratorFilesSchema<CustomProps = object> =
 
 export type SuperCodeGeneratorFileProps<CustomProps = object> = {
   name: string
-  helpers: SuperCodeGeneratorHelpersProps
+  helpers?: SuperCodeGeneratorHelpersProps
   customProps?: CustomProps
   type?: string
 }
