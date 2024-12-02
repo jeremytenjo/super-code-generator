@@ -5,3 +5,4 @@ test/**
 .gitignore
 .yarnrc
 assets/videos
+!node_modules/esbuild
