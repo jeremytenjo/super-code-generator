@@ -5,7 +5,6 @@ import fs from 'fs'
 import type {
   SuperCodeGeneratorConfigSchema,
   SuperCodeGeneratorTemplateSchema,
-  SuperCodeGeneratorFilesSchema,
 } from '@jeremytenjo/super-code-generator'
 
 // React component example

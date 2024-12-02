@@ -37,6 +37,7 @@ export type SuperCodeGeneratorFileProps<CustomProps = object> = {
   name: string
   helpers: SuperCodeGeneratorHelpersProps
   customProps?: CustomProps
+  type?: string
 }
 
 export type SuperCodeGeneratorUserConfigSchema = {
