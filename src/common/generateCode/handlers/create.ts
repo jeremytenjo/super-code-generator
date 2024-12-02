@@ -56,6 +56,7 @@ export default async function create(props: {
           parentFolderName = props.componentConfig?.options?.formatParentFolderName({
             currentName: props.name,
             helpers: props.helpers,
+            outputPath: props.componentOutputPath,
           })?.newName
         }
 

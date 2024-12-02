@@ -21,6 +21,7 @@ export type SuperCodeGeneratorConfigSchema<CustomProps = object> = {
     formatParentFolderName?: (props: {
       currentName: string
       helpers: SuperCodeGeneratorHelpersProps
+      outputPath: string
     }) => {
       newName: string
     }
