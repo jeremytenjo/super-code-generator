@@ -48,8 +48,6 @@ export default superCodeGeneratorConfig
 4. Add component names
 5. Profit! ✨
 
-> run `Developer: Reload Window` after making changes to your `superCodeGen.schema.ts` file to update output
-
 Creates the following component when selecting type `React component` and inputting name `button`
 
 `button.jsx`
