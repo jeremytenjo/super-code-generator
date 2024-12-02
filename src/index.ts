@@ -16,8 +16,8 @@ export type SuperCodeGeneratorConfigSchema<CustomProps = object> = {
     onCreate: (props: { outputPath: string }) => void | Promise<void>
   }
   options?: {
-    createNamedFolder: boolean
-    outputInRootFolder: boolean
+    createNamedFolder?: boolean
+    outputInRootFolder?: boolean
     formatParentFolderName?: (props: {
       currentName: string
       helpers: SuperCodeGeneratorHelpersProps

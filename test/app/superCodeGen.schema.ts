@@ -2,8 +2,14 @@ import cp from 'child_process'
 import path from 'path'
 import fs from 'fs'
 
+import type {
+  SuperCodeGeneratorConfigSchema,
+  SuperCodeGeneratorTemplateSchema,
+  SuperCodeGeneratorFilesSchema,
+} from '@jeremytenjo/super-code-generator'
+
 // React component example
-const reactComponent = {
+const reactComponent: SuperCodeGeneratorTemplateSchema = {
   type: 'React Component',
   hooks: {
     onCreate: async ({ outputPath }) => {
@@ -13,7 +19,7 @@ const reactComponent = {
   },
   files: [
     {
-      path: ({ name, helpers: { changeCase } }) => changeCase.paramCase(name) + '.jsx',
+      path: ({ name, helpers: { changeCase } }) => changeCase.paramCase(name) + '.tsx',
       template: ({ name, helpers: { wrapInTemplateLiteral, changeCase } }) => `
       import React from 'react';
       import styles from './${changeCase.paramCase(name)}.css';
@@ -44,7 +50,7 @@ const cloudFunction = {
   }
     `,
 }
-const cloudFunctionTemplate = {
+const cloudFunctionTemplate: SuperCodeGeneratorTemplateSchema = {
   type: 'Cloud Function',
   files: [cloudFunction],
   hooks: {
@@ -59,13 +65,13 @@ const cloudFunctionTemplate = {
 }
 
 // Story example
-const story = {
+const story: SuperCodeGeneratorTemplateSchema = {
   type: 'Story',
   outputWithoutParentDir: true,
   files: [
     {
       path: ({ name, helpers: { changeCase } }) =>
-        'stories/' + changeCase.paramCase(name) + '.stories.jsx',
+        'stories/' + changeCase.paramCase(name) + '.stories.tsx',
       template: ({ name, helpers: { wrapInTemplateLiteral, changeCase } }) => `
       import React from 'react';
       import styles from './${changeCase.paramCase(name)}.css';
@@ -87,4 +93,10 @@ const story = {
   ],
 }
 
-export default [reactComponent, cloudFunctionTemplate, story]
+const config: SuperCodeGeneratorConfigSchema = [
+  reactComponent,
+  cloudFunctionTemplate,
+  story,
+]
+
+export default config
