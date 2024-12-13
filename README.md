@@ -106,10 +106,14 @@ Format the parent folder name, must be a function that takes { currentName: stri
 
 Trigger function after component is created.
 
-```js
-const shell = require('child_process')
+```ts
+import type {
+  SuperCodeGeneratorTemplateSchema,
+  SuperCodeGeneratorFilesSchema,
+} from '@jeremytenjo/super-code-generator'
+import shell from 'child_process'
 
-module.exports = [
+const files: SuperCodeGeneratorFilesSchema = [
   {
     type: 'React component',
     hooks: {
@@ -131,6 +135,13 @@ module.exports = [
     ],
   },
 ]
+
+const template: SuperCodeGeneratorTemplateSchema = {
+  type: 'Component',
+  files,
+}
+
+export default template
 ```
 
 ## Component Type properties
@@ -148,7 +159,5 @@ helpers: {
 ```
 
 Change case uses the [change-case](https://github.com/blakeembrey/change-case#core) library
-
-> NOTE: Restart VSCode after editing `superCodeGen.schema.ts`
 
 > Pro Tip: Add a prettier config file path to format your created files.
