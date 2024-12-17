@@ -62,7 +62,7 @@ export default async function generateCode({ outputPath }) {
           await create({
             name: componentNameTrimmed,
             helpers,
-            componentConfig: selectedComponentTypeConfig,
+            componentConfig: selectedComponentTypeConfig as any,
             componentOutputPath,
             prettierConfig,
           })
