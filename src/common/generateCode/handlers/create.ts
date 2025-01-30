@@ -13,6 +13,7 @@ export default async function create(props: {
   helpers: SuperCodeGeneratorHelpersProps
   componentConfig: SuperCodeGeneratorConfigSchema[0]
   componentOutputPath: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   prettierConfig: any
 }) {
   try {
@@ -40,7 +41,7 @@ export default async function create(props: {
           type: props.componentConfig.type,
         }
         let parentFolderName =
-          file?.parentFolderName?.(fileProperties) || props.name || ''
+          file?.parentFolderName?.(fileProperties) || props.name || '';
 
         // Format parentFolderName (optional)
         if (props.componentConfig?.options?.formatParentFolderName) {
@@ -59,25 +60,27 @@ export default async function create(props: {
             outputPath: props.componentOutputPath,
           })?.newName
         }
-
+        
         const outputPath = path.join(
-          !outputInRootFolder ? props.componentOutputPath : await getWorkspacePath(),
+          !outputInRootFolder ? props.componentOutputPath : getWorkspacePath().path,
           createNamedFolder ? parentFolderName : '',
           file.path(fileProperties),
         )
+       
         const content = await prettifyFile({
           content: file.template(fileProperties),
           prettierConfig: props.prettierConfig,
         })
-        const doesExist = await doesFolderOrFileExist(outputPath)
 
-        if (doesExist) logError(`${props.name} already exists`, { silent: true })
-
+        if (doesFolderOrFileExist(outputPath)) logError(`${props.name} already exists`, { silent: true })
+        
         await createFile(outputPath, content)
         if (openOnCreate) openFile(outputPath)
+        
+        
       }),
     )
-  } catch (error) {
-    logError(error)
+  } catch (error: unknown) {
+    logError((error as Error).message)
   }
 }

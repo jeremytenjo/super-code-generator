@@ -6,11 +6,29 @@ import helpers from './handlers/helpers'
 import importPrettierConfig from './handlers/importPrettierConfig'
 import create from './handlers/create'
 import getImportUserConfig from '../../../utils/getImportUserConfig/getImportUserConfig'
+import { platform } from 'process'
+import splitPath, { StartsWithSlashRegex } from '../../../utils/splitPath'
+import removeFirstCharacter from '../../../utils/folderFiles/removeFirstCharacter'
 
-export default async function generateCode({ outputPath }) {
-  const { userConfig, configFile } = await getImportUserConfig()
+export type generateCodeProps = {
+  outputPath: string;
+}
 
-  const optionsList = configFile.map((property, index) => {
+export default async function generateCode({outputPath}: generateCodeProps) {
+  // Get the user config and schema config
+  const importedUsrCfg = await getImportUserConfig()
+
+  // If the config file is not found, show an error message
+  if(importedUsrCfg === undefined) {
+    vscode.window.showErrorMessage('Schema config file not found.')
+    return null;
+  }
+
+  // Destructure the user config and schema config
+  const { userConfig, configFile } = importedUsrCfg!
+
+  // Make a list of the options from the schema
+  const optionsList = configFile.map((property: {type?: string}, index: number) => {
     if (!property.type) {
       logError(`Missing type property in config file array object index ${index}`)
     }
@@ -18,19 +36,25 @@ export default async function generateCode({ outputPath }) {
     return { label: property.type }
   })
 
+  // Import the prettier config
   const prettierConfig = await importPrettierConfig({
     prettierConfigPath: userConfig.prettierConfigFilePath,
   })
-
+  
+  // Create a quick pick to select the component type
   const quickPick = vscode.window.createQuickPick()
-  quickPick.items = optionsList
+  quickPick.items = (optionsList as readonly vscode.QuickPickItem[])
+  
+  // Add a handler for selection change event 
   quickPick.onDidChangeSelection(async (selection) => {
     const [selectedComponentType] = selection
 
+    // Find the selected component's config from the schema 
     const selectedComponentTypeConfig = configFile.find(
-      ({ type }) => type === selectedComponentType.label,
+      ({ type }: {type: string}) => type === selectedComponentType.label,
     )
 
+    // Prompt the user for the name of the component
     const componentName = await vscode.window.showInputBox({
       value: '',
       title: `${selectedComponentType.label} Name`,
@@ -42,40 +66,56 @@ export default async function generateCode({ outputPath }) {
       prompt: selectedComponentTypeConfig?.usageInstructions,
     })
 
+    // If the user cancels the input box, return null
     if (!componentName) return null
 
+    // Split the component names by commas
     const componentNames = componentName.split(',')
 
+    // If the user is on Windows, remove the first character of the output path if it starts with a slash
+    outputPath = platform == "win32" && StartsWithSlashRegex.test(outputPath) ? removeFirstCharacter(outputPath) : outputPath;
+
+    // create the components
     try {
       await Promise.all(
         componentNames.map(async (componentName) => {
-          const componentNameTrimmed = componentName.trim()
-          const folderName = path.join(outputPath, componentNameTrimmed)
-          let componentOutputPath = outputPath
+          const componentNameTrimmed = componentName.trim();
+          let componentOutputPath: string[]
+          if(!selectedComponentTypeConfig) {
+            logError(`No config found for ${selectedComponentType.label}`)
+            return null;
+          }
 
           if (selectedComponentTypeConfig.outputWithoutParentDir) {
-            componentOutputPath = componentOutputPath.split('/')
+            componentOutputPath = splitPath(outputPath)
             componentOutputPath.pop()
-            componentOutputPath = componentOutputPath.join('/')
+            const tmpOutputPath = componentOutputPath.join(path.sep)
+            const relativePath = path.relative(tmpOutputPath, outputPath);
+            if (relativePath.startsWith('..') && path.isAbsolute(relativePath)) {
+              outputPath = tmpOutputPath
+            }
           }
+          
 
           await create({
             name: componentNameTrimmed,
             helpers,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             componentConfig: selectedComponentTypeConfig as any,
-            componentOutputPath,
+            componentOutputPath: outputPath,
             prettierConfig,
           })
-
+          
           if (selectedComponentTypeConfig?.hooks?.onCreate) {
-            await selectedComponentTypeConfig?.hooks?.onCreate({ outputPath: folderName })
+            await selectedComponentTypeConfig?.hooks?.onCreate({ outputPath: outputPath, componentName: componentNameTrimmed })
           }
+
         }),
       )
 
       vscode.window.showInformationMessage(`${componentName} created!`)
-    } catch (error) {
-      logError(error)
+    } catch (error: unknown) {
+      logError((error as Error).message)
     } finally {
       quickPick.dispose()
     }

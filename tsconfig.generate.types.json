@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "./out",
+    "outDir": "./dist",
     "declaration": true,
     "emitDeclarationOnly": true,
     "skipLibCheck": true,

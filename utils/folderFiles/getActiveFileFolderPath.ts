@@ -1,15 +1,16 @@
 import getActiveFilePath from './getActiveFilePath'
 import splitPath from '../splitPath'
+import { sep } from 'path'
 
 /**
  * Get the folder path of the currently open and active vscode file
  */
-export default function getActiveFileFolderPath() {
+export default function getActiveFileFolderPath(): string {
   const activeFilePath = getActiveFilePath()
-  let activeFileFolder = splitPath(activeFilePath)
-
+  // split the path into an array
+  const activeFileFolder: string[] = splitPath(activeFilePath)
+  // remove the last element
   activeFileFolder.pop()
-  activeFileFolder = activeFileFolder.join('/')
 
-  return activeFileFolder
+  return activeFileFolder.join(sep)
 }

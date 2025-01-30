@@ -13,7 +13,7 @@ export type SuperCodeGeneratorConfigSchema<CustomProps = object> = {
   outputWithoutParentDir?: boolean
   usageInstructions?: string
   hooks?: {
-    onCreate: (props: { outputPath: string }) => void | Promise<void>
+    onCreate: (props: { outputPath: string, componentName: string }) => void | Promise<void>
   }
   options?: {
     createNamedFolder?: boolean
@@ -52,13 +52,15 @@ const extensionName = 'superCodeGenerator'
  * @param {vscode.ExtensionContext} context
  * {@Link https://code.visualstudio.com/api/references/vscode-api#ExtensionContext|ExtensionContext API}
  */
-function activate(context) {
+export function activate(context: vscode.ExtensionContext) {
   console.log(`${extensionName} activated!`)
 
+  // Register the generateCode command
   context.subscriptions.push(
     vscode.commands.registerCommand('superCodeGenerator.generateCode', generateCode),
   )
 
+  // Register the generateCodeInFolder command
   context.subscriptions.push(
     vscode.commands.registerCommand('superCodeGenerator.generateCodeInFolder', () =>
       generateCodeInFolder(context),
@@ -67,8 +69,7 @@ function activate(context) {
 }
 
 // this method is called when your extension is deactivated
-function deactivate() {
+export function deactivate() {
   console.log(`${extensionName} deactivated!`)
 }
 
-export { activate, deactivate }

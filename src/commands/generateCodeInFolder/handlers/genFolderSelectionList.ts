@@ -4,13 +4,13 @@ import getFoldersInWorkspace from '../../../../utils/folderFiles/getFoldersInWor
 import getWorkspacePath from '../../../../utils/workspace/getWorkspacePath'
 
 export default async function genFolderSelectionList() {
-  const workspacePath = await getWorkspacePath()
+  const workspacePath = getWorkspacePath()
   const workplaceFiles = await getFoldersInWorkspace()
   const folderSelectionList = workplaceFiles.map((wsFile) => ({
     label:
-      wsFile.replace(workspacePath, '') === '/'
+      wsFile.replace(workspacePath.path, '') === '/'
         ? '/'
-        : removeFirstCharacter(removeLastCharacter(wsFile.replace(workspacePath, ''))),
+        : removeFirstCharacter(removeLastCharacter(wsFile.replace(workspacePath.path, ''))),
     path: wsFile,
   }))
 

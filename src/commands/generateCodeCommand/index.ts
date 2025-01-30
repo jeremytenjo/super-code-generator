@@ -7,7 +7,7 @@ export default async function generateCodeCommand(
 ) {
   try {
     await generateCode({ outputPath: componentOutputPath })
-  } catch (error) {
-    logError(error)
+  } catch (error: unknown) {
+    logError((error as Error).message)
   }
 }

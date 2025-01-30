@@ -1,12 +1,14 @@
-export default function useRecentSelectedPaths(context) {
+import type {ExtensionContext, QuickPickItem} from "vscode"
+
+export default function useRecentSelectedPaths(context: ExtensionContext) {
   // https://code.visualstudio.com/api/references/vscode-api#Memento
-  let recentSelectedPaths = context.workspaceState.get('recentSelectedPaths') || []
+  let recentSelectedPaths = context.workspaceState.get<QuickPickItem[]>('recentSelectedPaths') || []
 
   return {
-    get() {
+    get(): QuickPickItem[] {
       return recentSelectedPaths
     },
-    update(selectedFile) {
+    update(selectedFile: QuickPickItem): void {
       context.workspaceState.update('recentSelectedPaths', [
         { ...selectedFile, detail: 'Recently Opened' },
       ])

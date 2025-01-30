@@ -1,4 +1,3 @@
-export default function removeFirstCharacter(string) {
-  const firstCharacterRemoved = string.substring(1)
-  return firstCharacterRemoved
+export default function removeFirstCharacter(str: string) {
+  return str.slice(1)
 }
