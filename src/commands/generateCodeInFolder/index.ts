@@ -1,4 +1,4 @@
-import vscode from 'vscode'
+import vscode, { ExtensionContext } from 'vscode'
 
 import logError from '../../../utils/log/logError'
 import generateCode from '../../common/generateCode'
@@ -8,7 +8,7 @@ import useRecentSelectedPaths from './handlers/useRecentSelectedPaths'
 /**
  * User selects folder from a dropdown to put component in
  */
-export default async function generateCodeInFolder(context) {
+export default async function generateCodeInFolder(context: ExtensionContext) {
   try {
     const folderSelectionList = await genFolderSelectionList()
     const recentSelectedPaths = useRecentSelectedPaths(context).get()
@@ -28,7 +28,7 @@ export default async function generateCodeInFolder(context) {
     quickPick.title = 'Select folder to add component to'
     quickPick.placeholder = 'Type to filter'
     quickPick.show()
-  } catch (error) {
-    logError(error)
+  } catch (error: unknown) {
+    logError((error as Error).message)
   }
 }

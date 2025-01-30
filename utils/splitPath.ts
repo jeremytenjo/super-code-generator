@@ -1,12 +1,13 @@
-import forwardSlash from './forwardSlash'
+export const StartsWithSlashRegex = /^[\\/]/;
 
 /**
- * Supports Mac and Windows
+ * Supports all operating systems
  * @example
  * splitPath('/project/heoo')
  *
  * returns ['project', 'heoo']
  */
-export default function splitPath(path) {
-  return path.toString().split(forwardSlash)
+export default function splitPath(path: string): string[] {
+  // Split by any type of slash
+  return path.toString().split(/[\\/]/)
 }

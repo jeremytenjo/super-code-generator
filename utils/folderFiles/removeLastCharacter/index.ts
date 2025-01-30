@@ -1,4 +1,3 @@
-export default function removeLastCharacter(string) {
-  const lastCharacterRemoved = string.slice(0, -1)
-  return lastCharacterRemoved
+export default function removeLastCharacter(str: string) {
+  return str.slice(0, -1)
 }

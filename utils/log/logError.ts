@@ -1,6 +1,6 @@
 import vscode from 'vscode'
 
-export default function logError(errorMessage, options = { silent: false }) {
+export default function logError(errorMessage: string, options = { silent: false }) {
   if (options.silent) {
     throw new Error(errorMessage)
   } else {
