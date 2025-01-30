@@ -9,9 +9,9 @@ export default async function getImportUserConfig() {
   const userConfig: SuperCodeGeneratorUserConfigSchema =
     vscode.workspace.getConfiguration('superCodeGenerator') as any
 
-  const configFile = (await importFileInWorkspace(userConfig.schemaFilePath).then(
-    (res) => res.default,
-  )) as SuperCodeGeneratorConfigSchema
+  const configFile = (await importFileInWorkspace({
+    uri: userConfig.schemaFilePath,
+  }).then((res) => res.default)) as SuperCodeGeneratorConfigSchema
 
   validateUserConfigFile(configFile)
 

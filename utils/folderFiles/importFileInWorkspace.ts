@@ -4,25 +4,34 @@ import doesFileExist from './doesFolderOrFileExist'
 import assert from '../log/assert'
 import importTs from '../importTsFile/importTsFile'
 
-export default async function importFileInWorkspace(uri) {
-  let uriPath = path.join(vscode.workspace.workspaceFolders[0].uri.path, uri)
-  const uriPathExists = doesFileExist(uriPath)
+export type ImportFileInWorkspaceProps = {
+  uri: string
+}
 
-  assert(uriPathExists, `Schema not found at ${uriPath}`)
+export default async function importFileInWorkspace(props: ImportFileInWorkspaceProps) {
+  const workspaceRoot = vscode.workspace.workspaceFolders[0].uri.fsPath
+  let uriPath: string
 
-  if (uriPath.startsWith('\\')) {
-    uriPath = uriPath.slice(0)
+  if (props.uri.startsWith('file://')) {
+    uriPath = vscode.Uri.parse(props.uri).fsPath
+  } else {
+    uriPath = path.join(workspaceRoot, props.uri)
   }
+
+  uriPath = path.normalize(uriPath)
+
+  const uriPathExists = doesFileExist(uriPath)
+  assert(uriPathExists, `Schema not found at ${uriPath}`)
 
   if (uriPath.includes('.ts')) {
     const fileData = await importTs({
       filePath: uriPath,
     })
-
     return fileData
   } else {
     const fileData = require(uriPath)
-
     return fileData
   }
 }
+
+export type ImportFileInWorkspaceReturn = ReturnType<typeof importFileInWorkspace>
