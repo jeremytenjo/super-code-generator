@@ -9,7 +9,7 @@ export default async function getImportUserConfig() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vscode.workspace.getConfiguration('superCodeGenerator') as any
   
-  const configFile = (await importFileInWorkspace(userConfig.schemaFilePath).then(
+  const configFile = (await importFileInWorkspace({uri: userConfig.schemaFilePath}).then(
     (res) => res.default,
   )) as SuperCodeGeneratorConfigSchema
 
