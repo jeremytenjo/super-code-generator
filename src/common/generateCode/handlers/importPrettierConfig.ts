@@ -14,7 +14,6 @@ export default async function importPrettierConfig({ prettierConfigPath }: impor
     console.warn('Quick Component Create: Prettier config should be a JS file')
   }
 
-  console.log("prettier config loaded:", prettierConfig);
 
   return prettierConfig
 }
