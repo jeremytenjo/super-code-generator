@@ -1,5 +1,3 @@
-//import * as assert from "assert";
-
 import * as vscode from "vscode";
 
 
@@ -9,7 +7,7 @@ suite("Extension Test Suite", () => {
         vscode.window.showInformationMessage("All tests done!");
     })
 
-        
+    // TODO: Add tests        
     
 
 });
