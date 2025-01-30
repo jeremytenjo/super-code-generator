@@ -1,67 +1,62 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "type": "npm",
-            "script": "build",
-            "problemMatcher": "$tsc",
-            "presentation": {
-                "reveal": "never"
-            },
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        },
-        {
-            "type": "npm",
-            "script": "dev",
-            "problemMatcher": "$tsc",
-            "presentation": {
-                "reveal": "never"
-            },
-            "group": {
-                "kind": "build",
-                "isDefault": false
-            }
-        },
-        {
-            "label": "tasks: dev",
-            "dependsOn": [
-                "npm: dev"
-            ],
-            "problemMatcher": []
-        },
-        {
-            "type": "npm",
-            "script": "build:watch",
-            "problemMatcher": "$tsc-watch",
-            "presentation": {
-                "reveal": "never"
-			},
-			"group": {
-				"kind": "build",
-				"isDefault": false
-			}
-        },
-        {
-            "type": "npm",
-            "script": "watch-tests",
-            "problemMatcher": "$tsc-watch",
-            "isBackground": true,
-            "presentation": {
-                "reveal": "never",
-				"group": "watchers"
-            },
-            "group": "build"
-        },
-        {
-            "label": "tasks: watch-tests",
-            "dependsOn": [
-                "npm: build:watch",
-                "npm: watch-tests"
-            ],
-            "problemMatcher": []
-        }
-    ]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "build",
+      "problemMatcher": "$tsc",
+      "presentation": {
+        "reveal": "never"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "type": "npm",
+      "script": "dev",
+      "problemMatcher": "$tsc",
+      "presentation": {
+        "reveal": "never"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      }
+    },
+    {
+      "label": "tasks: dev",
+      "dependsOn": ["npm: dev"],
+      "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "script": "build:watch",
+      "problemMatcher": "$tsc-watch",
+      "presentation": {
+        "reveal": "never"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      }
+    },
+    {
+      "type": "npm",
+      "script": "watch-tests",
+      "problemMatcher": "$tsc-watch",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "never",
+        "group": "watchers"
+      },
+      "group": "build"
+    },
+    {
+      "label": "tasks: watch-tests",
+      "dependsOn": ["npm: build:watch", "npm: watch-tests"],
+      "problemMatcher": []
+    }
+  ]
 }
