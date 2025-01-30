@@ -6,3 +6,16 @@ test/**
 .yarnrc
 assets/videos
 !node_modules/esbuild
+**/*.js.map
+scripts/**
+out/**
+.vscode-test.mjs
+**/*.ts
+**/tsconfig.*
+**/eslint.config.*
+example/**
+src/**
+utils/**
+.gitattributes
+jsconfig.json
+.prettier*
