@@ -10,7 +10,7 @@ import { platform } from 'process'
 import splitPath, { StartsWithSlashRegex } from '../../../utils/splitPath'
 import removeFirstCharacter from '../../../utils/folderFiles/removeFirstCharacter'
 
-interface generateCodeProps {
+export type generateCodeProps = {
   outputPath: string;
 }
 

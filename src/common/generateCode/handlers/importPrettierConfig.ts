@@ -1,6 +1,6 @@
 import getWorkspacePath from '../../../../utils/workspace/getWorkspacePath'
 
-interface importPrettierConfigProps {
+export type importPrettierConfigProps = {
   prettierConfigPath: string
 }
 

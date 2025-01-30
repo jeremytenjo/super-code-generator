@@ -4,7 +4,7 @@ import { platform } from 'process';
 import { StartsWithSlashRegex } from '../splitPath';
 import removeFirstCharacter from '../folderFiles/removeFirstCharacter';
 
-interface FilePath {
+export type FilePath = {
   path: string;
   getFileUri(): string;
   getExtension(): string;
