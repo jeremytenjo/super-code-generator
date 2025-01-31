@@ -4,8 +4,12 @@ export type importPrettierConfigProps = {
   prettierConfigPath: string
 }
 
-export default async function importPrettierConfig({ prettierConfigPath }: importPrettierConfigProps) {
-  const workspacePath = getWorkspacePath(prettierConfigPath)
+export default async function importPrettierConfig({
+  prettierConfigPath,
+}: importPrettierConfigProps) {
+  const workspacePath = getWorkspacePath({
+    add: prettierConfigPath,
+  })
   let prettierConfig = false
 
   if (workspacePath.hasExtension('.js')) {
@@ -13,7 +17,6 @@ export default async function importPrettierConfig({ prettierConfigPath }: impor
   } else {
     console.warn('Quick Component Create: Prettier config should be a JS file')
   }
-
 
   return prettierConfig
 }

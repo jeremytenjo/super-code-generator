@@ -41,7 +41,7 @@ export default async function create(props: {
           type: props.componentConfig.type,
         }
         let parentFolderName =
-          file?.parentFolderName?.(fileProperties) || props.name || '';
+          file?.parentFolderName?.(fileProperties) || props.name || ''
 
         // Format parentFolderName (optional)
         if (props.componentConfig?.options?.formatParentFolderName) {
@@ -60,24 +60,23 @@ export default async function create(props: {
             outputPath: props.componentOutputPath,
           })?.newName
         }
-        
+
         const outputPath = path.join(
-          !outputInRootFolder ? props.componentOutputPath : getWorkspacePath().path,
+          !outputInRootFolder ? props.componentOutputPath : getWorkspacePath({}).path,
           createNamedFolder ? parentFolderName : '',
           file.path(fileProperties),
         )
-       
+
         const content = await prettifyFile({
           content: file.template(fileProperties),
           prettierConfig: props.prettierConfig,
         })
 
-        if (doesFolderOrFileExist(outputPath)) logError(`${props.name} already exists`, { silent: true })
-        
+        if (doesFolderOrFileExist(outputPath))
+          logError(`${props.name} already exists`, { silent: true })
+
         await createFile(outputPath, content)
         if (openOnCreate) openFile(outputPath)
-        
-        
       }),
     )
   } catch (error: unknown) {
