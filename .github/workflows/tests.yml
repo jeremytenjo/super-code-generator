@@ -25,14 +25,12 @@ jobs:
         id: cache-npm
         uses: actions/cache@v3
         env:
-          cache-name: cache-node-modules
+          cache-name: npm-cache
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./${GITHUB_WORKSPACE}/package-lock.json') }}
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+            ${{ runner.os }}-${{ env.cache-name }}-
       - name: List the state of node modules
         if: ${{steps.cache-npm.outputs.cache-hit != 'true'}}
         continue-on-error: true
