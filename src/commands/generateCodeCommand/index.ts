@@ -3,7 +3,9 @@ import logError from '../../../utils/log/logError'
 import getActiveFileFolderPath from '../../../utils/folderFiles/getActiveFileFolderPath'
 
 export default async function generateCodeCommand(
-  { path: componentOutputPath } = { path: getActiveFileFolderPath() },
+  { path: componentOutputPath } = {
+    path: getActiveFileFolderPath().activeFileFolderPath,
+  },
 ) {
   try {
     await generateCode({ outputPath: componentOutputPath })
