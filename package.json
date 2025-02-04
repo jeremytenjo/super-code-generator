@@ -42,10 +42,6 @@
     "type": "git",
     "url": "https://github.com/jeremytenjo/super-code-generator"
   },
-  "activationEvents": [
-    "onCommand:superCodeGenerator.generateCode",
-    "onCommand:superCodeGenerator.generateCodeInFolder"
-  ],
   "contributes": {
     "configuration": {
       "title": "Super Code Generator",
