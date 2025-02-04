@@ -12,7 +12,7 @@ jobs:
             npm_cache_dir: ~/.npm
           - os: windows-latest
             test_command: npm test
-            npm_cache_dir: ~/AppData/Local/npm-cache
+            npm_cache_dir: ~\AppData\Local\npm-cache
           - os: macOS-latest
             test_command: npm test
             npm_cache_dir: ~/.npm
@@ -35,10 +35,6 @@ jobs:
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-
-      - name: List the state of node modules
-        if: ${{steps.cache-npm.outputs.cache-hit != 'true'}}
-        continue-on-error: true
-        run: npm list
       - name: Install npm packages
         run: npm install
       - name: Install & Cache apt packages
