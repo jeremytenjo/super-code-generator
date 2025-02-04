@@ -14,7 +14,7 @@
         "--extensionDevelopmentPath=${workspaceFolder}",
         "${workspaceFolder}/example/app"
       ],
-      "outFiles": ["${workspaceFolder}/out/**/*.js", "!**/node_modules/**"],
+      "outFiles": ["${workspaceFolder}/dist/**/*.js", "!**/node_modules/**"],
       "cwd": "${workspaceFolder}/example/app",
       "preLaunchTask": "tasks: dev"
     },
@@ -25,11 +25,11 @@
       "args": [
         "--disable-extensions",
         "--extensionDevelopmentPath=${workspaceFolder}",
-        "--extensionTestsPath=${workspaceFolder}/out/src/test/suite/index",
+        "--extensionTestsPath=${workspaceFolder}/dist/src/test/suite/index",
         "${workspaceFolder}/example/app"
       ],
       "testConfiguration": "${workspaceFolder}/.vscode-test.mjs",
-      "outFiles": ["${workspaceFolder}/out/test/**/*.js"],
+      "outFiles": ["${workspaceFolder}/dist/test/**/*.js"],
       "cwd": "${workspaceFolder}/example/app",
       "preLaunchTask": "npm: watch-tests"
     }

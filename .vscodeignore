@@ -8,7 +8,7 @@ assets/videos
 !node_modules/esbuild
 **/*.js.map
 scripts/**
-out/**
+dist/**
 .vscode-test.mjs
 **/*.ts
 **/tsconfig.*
