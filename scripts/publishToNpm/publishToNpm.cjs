@@ -21,15 +21,18 @@ function main() {
 
   exec('npm publish --access public', (error, stdout, stderr) => {
     if (error) {
+      console.error(error)
       updatePackageName({ newName: originalName })
 
       return
     }
     if (stderr) {
+      console.log(stderr)
       updatePackageName({ newName: originalName })
 
       return
     }
+    console.log(`Published ${newName} to npm`)
     updatePackageName({ newName: originalName })
   })
 }
