@@ -12,7 +12,7 @@ export type SuperCodeGeneratorHelpersProps = {
   wrapInTemplateLiteral: (
     props: WrapInTemplateLiteralProps,
   ) => WrapInTemplateLiteralReturn
-  addEmptyTemplateLiteral: any
+  addEmptyTemplateLiteral: () => string
   activeTextEditor: vscode.TextEditor
 }
 
@@ -23,7 +23,7 @@ const helpers: SuperCodeGeneratorHelpersProps = {
   },
   wrapInTemplateLiteral,
   addEmptyTemplateLiteral,
-  activeTextEditor: vscode.window.activeTextEditor,
+  activeTextEditor: vscode.window.activeTextEditor!,
 }
 
 export default helpers
