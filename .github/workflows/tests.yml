@@ -27,8 +27,11 @@ jobs:
         run: |
           APT_CACHE_DIR="$HOME/apt-cache"
           mkdir -p "$APT_CACHE_DIR/archives/partial"
+          # Set APT cache directory configuration
           echo "Dir::Cache \"$APT_CACHE_DIR\";" | sudo tee /etc/apt/apt.conf.d/99-custom-cache
           echo "Dir::Cache::archives \"$APT_CACHE_DIR/archives\";" | sudo tee -a /etc/apt/apt.conf.d/99-custom-cache
+          # Ensure the runner user owns the cache directory
+          sudo chown -R $USER:$USER "$APT_CACHE_DIR"
       - name: Generate APT Packages List
         if: runner.os == 'Linux'
         run: |
@@ -46,5 +49,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y $(cat apt-packages.txt)
+          # Cleanup partial downloads and lock files
+          sudo rm -rf "$HOME/apt-cache/archives/partial"
+          sudo rm -f "$HOME/apt-cache/archives/lock"
+          # Ensure runner owns the cached files
+          sudo chown -R $USER:$USER "$HOME/apt-cache"
       - name: Run Tests
         run: ${{ matrix.test_command }}
