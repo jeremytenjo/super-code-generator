@@ -13,7 +13,10 @@ export type SuperCodeGeneratorConfigSchema<CustomProps = object> = {
   outputWithoutParentDir?: boolean
   usageInstructions?: string
   hooks?: {
-    onCreate: (props: { outputPath: string, componentName: string }) => void | Promise<void>
+    onCreate: (props: {
+      outputPath: string
+      componentName: string
+    }) => void | Promise<void>
   }
   options?: {
     createNamedFolder?: boolean
@@ -36,6 +39,7 @@ export type SuperCodeGeneratorFilesSchema<CustomProps = object> =
 
 export type SuperCodeGeneratorFileProps<CustomProps = object> = {
   name: string
+  folderPath?: string
   helpers?: SuperCodeGeneratorHelpersProps
   customProps?: CustomProps
   type?: string
@@ -72,4 +76,3 @@ export function activate(context: vscode.ExtensionContext) {
 export function deactivate() {
   console.log(`${extensionName} deactivated!`)
 }
-

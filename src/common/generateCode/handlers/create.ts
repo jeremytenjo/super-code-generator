@@ -6,7 +6,7 @@ import openFile from '../../../../utils/folderFiles/openFile'
 import logError from '../../../../utils/log/logError'
 import getWorkspacePath from '../../../../utils/workspace/getWorkspacePath'
 import { SuperCodeGeneratorHelpersProps } from './helpers'
-import { SuperCodeGeneratorConfigSchema } from '../../..'
+import { SuperCodeGeneratorConfigSchema, SuperCodeGeneratorFileProps } from '../../..'
 
 export default async function create(props: {
   name: string
@@ -34,7 +34,7 @@ export default async function create(props: {
     await Promise.all(
       props.componentConfig.files.map(async (file, index) => {
         const openOnCreate = index === 0
-        const fileProperties = {
+        const fileProperties: SuperCodeGeneratorFileProps = {
           name: props.name,
           helpers: props.helpers,
           folderPath: props.componentOutputPath,
