@@ -8,11 +8,11 @@ jobs:
         os: [ubuntu-latest, windows-latest, macOS-latest]
         include:
           - os: ubuntu-latest
-            test_command: 'xvfb-run -a npm test'
+            test_command: xvfb-run -a npm test
           - os: windows-latest
-            test_command: 'npm test'
+            test_command: npm test
           - os: macOS-latest
-            test_command: 'npm test'
+            test_command: npm test
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -22,41 +22,10 @@ jobs:
         with:
           node-version: '18.17.1'
       - run: npm install
-      - name: Configure APT cache directory
-        if: runner.os == 'Linux'
-        run: |
-          APT_CACHE_DIR="$HOME/apt-cache"
-          mkdir -p "$APT_CACHE_DIR/archives/partial"
-          # Set APT cache directory configuration
-          echo "Dir::Cache \"$APT_CACHE_DIR\";" | sudo tee /etc/apt/apt.conf.d/99-custom-cache
-          echo "Dir::Cache::archives \"$APT_CACHE_DIR/archives\";" | sudo tee -a /etc/apt/apt.conf.d/99-custom-cache
-          # Ensure the runner user owns the cache directory
-          sudo chown -R $USER:$USER "$APT_CACHE_DIR"
-      - name: Generate APT Packages List
-        if: runner.os == 'Linux'
-        run: |
-          echo "build-essential xvfb clang libdbus-1-dev libgtk-3-dev libnotify-dev libasound2-dev libcap-dev libcups2-dev libxtst-dev libxss1 libnss3-dev gcc-multilib g++-multilib curl gperf bison python3-dbusmock openjdk-8-jre" > apt-packages.txt
-      - name: Cache APT libraries
-        if: runner.os == 'Linux'
-        uses: actions/cache@v3
+      - uses: awalsh128/cache-apt-pkgs-action@latest
         with:
-          path: ~/apt-cache/archives
-          key: ${{ runner.os }}-apt-${{ hashFiles('apt-packages.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-apt-
-      - name: Install APT libraries
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update
-          for pkg in $(cat apt-packages.txt); do
-              if ! dpkg -l $pkg | grep -q $pkg; then
-                  sudo apt-get install -y $pkg
-              fi
-          done
-          # Cleanup partial downloads and lock files
-          sudo rm -rf "$HOME/apt-cache/archives/partial"
-          sudo rm -f "$HOME/apt-cache/archives/lock"
-          # Ensure runner owns the cached files
-          sudo chown -R $USER:$USER "$HOME/apt-cache"
-      - name: Run Tests
+          packages: build-essential xvfb clang libdbus-1-dev libgtk-3-dev libnotify-dev libasound2-dev libcap-dev libcups2-dev libxtst-dev libxss1 libnss3-dev gcc-multilib g++-multilib curl gperf bison python3-dbusmock openjdk-8-jre
+          version: 1.0
+
+      - name: Run tests
         run: ${{ matrix.test_command }}
