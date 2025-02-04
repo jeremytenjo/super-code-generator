@@ -9,10 +9,13 @@ jobs:
         include:
           - os: ubuntu-latest
             test_command: xvfb-run -a npm test
+            npm_cache_dir: ~/.npm
           - os: windows-latest
             test_command: npm test
+            npm_cache_dir: ~\AppData\Local\npm-cache
           - os: macOS-latest
             test_command: npm test
+            npm_cache_dir: ~/.npm
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -27,7 +30,8 @@ jobs:
         env:
           cache-name: npm-cache
         with:
-          path: ~/.npm
+          path: ${{ matrix.npm_cache_dir }}
+
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-
