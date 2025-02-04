@@ -48,7 +48,11 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y $(cat apt-packages.txt)
+          for pkg in $(cat apt-packages.txt); do
+              if ! dpkg -l $pkg | grep -q $pkg; then
+                  sudo apt-get install -y $pkg
+              fi
+          done
           # Cleanup partial downloads and lock files
           sudo rm -rf "$HOME/apt-cache/archives/partial"
           sudo rm -f "$HOME/apt-cache/archives/lock"
