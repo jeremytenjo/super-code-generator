@@ -12,5 +12,15 @@ export default function getActiveFileFolderPath(): string {
   // remove the last element
   activeFileFolder.pop()
 
+  //
+  const _activeFilePath = getActiveFilePath()
+  let _activeFileFolder = splitPath(_activeFilePath)
+
+  _activeFileFolder.pop()
+  const olg_activeFileFolder = activeFileFolder.join('/')
+
+  console.log('olg_activeFileFolder')
+  //
+
   return activeFileFolder.join(sep)
 }
