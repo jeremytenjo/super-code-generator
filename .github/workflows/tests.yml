@@ -36,7 +36,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-
       - name: Install npm packages
-        run: npm install
+        run: npm ci
       - name: Install & Cache apt packages
         if: runner.os == 'Linux'
         uses: awalsh128/cache-apt-pkgs-action@latest
