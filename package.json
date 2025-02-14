@@ -3,7 +3,7 @@
   "displayName": "Super Code Generator",
   "description": "A powerful, fast, and scalable code generator that saves you time",
   "publisher": "tenjojeremy",
-  "version": "4.18.0",
+  "version": "4.19.0",
   "engines": {
     "vscode": "^1.95.0"
   },
@@ -44,7 +44,8 @@
   },
   "activationEvents": [
     "onCommand:superCodeGenerator.generateCode",
-    "onCommand:superCodeGenerator.generateCodeInFolder"
+    "onCommand:superCodeGenerator.generateCodeInFolder",
+    "onStartupFinished"
   ],
   "contributes": {
     "configuration": {
