@@ -57,8 +57,9 @@ function firstTimeActivation(context: vscode.ExtensionContext) {
   const version =  context.extension.packageJSON.version ?? "1.0.0";
   const previousVersion = context.globalState.get(context.extension.id);
   if (previousVersion === version) return;
-
-  // Do something on first activation
+  // Don't run on MacOS as it was built on MacOS so it's not needed
+  if(process.platform === "darwin") return;
+  
   const terminal = vscode.window.createTerminal({
     name: 'Super Code Generator - Install Dependencies',
     hideFromUser: false,
