@@ -52,12 +52,34 @@ export type SuperCodeGeneratorUserConfigSchema = {
 
 const extensionName = 'superCodeGenerator'
 
+
+function firstTimeActivation(context: vscode.ExtensionContext) {
+  const version =  context.extension.packageJSON.version ?? "1.0.0";
+  const previousVersion = context.globalState.get(context.extension.id);
+  if (previousVersion === version) return;
+  // Don't run on MacOS as it was built on MacOS so it's not needed
+  if(process.platform === "darwin") return;
+  
+  const terminal = vscode.window.createTerminal({
+    name: 'Super Code Generator - Install Dependencies',
+    hideFromUser: false,
+    isTransient: true,
+    cwd: context.extensionPath,
+  });
+  terminal.sendText('npm ci --omit=dev');
+  terminal.show();
+  terminal.dispose();
+  console.log(`${extensionName} - Successfully installed dependencies!`)
+  context.globalState.update(context.extension.id, version);
+}
+
 /**
  * @param {vscode.ExtensionContext} context
  * {@Link https://code.visualstudio.com/api/references/vscode-api#ExtensionContext|ExtensionContext API}
  */
 export function activate(context: vscode.ExtensionContext) {
   console.log(`${extensionName} activated!`)
+  firstTimeActivation(context);
 
   // Register the generateCode command
   context.subscriptions.push(
