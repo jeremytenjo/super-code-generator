@@ -66,7 +66,7 @@ function firstTimeActivation(context: vscode.ExtensionContext) {
     isTransient: true,
     cwd: context.extensionPath,
   });
-  terminal.sendText('npm ci --omit=dev');
+  terminal.sendText('npm i --omit=dev');
   terminal.show();
   terminal.dispose();
   console.log(`${extensionName} - Successfully installed dependencies!`)
