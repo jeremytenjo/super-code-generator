@@ -67,10 +67,8 @@ export default async function create(props: {
           file.path(fileProperties),
         )
 
-        console.log('file', file)
         if (file.outputInRootFolder) {
           outputPath = path.join(getWorkspacePath({}).path, file.path(fileProperties))
-          console.log('outputPath', outputPath)
         }
 
         const content = await prettifyFile({
