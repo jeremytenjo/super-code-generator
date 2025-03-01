@@ -61,15 +61,16 @@ export default async function create(props: {
           })?.newName
         }
 
-        const outputPath = path.join(
-          file.outputInRootFolder
-            ? getWorkspacePath({}).path
-            : !outputInRootFolder
-            ? props.componentOutputPath
-            : getWorkspacePath({}).path,
-          file.outputInRootFolder ? '' : createNamedFolder ? parentFolderName : '',
+        let outputPath: string = path.join(
+          !outputInRootFolder ? props.componentOutputPath : getWorkspacePath({}).path,
+          createNamedFolder ? parentFolderName : '',
           file.path(fileProperties),
         )
+
+        if (file.outputInRootFolder) {
+          outputPath = path.join(getWorkspacePath({}).path, file.path(fileProperties))
+          console.log('outputPath', outputPath)
+        }
 
         const content = await prettifyFile({
           content: file.template(fileProperties),
