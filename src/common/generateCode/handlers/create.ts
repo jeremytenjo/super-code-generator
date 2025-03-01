@@ -62,7 +62,11 @@ export default async function create(props: {
         }
 
         const outputPath = path.join(
-          !outputInRootFolder ? props.componentOutputPath : getWorkspacePath({}).path,
+          file.outputInRootFolder
+            ? getWorkspacePath({}).path
+            : !outputInRootFolder
+            ? props.componentOutputPath
+            : getWorkspacePath({}).path,
           createNamedFolder ? parentFolderName : '',
           file.path(fileProperties),
         )
