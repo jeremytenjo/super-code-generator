@@ -35,7 +35,7 @@
     "pretest": "npm run compile-tests",
     "prettify": "prettier --write '{**/*,*}.{js,jsx,json}'",
     "npm:publish": "node ./scripts/publishToNpm/publishToNpm.cjs",
-    "deploy": "npm run types:generate && npm run tests:ts-types && npm version minor && vsce publish && npm run npm:publish"
+    "deploy": "npm run build && npm run types:generate && npm run tests:ts-types && npm version minor && vsce publish && npm run npm:publish"
   },
   "icon": "assets/images/logo.png",
   "repository": {
