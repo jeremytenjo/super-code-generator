@@ -54,12 +54,20 @@ export type SuperCodeGeneratorUserConfigSchema = {
 const extensionName = 'superCodeGenerator'
 
 function firstTimeActivation(context: vscode.ExtensionContext) {
-  const version = context.extension.packageJSON.version ?? '1.0.0'
-  const previousVersion = context.globalState.get(context.extension.id)
-  if (previousVersion === version) return
   // Don't run on MacOS as it was built on MacOS so it's not needed
   if (process.platform === 'darwin') return
+  // Get the extension version
+  const version = context.extension.packageJSON.version ?? '1.0.0'
+  // get the previous version
+  const previousVersion = context.globalState.get(context.extension.id);
+  
+  if (previousVersion === version) {
+    console.log('Super Code Generator depedencies are up to date');
+    return;
+  }
+  console.log("Super Code Generator dependencies are outdated. Updating...");
 
+  
   const terminal = vscode.window.createTerminal({
     name: 'Super Code Generator - Install Dependencies',
     hideFromUser: false,
@@ -69,6 +77,8 @@ function firstTimeActivation(context: vscode.ExtensionContext) {
   terminal.sendText('npm ci --omit=dev')
   terminal.show()
   terminal.dispose()
+
+  context.globalState.update(context.extension.id, version)
 }
 
 /**
