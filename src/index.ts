@@ -75,7 +75,8 @@ function firstTimeActivation(context: vscode.ExtensionContext) {
     cwd: context.extensionPath,
   })
   terminal.sendText('npm ci --omit=dev')
-  terminal.show()
+  // don't take focus from the user
+  terminal.show(true);
   terminal.dispose()
 
   context.globalState.update(context.extension.id, version)
