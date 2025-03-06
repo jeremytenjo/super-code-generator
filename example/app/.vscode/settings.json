@@ -1,4 +1,5 @@
 {
   "superCodeGenerator.schemaFilePath": "superCodeGen.schema.ts",
-  "superCodeGenerator.prettierConfigFilePath": ".prettierrc.js"
+  "superCodeGenerator.prettierConfigFilePath": ".prettierrc.js",
+  "superCodeGenerator.verbose": true
 }
