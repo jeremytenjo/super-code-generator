@@ -2,6 +2,7 @@ import vscode from 'vscode'
 import generateCode from './commands/generateCodeCommand'
 import generateCodeInFolder from './commands/generateCodeInFolder'
 import { SuperCodeGeneratorHelpersProps } from './common/generateCode/handlers/helpers'
+import { installDependencies } from './commands/installDependencies'
 
 export type SuperCodeGeneratorConfigSchema<CustomProps = object> = {
   type: string
@@ -51,33 +52,43 @@ export type SuperCodeGeneratorUserConfigSchema = {
   prettierConfigFilePath: string
 }
 
+export type SuperCodeGeneratorSettingsSchema = {
+  verbose: boolean
+  useDependencyAutoInstaller: boolean
+}
+
+
 const extensionName = 'superCodeGenerator'
 
-function firstTimeActivation(context: vscode.ExtensionContext) {
+async function firstTimeActivation(context: vscode.ExtensionContext) {
   // Don't run on MacOS as it was built on MacOS so it's not needed
   if (process.platform === 'darwin') return
-  // Get the extension version
-  const version = context.extension.packageJSON.version ?? '1.0.0'
-  // get the previous version
-  const previousVersion = context.globalState.get(context.extension.id);
-  
-  if (previousVersion === version) {
-    console.log('Super Code Generator depedencies are up to date');
+  const userSettings = context.workspaceState.get(`${context.extension.id}.extensionSettings`) as SuperCodeGeneratorSettingsSchema
+
+  // Check if the user has disabled the dependency auto installer
+  if (!userSettings.useDependencyAutoInstaller) {
+    if (userSettings.verbose) {
+      vscode.window.showInformationMessage('Super Code Generator dependencies auto installer is disabled');
+    }
     return;
   }
-  console.log("Super Code Generator dependencies are outdated. Updating...");
 
-  
-  const terminal = vscode.window.createTerminal({
-    name: 'Super Code Generator - Install Dependencies',
-    hideFromUser: false,
-    isTransient: true,
-    cwd: context.extensionPath,
-  })
-  terminal.sendText('npm ci --omit=dev')
-  // don't take focus from the user
-  terminal.show(true);
-  terminal.dispose()
+  // Get the extension version
+  const version = context.extension.packageJSON.version ?? '0.0.0'
+  // get the previous version
+  const previousVersion = context.globalState.get(context.extension.id);
+
+  if (previousVersion === version) {
+    if (userSettings.verbose && userSettings.verbose) {
+      vscode.window.showInformationMessage('Super Code Generator dependencies are up to date');
+    }
+    return;
+  }
+  if (userSettings.verbose && userSettings.verbose) {
+    vscode.window.showInformationMessage('Super Code Generator dependencies are outdated. Updating...');
+  }
+
+  installDependencies(context, userSettings.verbose);
 
   context.globalState.update(context.extension.id, version)
 }
@@ -87,8 +98,31 @@ function firstTimeActivation(context: vscode.ExtensionContext) {
  * {@Link https://code.visualstudio.com/api/references/vscode-api#ExtensionContext|ExtensionContext API}
  */
 export function activate(context: vscode.ExtensionContext) {
-  console.log(`${extensionName} activated!`)
-  firstTimeActivation(context)
+  // load the extension configuration
+  const extensionConfig =
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    vscode.workspace.getConfiguration('superCodeGenerator');
+  
+  // check if the user has enabled verbose mode
+  const extensionSettings: SuperCodeGeneratorSettingsSchema = {
+    verbose: extensionConfig.get('verbose'),
+    useDependencyAutoInstaller: extensionConfig.get('useDependencyAutoInstaller'),
+  };
+
+  if(extensionSettings.verbose) {
+    vscode.window.showInformationMessage('Super Code Generator running in verbose mode');
+  }
+  
+  context.workspaceState.update(`${context.extension.id}.extensionSettings`, extensionSettings);
+
+  if(extensionSettings.useDependencyAutoInstaller)
+    firstTimeActivation(context)
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand('superCodeGenerator.installDependencies', () =>
+      installDependencies(context, extensionSettings.verbose),
+    ),
+  )
 
   // Register the generateCode command
   context.subscriptions.push(
