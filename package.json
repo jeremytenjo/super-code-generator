@@ -45,6 +45,7 @@
   "activationEvents": [
     "onCommand:superCodeGenerator.generateCode",
     "onCommand:superCodeGenerator.generateCodeInFolder",
+    "onCommand:superCodeGenerator.installDependencies",
     "onStartupFinished"
   ],
   "contributes": {
@@ -60,6 +61,16 @@
           "type": "string",
           "default": ".prettierrc.js",
           "description": "Prettier config file path (Optional)"
+        },
+        "superCodeGenerator.verbose": {
+          "type": "boolean",
+          "default": false,
+          "description": "Verbose mode, defaults to false (Optional)"
+        },
+        "superCodeGenerator.useDependencyAutoInstaller": {
+          "type": "boolean",
+          "default": true,
+          "description": "Use dependency auto installer, defaults to true (Optional, only needed on Linux & Windows)"
         }
       }
     },
@@ -71,6 +82,10 @@
       {
         "command": "superCodeGenerator.generateCodeInFolder",
         "title": "Super Code Gen: Generate Code in folder"
+      },
+      {
+        "command": "superCodeGenerator.installDependencies",
+        "title": "Super Code Gen: Install dependencies"
       }
     ],
     "menus": {
