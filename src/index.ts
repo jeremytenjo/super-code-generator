@@ -105,8 +105,8 @@ export function activate(context: vscode.ExtensionContext) {
   
   // check if the user has enabled verbose mode
   const extensionSettings: SuperCodeGeneratorSettingsSchema = {
-    verbose: extensionConfig.get('verbose'),
-    useDependencyAutoInstaller: extensionConfig.get('useDependencyAutoInstaller'),
+    verbose: extensionConfig.get('verbose') || false,
+    useDependencyAutoInstaller: extensionConfig.get('useDependencyAutoInstaller') || true,
   };
   
   // save the extension settings to the workspace state
