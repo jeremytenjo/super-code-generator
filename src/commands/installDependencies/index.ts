@@ -3,7 +3,7 @@ import { SuperCodeGeneratorSettingsSchema } from "../..";
 
 export function installDependencies(context: vscode.ExtensionContext, verbose?: boolean) {
     if(verbose === undefined) {
-        // load the user config
+        // get the extension settings from the workspace state
         const userConfig = context.workspaceState.get(`${context.extension.id}.extensionSettings`) as SuperCodeGeneratorSettingsSchema;
         verbose = userConfig.verbose
     }

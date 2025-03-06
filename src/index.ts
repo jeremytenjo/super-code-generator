@@ -108,12 +108,13 @@ export function activate(context: vscode.ExtensionContext) {
     verbose: extensionConfig.get('verbose'),
     useDependencyAutoInstaller: extensionConfig.get('useDependencyAutoInstaller'),
   };
+  
+  // save the extension settings to the workspace state
+  context.workspaceState.update(`${context.extension.id}.extensionSettings`, extensionSettings);
 
   if(extensionSettings.verbose) {
     vscode.window.showInformationMessage('Super Code Generator running in verbose mode');
   }
-  
-  context.workspaceState.update(`${context.extension.id}.extensionSettings`, extensionSettings);
 
   if(extensionSettings.useDependencyAutoInstaller)
     firstTimeActivation(context)
