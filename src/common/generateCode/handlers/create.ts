@@ -33,12 +33,16 @@ export default async function create(props: {
 
     await Promise.all(
       props.componentConfig.files.map(async (file, index) => {
+        console.log('props', props)
+
         const openOnCreate = index === 0
         const fileProperties: SuperCodeGeneratorFileProps = {
           name: props.name,
           helpers: props.helpers,
           folderPath: props.componentOutputPath,
           type: props.componentConfig.type,
+          // TODO
+          params: {},
         }
         let parentFolderName =
           file?.parentFolderName?.(fileProperties) || props.name || ''

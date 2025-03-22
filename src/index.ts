@@ -3,47 +3,53 @@ import generateCode from './commands/generateCodeCommand'
 import generateCodeInFolder from './commands/generateCodeInFolder'
 import { SuperCodeGeneratorHelpersProps } from './common/generateCode/handlers/helpers'
 
-export type SuperCodeGeneratorConfigSchema<CustomProps = object> = {
-  type: string
-  files: {
-    path: (props: SuperCodeGeneratorFileProps<CustomProps>) => string
-    template: (props: SuperCodeGeneratorFileProps<CustomProps>) => string
-    parentFolderName?: (props: SuperCodeGeneratorFileProps<CustomProps>) => string
-    outputInRootFolder?: boolean
-  }[]
-  outputWithoutParentDir?: boolean
-  usageInstructions?: string
-  hooks?: {
-    onCreate: (props: {
-      outputPath: string
-      componentName: string
-    }) => void | Promise<void>
-  }
-  options?: {
-    createNamedFolder?: boolean
-    outputInRootFolder?: boolean
-    formatParentFolderName?: (props: {
-      currentName: string
-      helpers: SuperCodeGeneratorHelpersProps
-      outputPath: string
-    }) => {
-      newName: string
+export type SuperCodeGeneratorConfigSchema<CustomProps = object, ParamsSchema = object> =
+  {
+    type: string
+    files: {
+      path: (props: SuperCodeGeneratorFileProps<CustomProps, ParamsSchema>) => string
+      template: (props: SuperCodeGeneratorFileProps<CustomProps, ParamsSchema>) => string
+      parentFolderName?: (
+        props: SuperCodeGeneratorFileProps<CustomProps, ParamsSchema>,
+      ) => string
+      outputInRootFolder?: boolean
+    }[]
+    outputWithoutParentDir?: boolean
+    usageInstructions?: string
+    hooks?: {
+      onCreate: (props: {
+        outputPath: string
+        componentName: string
+      }) => void | Promise<void>
     }
-  }
-}[]
+    options?: {
+      createNamedFolder?: boolean
+      outputInRootFolder?: boolean
+      formatParentFolderName?: (props: {
+        currentName: string
+        helpers: SuperCodeGeneratorHelpersProps
+        outputPath: string
+      }) => {
+        newName: string
+      }
+    }
+  }[]
 
-export type SuperCodeGeneratorTemplateSchema<CustomProps = object> =
-  SuperCodeGeneratorConfigSchema<CustomProps>[0]
+export type SuperCodeGeneratorTemplateSchema<
+  CustomProps = object,
+  ParamsSchema = object,
+> = SuperCodeGeneratorConfigSchema<CustomProps, ParamsSchema>[0]
 
-export type SuperCodeGeneratorFilesSchema<CustomProps = object> =
+export type SuperCodeGeneratorFilesSchema<CustomProps = object, ParamsSchema = object> =
   SuperCodeGeneratorTemplateSchema<CustomProps>['files']
 
-export type SuperCodeGeneratorFileProps<CustomProps = object> = {
+export type SuperCodeGeneratorFileProps<CustomProps = object, ParamsSchema = object> = {
   name: string
   folderPath?: string
   helpers?: SuperCodeGeneratorHelpersProps
   customProps?: CustomProps
   type?: string
+  params?: ParamsSchema
 }
 
 export type SuperCodeGeneratorUserConfigSchema = {

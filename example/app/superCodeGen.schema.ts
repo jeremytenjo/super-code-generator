@@ -15,6 +15,9 @@ const reactComponent: SuperCodeGeneratorTemplateSchema = {
       // do things here
     },
   },
+  params:{
+    hello: 'string'
+  },
   files: [
     {
       path: ({ name, helpers: { changeCase } }) => changeCase.paramCase(name) + '.tsx',

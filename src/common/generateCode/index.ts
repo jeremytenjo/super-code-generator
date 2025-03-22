@@ -11,24 +11,24 @@ import splitPath, { StartsWithSlashRegex } from '../../../utils/splitPath'
 import removeFirstCharacter from '../../../utils/folderFiles/removeFirstCharacter'
 
 export type generateCodeProps = {
-  outputPath: string;
+  outputPath: string
 }
 
-export default async function generateCode({outputPath}: generateCodeProps) {
+export default async function generateCode({ outputPath }: generateCodeProps) {
   // Get the user config and schema config
   const importedUsrCfg = await getImportUserConfig()
 
   // If the config file is not found, show an error message
-  if(importedUsrCfg === undefined) {
+  if (importedUsrCfg === undefined) {
     vscode.window.showErrorMessage('Schema config file not found.')
-    return null;
+    return null
   }
 
   // Destructure the user config and schema config
   const { userConfig, configFile } = importedUsrCfg!
 
   // Make a list of the options from the schema
-  const optionsList = configFile.map((property: {type?: string}, index: number) => {
+  const optionsList = configFile.map((property: { type?: string }, index: number) => {
     if (!property.type) {
       logError(`Missing type property in config file array object index ${index}`)
     }
@@ -40,18 +40,18 @@ export default async function generateCode({outputPath}: generateCodeProps) {
   const prettierConfig = await importPrettierConfig({
     prettierConfigPath: userConfig.prettierConfigFilePath,
   })
-  
+
   // Create a quick pick to select the component type
   const quickPick = vscode.window.createQuickPick()
-  quickPick.items = (optionsList as readonly vscode.QuickPickItem[])
-  
-  // Add a handler for selection change event 
+  quickPick.items = optionsList as readonly vscode.QuickPickItem[]
+
+  // Add a handler for selection change event
   quickPick.onDidChangeSelection(async (selection) => {
     const [selectedComponentType] = selection
 
-    // Find the selected component's config from the schema 
+    // Find the selected component's config from the schema
     const selectedComponentTypeConfig = configFile.find(
-      ({ type }: {type: string}) => type === selectedComponentType.label,
+      ({ type }: { type: string }) => type === selectedComponentType.label,
     )
 
     // Prompt the user for the name of the component
@@ -73,29 +73,33 @@ export default async function generateCode({outputPath}: generateCodeProps) {
     const componentNames = componentName.split(',')
 
     // If the user is on Windows, remove the first character of the output path if it starts with a slash
-    outputPath = platform == "win32" && StartsWithSlashRegex.test(outputPath) ? removeFirstCharacter(outputPath) : outputPath;
+    outputPath =
+      platform == 'win32' && StartsWithSlashRegex.test(outputPath)
+        ? removeFirstCharacter(outputPath)
+        : outputPath
 
     // create the components
     try {
       await Promise.all(
         componentNames.map(async (componentName) => {
-          const componentNameTrimmed = componentName.trim();
+          const componentNameTrimmed = componentName.trim()
           let componentOutputPath: string[]
-          if(!selectedComponentTypeConfig) {
+          if (!selectedComponentTypeConfig) {
             logError(`No config found for ${selectedComponentType.label}`)
-            return null;
+            return null
           }
 
           if (selectedComponentTypeConfig.outputWithoutParentDir) {
             componentOutputPath = splitPath(outputPath)
             componentOutputPath.pop()
             const tmpOutputPath = componentOutputPath.join(path.sep)
-            const relativePath = path.relative(tmpOutputPath, outputPath);
+            const relativePath = path.relative(tmpOutputPath, outputPath)
             if (relativePath.startsWith('..') && path.isAbsolute(relativePath)) {
               outputPath = tmpOutputPath
             }
           }
-          
+
+          console.log('selectedComponentTypeConfig', selectedComponentTypeConfig)
 
           await create({
             name: componentNameTrimmed,
@@ -105,11 +109,13 @@ export default async function generateCode({outputPath}: generateCodeProps) {
             componentOutputPath: outputPath,
             prettierConfig,
           })
-          
-          if (selectedComponentTypeConfig?.hooks?.onCreate) {
-            await selectedComponentTypeConfig?.hooks?.onCreate({ outputPath: outputPath, componentName: componentNameTrimmed })
-          }
 
+          if (selectedComponentTypeConfig?.hooks?.onCreate) {
+            await selectedComponentTypeConfig?.hooks?.onCreate({
+              outputPath: outputPath,
+              componentName: componentNameTrimmed,
+            })
+          }
         }),
       )
 

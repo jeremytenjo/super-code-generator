@@ -23,8 +23,7 @@
     "dist"
   ],
   "scripts": {
-    "dev": "npm run -S build -- --sourcemap",
-    "build:watch": "npm run -S build -- --watch",
+    "dev": "npm run -S build -- --watch",
     "build": "esbuild ./src/index.ts --bundle --outfile=dist/index.js --external:vscode --external:esbuild --format=cjs --platform=node",
     "lint": "eslint",
     "compile-tests": "tsc -p tsconfig.test.json",
