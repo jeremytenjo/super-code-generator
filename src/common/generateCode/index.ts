@@ -106,18 +106,17 @@ export default async function generateCode({ outputPath }: generateCodeProps) {
               selectedComponentTypeConfig.params.map(async (param) => {
                 if (param.type === 'string') {
                   const paramValue = await vscode.window.showInputBox({
+                    value: '',
                     title: `${selectedComponentType.label} - ${param.name}`,
                     placeHolder: `Enter ${param.name}`,
                     prompt: param.description,
                   })
 
-                  if (paramValue === undefined) {
-                    return null
-                  }
-
-                  params = {
-                    ...params,
-                    [param.name]: paramValue,
+                  if (paramValue) {
+                    params = {
+                      ...params,
+                      [param.name]: paramValue,
+                    }
                   }
                 }
               }),
