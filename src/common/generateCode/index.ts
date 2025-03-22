@@ -9,6 +9,7 @@ import getImportUserConfig from '../../../utils/getImportUserConfig/getImportUse
 import { platform } from 'process'
 import splitPath, { StartsWithSlashRegex } from '../../../utils/splitPath'
 import removeFirstCharacter from '../../../utils/folderFiles/removeFirstCharacter'
+import { ParamsFilePropsSchema } from '../../../utils/types/ParamsPropsSchema'
 
 export type generateCodeProps = {
   outputPath: string
@@ -99,7 +100,7 @@ export default async function generateCode({ outputPath }: generateCodeProps) {
             }
           }
 
-          let params = {}
+          let params: ParamsFilePropsSchema = {}
 
           if (selectedComponentTypeConfig?.params) {
             await Promise.all(

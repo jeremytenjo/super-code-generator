@@ -3,18 +3,24 @@ import generateCode from './commands/generateCodeCommand'
 import generateCodeInFolder from './commands/generateCodeInFolder'
 import { SuperCodeGeneratorHelpersProps } from './common/generateCode/handlers/helpers'
 import { installDependencies } from './commands/installDependencies'
-import { ParamsPropsSchema } from '../utils/types/ParamsPropsSchema'
+import {
+  ParamsFilePropsSchema,
+  ParamsPropsSchema,
+} from '../utils/types/ParamsPropsSchema'
 
 export type SuperCodeGeneratorConfigSchema<
   CustomProps = object,
   ParamsSchema = ParamsPropsSchema,
+  ParamsFileSchema = ParamsFilePropsSchema,
 > = {
   type: string
   files: {
-    path: (props: SuperCodeGeneratorFileProps<CustomProps, ParamsSchema>) => string
-    template: (props: SuperCodeGeneratorFileProps<CustomProps, ParamsSchema>) => string
+    path: (props: SuperCodeGeneratorFileProps<CustomProps, ParamsFileSchema>) => string
+    template: (
+      props: SuperCodeGeneratorFileProps<CustomProps, ParamsFileSchema>,
+    ) => string
     parentFolderName?: (
-      props: SuperCodeGeneratorFileProps<CustomProps, ParamsSchema>,
+      props: SuperCodeGeneratorFileProps<CustomProps, ParamsFileSchema>,
     ) => string
     outputInRootFolder?: boolean
   }[]
@@ -43,23 +49,25 @@ export type SuperCodeGeneratorConfigSchema<
 export type SuperCodeGeneratorTemplateSchema<
   CustomProps = object,
   ParamsSchema = ParamsPropsSchema,
-> = SuperCodeGeneratorConfigSchema<CustomProps, ParamsSchema>[0]
+  ParamsFileSchema = ParamsFilePropsSchema,
+> = SuperCodeGeneratorConfigSchema<CustomProps, ParamsSchema, ParamsFileSchema>[0]
 
 export type SuperCodeGeneratorFilesSchema<
   CustomProps = object,
   ParamsSchema = ParamsPropsSchema,
-> = SuperCodeGeneratorTemplateSchema<CustomProps>['files']
+  ParamsFileSchema = ParamsFilePropsSchema,
+> = SuperCodeGeneratorTemplateSchema<CustomProps, ParamsSchema, ParamsFileSchema>['files']
 
 export type SuperCodeGeneratorFileProps<
   CustomProps = object,
-  ParamsSchema = ParamsPropsSchema,
+  ParamsFileSchema = ParamsFilePropsSchema,
 > = {
   name: string
   folderPath?: string
   helpers?: SuperCodeGeneratorHelpersProps
   customProps?: CustomProps
   type?: string
-  params?: ParamsSchema
+  params?: ParamsFileSchema
 }
 
 export type SuperCodeGeneratorUserConfigSchema = {

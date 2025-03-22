@@ -7,6 +7,7 @@ import logError from '../../../../utils/log/logError'
 import getWorkspacePath from '../../../../utils/workspace/getWorkspacePath'
 import { SuperCodeGeneratorHelpersProps } from './helpers'
 import { SuperCodeGeneratorConfigSchema, SuperCodeGeneratorFileProps } from '../../..'
+import { ParamsFilePropsSchema } from '../../../../utils/types/ParamsPropsSchema'
 
 export default async function create(props: {
   name: string
@@ -15,7 +16,7 @@ export default async function create(props: {
   componentOutputPath: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   prettierConfig: any
-  params: any
+  params: ParamsFilePropsSchema
 }) {
   try {
     if (!props.componentConfig.files) {

@@ -3,3 +3,7 @@ export type ParamsPropsSchema = {
   type: 'string'
   description: string
 }
+
+export type ParamsFilePropsSchema = {
+  [key: string]: string
+}
