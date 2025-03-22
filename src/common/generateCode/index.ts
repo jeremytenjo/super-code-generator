@@ -99,7 +99,30 @@ export default async function generateCode({ outputPath }: generateCodeProps) {
             }
           }
 
-          console.log('selectedComponentTypeConfig', selectedComponentTypeConfig)
+          let params = {}
+
+          if (selectedComponentTypeConfig?.params) {
+            await Promise.all(
+              selectedComponentTypeConfig.params.map(async (param) => {
+                if (param.type === 'string') {
+                  const paramValue = await vscode.window.showInputBox({
+                    title: `${selectedComponentType.label} - ${param.name}`,
+                    placeHolder: `Enter ${param.name}`,
+                    prompt: param.description,
+                  })
+
+                  if (paramValue === undefined) {
+                    return null
+                  }
+
+                  params = {
+                    ...params,
+                    [param.name]: paramValue,
+                  }
+                }
+              }),
+            )
+          }
 
           await create({
             name: componentNameTrimmed,
@@ -108,6 +131,7 @@ export default async function generateCode({ outputPath }: generateCodeProps) {
             componentConfig: selectedComponentTypeConfig as any,
             componentOutputPath: outputPath,
             prettierConfig,
+            params,
           })
 
           if (selectedComponentTypeConfig?.hooks?.onCreate) {

@@ -15,6 +15,7 @@ export default async function create(props: {
   componentOutputPath: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   prettierConfig: any
+  params: any
 }) {
   try {
     if (!props.componentConfig.files) {
@@ -33,16 +34,13 @@ export default async function create(props: {
 
     await Promise.all(
       props.componentConfig.files.map(async (file, index) => {
-        console.log('props', props)
-
         const openOnCreate = index === 0
         const fileProperties: SuperCodeGeneratorFileProps = {
           name: props.name,
           helpers: props.helpers,
           folderPath: props.componentOutputPath,
           type: props.componentConfig.type,
-          // TODO
-          params: {},
+          params: props.params,
         }
         let parentFolderName =
           file?.parentFolderName?.(fileProperties) || props.name || ''

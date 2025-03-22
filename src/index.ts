@@ -3,48 +3,57 @@ import generateCode from './commands/generateCodeCommand'
 import generateCodeInFolder from './commands/generateCodeInFolder'
 import { SuperCodeGeneratorHelpersProps } from './common/generateCode/handlers/helpers'
 import { installDependencies } from './commands/installDependencies'
+import { ParamsPropsSchema } from '../utils/types/ParamsPropsSchema'
 
-export type SuperCodeGeneratorConfigSchema<CustomProps = object, ParamsSchema = object> =
-  {
-    type: string
-    files: {
-      path: (props: SuperCodeGeneratorFileProps<CustomProps, ParamsSchema>) => string
-      template: (props: SuperCodeGeneratorFileProps<CustomProps, ParamsSchema>) => string
-      parentFolderName?: (
-        props: SuperCodeGeneratorFileProps<CustomProps, ParamsSchema>,
-      ) => string
-      outputInRootFolder?: boolean
-    }[]
-    outputWithoutParentDir?: boolean
-    usageInstructions?: string
-    hooks?: {
-      onCreate: (props: {
-        outputPath: string
-        componentName: string
-      }) => void | Promise<void>
-    }
-    options?: {
-      createNamedFolder?: boolean
-      outputInRootFolder?: boolean
-      formatParentFolderName?: (props: {
-        currentName: string
-        helpers: SuperCodeGeneratorHelpersProps
-        outputPath: string
-      }) => {
-        newName: string
-      }
-    }
+export type SuperCodeGeneratorConfigSchema<
+  CustomProps = object,
+  ParamsSchema = ParamsPropsSchema,
+> = {
+  type: string
+  files: {
+    path: (props: SuperCodeGeneratorFileProps<CustomProps, ParamsSchema>) => string
+    template: (props: SuperCodeGeneratorFileProps<CustomProps, ParamsSchema>) => string
+    parentFolderName?: (
+      props: SuperCodeGeneratorFileProps<CustomProps, ParamsSchema>,
+    ) => string
+    outputInRootFolder?: boolean
   }[]
+  outputWithoutParentDir?: boolean
+  usageInstructions?: string
+  hooks?: {
+    onCreate: (props: {
+      outputPath: string
+      componentName: string
+    }) => void | Promise<void>
+  }
+  options?: {
+    createNamedFolder?: boolean
+    outputInRootFolder?: boolean
+    formatParentFolderName?: (props: {
+      currentName: string
+      helpers: SuperCodeGeneratorHelpersProps
+      outputPath: string
+    }) => {
+      newName: string
+    }
+  }
+  params?: ParamsSchema[]
+}[]
 
 export type SuperCodeGeneratorTemplateSchema<
   CustomProps = object,
-  ParamsSchema = object,
+  ParamsSchema = ParamsPropsSchema,
 > = SuperCodeGeneratorConfigSchema<CustomProps, ParamsSchema>[0]
 
-export type SuperCodeGeneratorFilesSchema<CustomProps = object, ParamsSchema = object> =
-  SuperCodeGeneratorTemplateSchema<CustomProps>['files']
+export type SuperCodeGeneratorFilesSchema<
+  CustomProps = object,
+  ParamsSchema = ParamsPropsSchema,
+> = SuperCodeGeneratorTemplateSchema<CustomProps>['files']
 
-export type SuperCodeGeneratorFileProps<CustomProps = object, ParamsSchema = object> = {
+export type SuperCodeGeneratorFileProps<
+  CustomProps = object,
+  ParamsSchema = ParamsPropsSchema,
+> = {
   name: string
   folderPath?: string
   helpers?: SuperCodeGeneratorHelpersProps
@@ -63,38 +72,45 @@ export type SuperCodeGeneratorSettingsSchema = {
   useDependencyAutoInstaller: boolean
 }
 
-
 const extensionName = 'superCodeGenerator'
 
 async function firstTimeActivation(context: vscode.ExtensionContext) {
   // Don't run on MacOS as it was built on MacOS so it's not needed
   if (process.platform === 'darwin') return
-  const userSettings = context.workspaceState.get(`${context.extension.id}.extensionSettings`) as SuperCodeGeneratorSettingsSchema
+  const userSettings = context.workspaceState.get(
+    `${context.extension.id}.extensionSettings`,
+  ) as SuperCodeGeneratorSettingsSchema
 
   // Check if the user has disabled the dependency auto installer
   if (!userSettings.useDependencyAutoInstaller) {
     if (userSettings.verbose) {
-      vscode.window.showInformationMessage('Super Code Generator dependencies auto installer is disabled');
+      vscode.window.showInformationMessage(
+        'Super Code Generator dependencies auto installer is disabled',
+      )
     }
-    return;
+    return
   }
 
   // Get the extension version
   const version = context.extension.packageJSON.version ?? '0.0.0'
   // get the previous version
-  const previousVersion = context.globalState.get(context.extension.id);
+  const previousVersion = context.globalState.get(context.extension.id)
 
   if (previousVersion === version) {
     if (userSettings.verbose && userSettings.verbose) {
-      vscode.window.showInformationMessage('Super Code Generator dependencies are up to date');
+      vscode.window.showInformationMessage(
+        'Super Code Generator dependencies are up to date',
+      )
     }
-    return;
+    return
   }
   if (userSettings.verbose && userSettings.verbose) {
-    vscode.window.showInformationMessage('Super Code Generator dependencies are outdated. Updating...');
+    vscode.window.showInformationMessage(
+      'Super Code Generator dependencies are outdated. Updating...',
+    )
   }
 
-  installDependencies(context, userSettings.verbose);
+  installDependencies(context, userSettings.verbose)
 
   context.globalState.update(context.extension.id, version)
 }
@@ -107,23 +123,25 @@ export function activate(context: vscode.ExtensionContext) {
   // load the extension configuration
   const extensionConfig =
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    vscode.workspace.getConfiguration('superCodeGenerator');
-  
+    vscode.workspace.getConfiguration('superCodeGenerator')
+
   // check if the user has enabled verbose mode
   const extensionSettings: SuperCodeGeneratorSettingsSchema = {
     verbose: extensionConfig.get('verbose') || false,
     useDependencyAutoInstaller: extensionConfig.get('useDependencyAutoInstaller') || true,
-  };
-  
-  // save the extension settings to the workspace state
-  context.workspaceState.update(`${context.extension.id}.extensionSettings`, extensionSettings);
-
-  if(extensionSettings.verbose) {
-    vscode.window.showInformationMessage('Super Code Generator running in verbose mode');
   }
 
-  if(extensionSettings.useDependencyAutoInstaller)
-    firstTimeActivation(context)
+  // save the extension settings to the workspace state
+  context.workspaceState.update(
+    `${context.extension.id}.extensionSettings`,
+    extensionSettings,
+  )
+
+  if (extensionSettings.verbose) {
+    vscode.window.showInformationMessage('Super Code Generator running in verbose mode')
+  }
+
+  if (extensionSettings.useDependencyAutoInstaller) firstTimeActivation(context)
 
   context.subscriptions.push(
     vscode.commands.registerCommand('superCodeGenerator.installDependencies', () =>
