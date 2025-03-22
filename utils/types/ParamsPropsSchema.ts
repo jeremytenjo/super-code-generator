@@ -1,5 +1,5 @@
-export type ParamsPropsSchema = {
-  name: string
+export type ParamsPropsSchema<ParamsFileSchema extends ParamsFilePropsSchema> = {
+  name: keyof ParamsFileSchema
   type: 'string'
   description: string
 }

@@ -10,7 +10,7 @@ import {
 
 export type SuperCodeGeneratorConfigSchema<
   CustomProps = object,
-  ParamsFileSchema = ParamsFilePropsSchema,
+  ParamsFileSchema extends ParamsFilePropsSchema = ParamsFilePropsSchema,
 > = {
   type: string
   files: {
@@ -42,17 +42,17 @@ export type SuperCodeGeneratorConfigSchema<
       newName: string
     }
   }
-  params?: ParamsPropsSchema[]
+  params?: ParamsPropsSchema<ParamsFileSchema>[]
 }[]
 
 export type SuperCodeGeneratorTemplateSchema<
   CustomProps = object,
-  ParamsFileSchema = ParamsFilePropsSchema,
+  ParamsFileSchema extends ParamsFilePropsSchema = ParamsFilePropsSchema,
 > = SuperCodeGeneratorConfigSchema<CustomProps, ParamsFileSchema>[0]
 
 export type SuperCodeGeneratorFilesSchema<
   CustomProps = object,
-  ParamsFileSchema = ParamsFilePropsSchema,
+  ParamsFileSchema extends ParamsFilePropsSchema = ParamsFilePropsSchema,
 > = SuperCodeGeneratorTemplateSchema<CustomProps, ParamsFileSchema>['files']
 
 export type SuperCodeGeneratorFileProps<
