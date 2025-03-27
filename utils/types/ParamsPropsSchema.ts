@@ -3,7 +3,7 @@ export type ParamsPropsSchema<ParamsFileSchema extends ParamsFilePropsSchema> = 
   type: 'input' | 'dropdown'
   description: string
   options?: {
-    value: string
+    value: keyof ParamsFileSchema['options']
   }[]
 }
 
