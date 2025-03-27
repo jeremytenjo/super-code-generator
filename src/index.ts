@@ -4,6 +4,7 @@ import generateCodeInFolder from './commands/generateCodeInFolder'
 import { SuperCodeGeneratorHelpersProps } from './common/generateCode/handlers/helpers'
 import { installDependencies } from './commands/installDependencies'
 import {
+  ParamsFileDropdownOptions,
   ParamsFilePropsSchema,
   ParamsPropsSchema,
 } from '../utils/types/ParamsPropsSchema'
@@ -11,6 +12,7 @@ import {
 export type SuperCodeGeneratorConfigSchema<
   CustomProps = object,
   ParamsFileSchema extends ParamsFilePropsSchema = ParamsFilePropsSchema,
+  ParamsFileOptionsSchema extends ParamsFileDropdownOptions = ParamsFileDropdownOptions,
 > = {
   type: string
   files: {
@@ -42,7 +44,7 @@ export type SuperCodeGeneratorConfigSchema<
       newName: string
     }
   }
-  params?: ParamsPropsSchema<ParamsFileSchema>[]
+  params?: ParamsPropsSchema<ParamsFileSchema, ParamsFileOptionsSchema>[]
 }[]
 
 export type SuperCodeGeneratorTemplateSchema<
