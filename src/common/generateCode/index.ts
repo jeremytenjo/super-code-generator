@@ -105,12 +105,32 @@ export default async function generateCode({ outputPath }: generateCodeProps) {
           if (selectedComponentTypeConfig?.params) {
             await Promise.all(
               selectedComponentTypeConfig.params.map(async (param) => {
-                if (param.type === 'string') {
+                if (param.type === 'input') {
                   const paramValue = await vscode.window.showInputBox({
                     value: '',
                     title: `${selectedComponentType.label} - ${param.name}`,
                     placeHolder: `Enter ${param.name}`,
                     prompt: param.description,
+                  })
+
+                  if (paramValue) {
+                    params = {
+                      ...params,
+                      [param.name]: paramValue,
+                    }
+                  }
+                }
+
+                if (param.type === 'dropdown') {
+                  if (!param.options) {
+                    logError(`Missing options for ${param.name}`)
+                    return null
+                  }
+
+                  const paramValue = await vscode.window.showQuickPick(param.options, {
+                    title: `${selectedComponentType.label} - ${param.name}`,
+                    placeHolder: `Select ${param.name}`,
+                    canPickMany: false,
                   })
 
                   if (paramValue) {
