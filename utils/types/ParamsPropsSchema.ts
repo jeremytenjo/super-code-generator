@@ -8,5 +8,10 @@ export type ParamsPropsSchema<ParamsFileSchema extends ParamsFilePropsSchema> = 
 }
 
 export type ParamsFilePropsSchema = {
-  [key: string]: string
+  [key: string]: {
+    name: string
+    options?: {
+      value: string
+    }[]
+  }
 }

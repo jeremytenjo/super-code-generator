@@ -116,7 +116,7 @@ export default async function generateCode({ outputPath }: generateCodeProps) {
                   if (paramValue) {
                     params = {
                       ...params,
-                      [param.name]: paramValue,
+                      [param.name]: { name: paramValue },
                     }
                   }
                 }
@@ -140,7 +140,7 @@ export default async function generateCode({ outputPath }: generateCodeProps) {
                   if (paramValue) {
                     params = {
                       ...params,
-                      [param.name]: paramValue,
+                      [param.name]: { name: paramValue },
                     }
                   }
                 }
