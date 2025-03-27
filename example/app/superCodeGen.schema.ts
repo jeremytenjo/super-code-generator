@@ -1,23 +1,26 @@
 import cp from 'child_process'
 import path from 'path'
 import fs from 'fs'
-
-import type {
+import {
   SuperCodeGeneratorConfigSchema,
   SuperCodeGeneratorTemplateSchema,
-} from '@jeremytenjo/super-code-generator'
+} from '../../src'
 
 // React component example
-const reactComponent: SuperCodeGeneratorTemplateSchema = {
+const reactComponent: SuperCodeGeneratorTemplateSchema<any> = {
   type: 'React Component',
   hooks: {
     onCreate: async ({ outputPath, componentName }) => {
       // do things here
     },
   },
-  params:{
-    hello: 'string'
-  },
+  params: [
+    {
+      name: 'hello',
+      description: 'hello world',
+      type: 'input',
+    },
+  ],
   files: [
     {
       path: ({ name, helpers: { changeCase } }) => changeCase.paramCase(name) + '.tsx',
@@ -27,7 +30,7 @@ const reactComponent: SuperCodeGeneratorTemplateSchema = {
       
       export default function ${changeCase.pascalCase(name)}() {
         return (
-          <div className={${wrapInTemplateLiteral({text: 'styles.wrapper'})}}>
+          <div className={${wrapInTemplateLiteral({ text: 'styles.wrapper' })}}>
            ${name}
           </div>
         );
@@ -54,9 +57,12 @@ const cloudFunctionTemplate: SuperCodeGeneratorTemplateSchema = {
   type: 'Cloud Function',
   files: [cloudFunction],
   hooks: {
-    onCreate: ({outputPath, componentName}) => {
+    onCreate: ({ outputPath, componentName }) => {
       const functionsFile = path.join(outputPath, 'functions', 'src', 'functions.ts')
-      fs.appendFileSync(functionsFile, `export * as ${componentName} from "./${componentName}/${componentName}.js"\n`)
+      fs.appendFileSync(
+        functionsFile,
+        `export * as ${componentName} from "./${componentName}/${componentName}.js"\n`,
+      )
     },
   },
   options: {
@@ -66,7 +72,7 @@ const cloudFunctionTemplate: SuperCodeGeneratorTemplateSchema = {
 }
 
 // Story example
-const story: SuperCodeGeneratorTemplateSchema = {
+const story: SuperCodeGeneratorTemplateSchema<any> = {
   type: 'Story',
   outputWithoutParentDir: false,
   files: [
@@ -79,7 +85,7 @@ const story: SuperCodeGeneratorTemplateSchema = {
       
       export default function ${changeCase.pascalCase(name)}() {
         return (
-          <div className={${wrapInTemplateLiteral({text: 'styles.wrapper'})}}>
+          <div className={${wrapInTemplateLiteral({ text: 'styles.wrapper' })}}>
            ${name}
           </div>
         );
@@ -94,7 +100,7 @@ const story: SuperCodeGeneratorTemplateSchema = {
   ],
 }
 
-const config: SuperCodeGeneratorConfigSchema = [
+const config: SuperCodeGeneratorConfigSchema<any> = [
   reactComponent,
   cloudFunctionTemplate,
   story,
