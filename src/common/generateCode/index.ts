@@ -127,7 +127,11 @@ export default async function generateCode({ outputPath }: generateCodeProps) {
                     return null
                   }
 
-                  const paramValue = await vscode.window.showQuickPick(param.options, {
+                  const options = param.options.map((option) => {
+                    return option.value
+                  })
+
+                  const paramValue = await vscode.window.showQuickPick(options, {
                     title: `${selectedComponentType.label} - ${param.name}`,
                     placeHolder: `Select ${param.name}`,
                     canPickMany: false,
