@@ -162,6 +162,7 @@ export default async function generateCode({ outputPath }: generateCodeProps) {
             await selectedComponentTypeConfig?.hooks?.onCreate({
               outputPath: outputPath,
               componentName: componentNameTrimmed,
+              params,
             })
           }
         }),

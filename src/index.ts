@@ -29,6 +29,7 @@ export type SuperCodeGeneratorConfigSchema<
     onCreate: (props: {
       outputPath: string
       componentName: string
+      params: ParamsFileSchema
     }) => void | Promise<void>
   }
   options?: {
