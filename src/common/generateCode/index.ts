@@ -10,7 +10,6 @@ import { platform } from 'process'
 import splitPath, { StartsWithSlashRegex } from '../../../utils/splitPath'
 import removeFirstCharacter from '../../../utils/folderFiles/removeFirstCharacter'
 import { ParamsFilePropsSchema } from '../../../utils/types/ParamsPropsSchema'
-import getWorkspacePath from '../../../utils/workspace/getWorkspacePath'
 
 export type generateCodeProps = {
   outputPath: string
@@ -164,7 +163,7 @@ export default async function generateCode({ outputPath }: generateCodeProps) {
               outputPath: outputPath,
               componentName: componentNameTrimmed,
               params,
-              workspacePath: getWorkspacePath({}).path,
+              workspacePath: vscode.workspace.workspaceFolders[0].uri.path,
             })
           }
         }),
