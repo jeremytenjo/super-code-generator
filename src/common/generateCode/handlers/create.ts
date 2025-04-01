@@ -85,11 +85,13 @@ export default async function create(props: {
         // Format JS/TS files
         console.log('outputPath', outputPath)
         if (isJsOrTsFile) {
+          console.log('in', outputPath)
           const prettifiedContent = await prettifyFile({
             content: file.template(fileProperties),
             prettierConfig: props.prettierConfig,
           })
           content = prettifiedContent
+          console.log('out', content)
         }
 
         if (doesFolderOrFileExist(outputPath))
