@@ -74,10 +74,23 @@ export default async function create(props: {
           outputPath = path.join(getWorkspacePath({}).path, file.path(fileProperties))
         }
 
-        const content = await prettifyFile({
-          content: file.template(fileProperties),
-          prettierConfig: props.prettierConfig,
-        })
+        let content = file.template(fileProperties)
+
+        const isJsOrTsFile =
+          outputPath.endsWith('.js') ||
+          outputPath.endsWith('.ts') ||
+          outputPath.endsWith('.jsx') ||
+          outputPath.endsWith('.tsx')
+
+        // Format JS/TS files
+        console.log('outputPath', outputPath)
+        if (isJsOrTsFile) {
+          const prettifiedContent = await prettifyFile({
+            content: file.template(fileProperties),
+            prettierConfig: props.prettierConfig,
+          })
+          content = prettifiedContent
+        }
 
         if (doesFolderOrFileExist(outputPath))
           logError(`${props.name} already exists`, { silent: true })

@@ -1,14 +1,17 @@
 import prettier from 'prettier'
 
-export default async function prettifyFile({ prettierConfig = {}, content = '' }) {
+export default async function prettifyFile(props: {
+  prettierConfig: object
+  content: string
+}) {
   try {
-    const prettifiedContent = prettier.format(content, {
-      ...prettierConfig,
+    const prettifiedContent = prettier.format(props.content, {
+      ...props.prettierConfig,
       parser: 'babel',
     })
 
     return prettifiedContent
   } catch (error) {
-    return content
+    return props.content
   }
 }
