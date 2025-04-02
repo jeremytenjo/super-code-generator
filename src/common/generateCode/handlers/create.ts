@@ -75,11 +75,7 @@ export default async function create(props: {
         }
 
         // remove \n from content
-        let content = file
-          .template(fileProperties)
-          .replace(/\n/g, '')
-          .replace(/\r/g, '')
-          .replace(/\t/g, '')
+        let content = file.template(fileProperties)
 
         const isJsOrTsFile =
           outputPath.endsWith('.js') ||
