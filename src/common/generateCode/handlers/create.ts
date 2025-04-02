@@ -85,7 +85,7 @@ export default async function create(props: {
         // Format JS/TS files
         console.log('outputPath', outputPath)
         if (isJsOrTsFile) {
-          console.log('in', outputPath)
+          console.log('in', file.template(fileProperties))
           const prettifiedContent = await prettifyFile({
             content: file.template(fileProperties),
             prettierConfig: props.prettierConfig,
