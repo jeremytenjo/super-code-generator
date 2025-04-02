@@ -74,7 +74,12 @@ export default async function create(props: {
           outputPath = path.join(getWorkspacePath({}).path, file.path(fileProperties))
         }
 
-        let content = file.template(fileProperties)
+        // remove \n from content
+        let content = file
+          .template(fileProperties)
+          .replace(/\n/g, '')
+          .replace(/\r/g, '')
+          .replace(/\t/g, '')
 
         const isJsOrTsFile =
           outputPath.endsWith('.js') ||
@@ -83,22 +88,12 @@ export default async function create(props: {
           outputPath.endsWith('.tsx')
 
         // Format JS/TS files
-        console.log('outputPath', outputPath)
         if (isJsOrTsFile) {
-          console.log({
-            in: {
-              content: file.template(fileProperties),
-              prettierconig: props.prettierConfig,
-            },
-          })
           const prettifiedContent = await prettifyFile({
             content: file.template(fileProperties),
             prettierConfig: props.prettierConfig,
           })
           content = prettifiedContent
-          console.log({
-            out: content,
-          })
         }
 
         if (doesFolderOrFileExist(outputPath))
