@@ -164,6 +164,7 @@ export default async function generateCode({ outputPath }: generateCodeProps) {
               componentName: componentNameTrimmed,
               params,
               workspacePath: vscode.workspace.workspaceFolders[0].uri.path,
+              helpers,
             })
           }
         }),

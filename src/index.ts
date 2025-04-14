@@ -33,6 +33,7 @@ export type SuperCodeGeneratorConfigSchema<
       componentName: string
       params: ParamsFileSchema
       workspacePath: string
+      helpers: SuperCodeGeneratorHelpersProps
     }) => void | Promise<void>
   }
   options?: {
