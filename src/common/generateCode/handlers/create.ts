@@ -44,7 +44,7 @@ export default async function create(props: {
           folderPath: props.componentOutputPath,
           type: props.componentConfig.type,
           params: props.params,
-          workspacePath: vscode.workspace.workspaceFolders[0].uri.path,
+          workspacePath: vscode.workspace.workspaceFolders?.[0].uri.path,
         }
         let parentFolderName =
           file?.parentFolderName?.(fileProperties) || props.name || ''
