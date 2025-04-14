@@ -70,6 +70,8 @@ export default async function create(props: {
           file.path(fileProperties),
         )
 
+        fileProperties.outputPath = outputPath
+
         if (file.outputInRootFolder) {
           outputPath = path.join(getWorkspacePath({}).path, file.path(fileProperties))
         }
