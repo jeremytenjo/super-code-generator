@@ -64,6 +64,7 @@ export type SuperCodeGeneratorFileProps<
   name: string
   folderPath?: string
   outputPath?: string
+  workspacePath?: string
   helpers?: SuperCodeGeneratorHelpersProps
   customProps?: CustomProps
   type?: string

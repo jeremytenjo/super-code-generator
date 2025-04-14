@@ -1,4 +1,6 @@
+import vscode from 'vscode'
 import path from 'path'
+
 import createFile from '../../../../utils/folderFiles/createFile'
 import doesFolderOrFileExist from '../../../../utils/folderFiles/doesFolderOrFileExist'
 import prettifyFile from '../../../../utils/folderFiles/prettifyFile'
@@ -42,6 +44,7 @@ export default async function create(props: {
           folderPath: props.componentOutputPath,
           type: props.componentConfig.type,
           params: props.params,
+          workspacePath: vscode.workspace.workspaceFolders[0].uri.path,
         }
         let parentFolderName =
           file?.parentFolderName?.(fileProperties) || props.name || ''
