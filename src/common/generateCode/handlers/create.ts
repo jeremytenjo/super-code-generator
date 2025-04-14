@@ -70,17 +70,20 @@ export default async function create(props: {
         let outputPath: string = path.join(
           !outputInRootFolder ? props.componentOutputPath : getWorkspacePath({}).path,
           createNamedFolder ? parentFolderName : '',
-          file.path(fileProperties),
+          await file.path(fileProperties),
         )
 
         fileProperties.outputPath = outputPath
 
         if (file.outputInRootFolder) {
-          outputPath = path.join(getWorkspacePath({}).path, file.path(fileProperties))
+          outputPath = path.join(
+            getWorkspacePath({}).path,
+            await file.path(fileProperties),
+          )
         }
 
         // remove \n from content
-        let content = file.template(fileProperties)
+        let content = await file.template(fileProperties)
 
         const isJsOrTsFile =
           outputPath.endsWith('.js') ||
@@ -91,7 +94,7 @@ export default async function create(props: {
         // Format JS/TS files
         if (isJsOrTsFile) {
           const prettifiedContent = await prettifyFile({
-            content: file.template(fileProperties),
+            content: await file.template(fileProperties),
             prettierConfig: props.prettierConfig,
           })
           content = prettifiedContent

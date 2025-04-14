@@ -14,10 +14,12 @@ export type SuperCodeGeneratorConfigSchema<
 > = {
   type: string
   files: {
-    path: (props: SuperCodeGeneratorFileProps<CustomProps, ParamsFileSchema>) => string
+    path: (
+      props: SuperCodeGeneratorFileProps<CustomProps, ParamsFileSchema>,
+    ) => string | Promise<string>
     template: (
       props: SuperCodeGeneratorFileProps<CustomProps, ParamsFileSchema>,
-    ) => string
+    ) => string | Promise<string>
     parentFolderName?: (
       props: SuperCodeGeneratorFileProps<CustomProps, ParamsFileSchema>,
     ) => string
