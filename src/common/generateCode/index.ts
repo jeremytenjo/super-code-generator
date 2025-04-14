@@ -158,7 +158,7 @@ export default async function generateCode({ outputPath }: generateCodeProps) {
             params,
           })
 
-          if (selectedComponentTypeConfig?.hooks?.onCreate) {
+          if (selectedComponentTypeConfig?.hooks?.onCreate && vscode.workspace.workspaceFolders !== undefined) {
             await selectedComponentTypeConfig?.hooks?.onCreate({
               outputPath: outputPath,
               componentName: componentNameTrimmed,

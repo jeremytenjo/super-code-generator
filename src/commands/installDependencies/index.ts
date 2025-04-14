@@ -11,7 +11,7 @@ export function installDependencies(context: vscode.ExtensionContext, verbose?: 
     // we add this event listener so that we can run the command after the terminal is created
     const onTerminalOpenListener: vscode.Disposable = vscode.window.onDidOpenTerminal((_term) => {
         if(_term.name === 'Super Code Generator - Install Dependencies') {
-            _term.sendText("npm ci --omit=dev;exit");
+            _term.sendText("npm i --omit=dev;exit");
             if(verbose)
                 vscode.window.showInformationMessage('Successfully installed dependencies');
             // dispose the event listener
