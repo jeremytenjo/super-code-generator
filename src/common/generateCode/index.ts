@@ -148,6 +148,13 @@ export default async function generateCode({ outputPath }: generateCodeProps) {
             )
           }
 
+          if (selectedComponentTypeConfig?.defaultParams) {
+            params = {
+              ...selectedComponentTypeConfig?.defaultParams,
+              ...params,
+            }
+          }
+
           await create({
             name: componentNameTrimmed,
             helpers,
@@ -158,7 +165,10 @@ export default async function generateCode({ outputPath }: generateCodeProps) {
             params,
           })
 
-          if (selectedComponentTypeConfig?.hooks?.onCreate && vscode.workspace.workspaceFolders !== undefined) {
+          if (
+            selectedComponentTypeConfig?.hooks?.onCreate &&
+            vscode.workspace.workspaceFolders !== undefined
+          ) {
             await selectedComponentTypeConfig?.hooks?.onCreate({
               outputPath: outputPath,
               componentName: componentNameTrimmed,

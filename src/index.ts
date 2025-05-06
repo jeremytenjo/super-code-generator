@@ -48,6 +48,7 @@ export type SuperCodeGeneratorConfigSchema<
     }
   }
   params?: ParamsPropsSchema<ParamsFileSchema>[]
+  defaultParams?: Partial<ParamsFileSchema>
 }[]
 
 export type SuperCodeGeneratorTemplateSchema<
