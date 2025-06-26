@@ -40,6 +40,10 @@ export default async function create(props: {
         const openOnCreate = index === 0
         const fileProperties: SuperCodeGeneratorFileProps = {
           name: props.name,
+          nameCamelCase: props.helpers.changeCase.camelCase(props.name),
+          namePascalCase: props.helpers.changeCase.pascalCase(props.name),
+          nameCapitalCase: props.helpers.changeCase.capitalCase(props.name),
+          nameSnakeCase: props.helpers.changeCase.snakeCase(props.name),
           helpers: props.helpers,
           folderPath: props.componentOutputPath,
           type: props.componentConfig.type,
