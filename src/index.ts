@@ -66,6 +66,10 @@ export type SuperCodeGeneratorFileProps<
   ParamsFileSchema = ParamsFilePropsSchema,
 > = {
   name: string
+  nameCamelCase?: string
+  namePascalCase?: string
+  nameCapitalCase?: string
+  nameSnakeCase?: string
   folderPath?: string
   outputPath?: string
   workspacePath?: string
