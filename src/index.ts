@@ -168,7 +168,11 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Register the generateCode command
   context.subscriptions.push(
-    vscode.commands.registerCommand('superCodeGenerator.generateCode', generateCode),
+    vscode.commands.registerCommand('superCodeGenerator.generateCode', (uri) =>
+      generateCode({ 
+        path: uri?.fsPath,
+        context 
+      })),
   )
 
   // Register the generateCodeInFolder command

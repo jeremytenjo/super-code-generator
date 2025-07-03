@@ -21,6 +21,7 @@ export default async function generateCodeInFolder(context: ExtensionContext) {
 
       await generateCode({
         outputPath: selectedFile.label,
+        context,
       })
     })
 
