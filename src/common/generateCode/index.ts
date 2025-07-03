@@ -172,9 +172,12 @@ export default async function generateCode({ outputPath, context }: generateCode
 
           if (selectedComponentTypeConfig?.defaultParams) {
             // Filter out undefined values from defaultParams
-            const validDefaultParams = Object.fromEntries(
-              Object.entries(selectedComponentTypeConfig.defaultParams).filter(([_, value]) => value !== undefined)
-            ) as ParamsFilePropsSchema
+            const validDefaultParams: ParamsFilePropsSchema = {}
+            for (const [key, value] of Object.entries(selectedComponentTypeConfig.defaultParams)) {
+              if (value !== undefined) {
+                validDefaultParams[key] = value as string
+              }
+            }
             
             params = {
               ...validDefaultParams,
