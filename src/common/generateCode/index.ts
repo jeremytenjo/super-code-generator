@@ -10,12 +10,14 @@ import { platform } from 'process'
 import splitPath, { StartsWithSlashRegex } from '../../../utils/splitPath'
 import removeFirstCharacter from '../../../utils/folderFiles/removeFirstCharacter'
 import { ParamsFilePropsSchema } from '../../../utils/types/ParamsPropsSchema'
+import useRecentSelectedComponents from './handlers/useRecentSelectedComponents'
 
 export type generateCodeProps = {
   outputPath: string
+  context?: vscode.ExtensionContext
 }
 
-export default async function generateCode({ outputPath }: generateCodeProps) {
+export default async function generateCode({ outputPath, context }: generateCodeProps) {
   // Get the user config and schema config
   const importedUsrCfg = await getImportUserConfig()
 
@@ -42,13 +44,33 @@ export default async function generateCode({ outputPath }: generateCodeProps) {
     prettierConfigPath: userConfig.prettierConfigFilePath,
   })
 
+  // Get recent components if context is available
+  let recentComponents: vscode.QuickPickItem[] = []
+  let recentComponentsHandler: ReturnType<typeof useRecentSelectedComponents> | null = null
+  
+  if (context) {
+    recentComponentsHandler = useRecentSelectedComponents({ context })
+    recentComponents = recentComponentsHandler.get()
+  }
+
   // Create a quick pick to select the component type
   const quickPick = vscode.window.createQuickPick()
-  quickPick.items = optionsList as readonly vscode.QuickPickItem[]
+  
+  // Combine recent components with all options, avoiding duplicates
+  const recentLabels = new Set(recentComponents.map(item => item.label).filter(Boolean))
+  const filteredOptionsList = optionsList.filter(item => item.label && !recentLabels.has(item.label))
+  const allItems = [...recentComponents, ...filteredOptionsList]
+  
+  quickPick.items = allItems as readonly vscode.QuickPickItem[]
 
   // Add a handler for selection change event
   quickPick.onDidChangeSelection(async (selection) => {
     const [selectedComponentType] = selection
+
+    // Track the selected component if context is available
+    if (recentComponentsHandler) {
+      recentComponentsHandler.update(selectedComponentType)
+    }
 
     // Find the selected component's config from the schema
     const selectedComponentTypeConfig = configFile.find(
@@ -113,7 +135,7 @@ export default async function generateCode({ outputPath }: generateCodeProps) {
                     prompt: param.description,
                   })
 
-                  if (paramValue) {
+                  if (paramValue !== undefined) {
                     params = {
                       ...params,
                       [param.name]: paramValue,
@@ -137,7 +159,7 @@ export default async function generateCode({ outputPath }: generateCodeProps) {
                     canPickMany: false,
                   })
 
-                  if (paramValue) {
+                  if (paramValue !== undefined) {
                     params = {
                       ...params,
                       [param.name]: paramValue,
@@ -149,8 +171,13 @@ export default async function generateCode({ outputPath }: generateCodeProps) {
           }
 
           if (selectedComponentTypeConfig?.defaultParams) {
+            // Filter out undefined values from defaultParams
+            const validDefaultParams = Object.fromEntries(
+              Object.entries(selectedComponentTypeConfig.defaultParams).filter(([_, value]) => value !== undefined)
+            ) as ParamsFilePropsSchema
+            
             params = {
-              ...selectedComponentTypeConfig?.defaultParams,
+              ...validDefaultParams,
               ...params,
             }
           }
