@@ -46,8 +46,9 @@ export default async function generateCode({ outputPath, context }: generateCode
 
   // Get recent components if context is available
   let recentComponents: vscode.QuickPickItem[] = []
-  let recentComponentsHandler: ReturnType<typeof useRecentSelectedComponents> | null = null
-  
+  let recentComponentsHandler: ReturnType<typeof useRecentSelectedComponents> | null =
+    null
+
   if (context) {
     recentComponentsHandler = useRecentSelectedComponents({ context })
     recentComponents = recentComponentsHandler.get()
@@ -55,12 +56,14 @@ export default async function generateCode({ outputPath, context }: generateCode
 
   // Create a quick pick to select the component type
   const quickPick = vscode.window.createQuickPick()
-  
+
   // Combine recent components with all options, avoiding duplicates
-  const recentLabels = new Set(recentComponents.map(item => item.label).filter(Boolean))
-  const filteredOptionsList = optionsList.filter(item => item.label && !recentLabels.has(item.label))
+  const recentLabels = new Set(recentComponents.map((item) => item.label).filter(Boolean))
+  const filteredOptionsList = optionsList.filter(
+    (item) => item.label && !recentLabels.has(item.label),
+  )
   const allItems = [...recentComponents, ...filteredOptionsList]
-  
+
   quickPick.items = allItems as readonly vscode.QuickPickItem[]
 
   // Add a handler for selection change event
@@ -173,12 +176,14 @@ export default async function generateCode({ outputPath, context }: generateCode
           if (selectedComponentTypeConfig?.defaultParams) {
             // Filter out undefined values from defaultParams
             const validDefaultParams: ParamsFilePropsSchema = {}
-            for (const [key, value] of Object.entries(selectedComponentTypeConfig.defaultParams)) {
+            for (const [key, value] of Object.entries(
+              selectedComponentTypeConfig.defaultParams,
+            )) {
               if (value !== undefined) {
                 validDefaultParams[key] = value as string
               }
             }
-            
+
             params = {
               ...validDefaultParams,
               ...params,
@@ -210,7 +215,7 @@ export default async function generateCode({ outputPath, context }: generateCode
         }),
       )
 
-      vscode.window.showInformationMessage(`${componentName} created!`)
+      vscode.window.showInformationMessage(`${componentName} created! 🚀`)
     } catch (error: unknown) {
       logError((error as Error).message)
     } finally {
