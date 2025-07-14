@@ -35,6 +35,8 @@ export default async function create(props: {
       outputInRootFolder = props.componentConfig?.options?.outputInRootFolder
     }
 
+    const createdFiles: SuperCodeGeneratorFileProps['createdFiles'] = []
+
     for (const [index, file] of props.componentConfig.files.entries()) {
       const openOnCreate = index === 0
       const fileProperties: SuperCodeGeneratorFileProps = {
@@ -48,6 +50,7 @@ export default async function create(props: {
         type: props.componentConfig.type,
         params: props.params,
         workspacePath: vscode.workspace.workspaceFolders?.[0].uri.path,
+        createdFiles,
       }
       let parentFolderName = file?.parentFolderName?.(fileProperties) || props.name || ''
 
@@ -103,6 +106,12 @@ export default async function create(props: {
         logError(`${props.name} already exists`, { silent: true })
 
       await createFile(outputPath, content)
+
+      createdFiles.push({
+        fullPath: outputPath,
+        fileWorkspacePath: outputPath.replace(getWorkspacePath({}).path, ''),
+      })
+
       if (openOnCreate) openFile(outputPath)
     }
   } catch (error: unknown) {

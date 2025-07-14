@@ -77,6 +77,7 @@ export type SuperCodeGeneratorFileProps<
   customProps?: CustomProps
   type?: string
   params?: ParamsFileSchema
+  createdFiles?: { fullPath: string; fileWorkspacePath: string }[]
 }
 
 export type SuperCodeGeneratorUserConfigSchema = {
@@ -169,10 +170,11 @@ export function activate(context: vscode.ExtensionContext) {
   // Register the generateCode command
   context.subscriptions.push(
     vscode.commands.registerCommand('superCodeGenerator.generateCode', (uri) =>
-      generateCode({ 
+      generateCode({
         path: uri?.fsPath,
-        context 
-      })),
+        context,
+      }),
+    ),
   )
 
   // Register the generateCodeInFolder command
