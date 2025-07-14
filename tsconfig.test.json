@@ -8,8 +8,7 @@
     "strict": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "rootDirs": ["src", "utils"],
-    "emit": "downlevelIteration"
+    "rootDirs": ["src", "utils"]
   },
   "exclude": ["node_modules", ".vscode-test", "example", "scripts"]
 }
