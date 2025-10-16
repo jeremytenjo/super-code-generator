@@ -224,7 +224,7 @@ export default async function generateCode({ outputPath, context }: generateCode
   })
 
   quickPick.onDidHide(() => quickPick.dispose())
-  quickPick.title = 'Select Component Type'
+  quickPick.title = 'Select Template'
   quickPick.placeholder = 'Type to filter'
   quickPick.show()
 }
