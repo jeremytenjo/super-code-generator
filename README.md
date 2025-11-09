@@ -100,6 +100,49 @@ Always output code in root folder
 
 Format the parent folder name, must be a function that takes { currentName: string } and returns { newName: string }
 
+**params** Optional
+
+Array of parameters to collect from the user before generating code. Each parameter has:
+- `name` - Name of the parameter (used as key in params object)
+- `type` - Type of input: `'input'`, `'dropdown'`, or `'file'`
+- `description` - Description shown to the user
+- `options` - (For dropdown type) Array of options with `value` property
+
+Example:
+```ts
+params: [
+  {
+    name: 'title',
+    type: 'input',
+    description: 'Enter a title for the component'
+  },
+  {
+    name: 'variant',
+    type: 'dropdown',
+    description: 'Select a variant',
+    options: [
+      { value: 'primary' },
+      { value: 'secondary' }
+    ]
+  },
+  {
+    name: 'configFile',
+    type: 'file',
+    description: 'Select a configuration file'
+  }
+]
+```
+
+Parameters are accessible in the `template` and `path` functions via the `params` property:
+
+```ts
+template: ({ params }) => `
+  // Title: ${params.title}
+  // Variant: ${params.variant}
+  // Config from: ${params.configFile}
+`
+```
+
 ## Hooks
 
 `onCreate`
@@ -151,6 +194,7 @@ Properties passed to `path` and `template` functions
 ```js
 name: 'component name input by user',
 folderPath: 'component folder path',
+params: 'object containing user-provided parameter values',
 helpers: {
   changeCase: 'function to change case of a string',
   wrapInTemplateLiteral: 'helps add templates literals within a template literal'
