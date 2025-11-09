@@ -3,7 +3,8 @@
     "noEmit": true,
     "strict": false,
     "skipLibCheck": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "noImplicitAny": false
   },
   "include": ["src/**/*", "utils/**/*"]
 }
