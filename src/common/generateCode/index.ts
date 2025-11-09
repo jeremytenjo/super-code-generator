@@ -169,6 +169,23 @@ export default async function generateCode({ outputPath, context }: generateCode
                     }
                   }
                 }
+
+                if (param.type === 'file') {
+                  const fileUris = await vscode.window.showOpenDialog({
+                    canSelectFiles: true,
+                    canSelectFolders: false,
+                    canSelectMany: false,
+                    openLabel: `Select ${param.name}`,
+                    title: `${selectedComponentType.label} - ${param.name}`,
+                  })
+
+                  if (fileUris && fileUris.length > 0) {
+                    params = {
+                      ...params,
+                      [param.name]: fileUris[0].fsPath,
+                    }
+                  }
+                }
               }),
             )
           }

@@ -100,10 +100,36 @@ const story: SuperCodeGeneratorTemplateSchema<any> = {
   ],
 }
 
+// Component with file selection example
+const componentWithFile: SuperCodeGeneratorTemplateSchema<any> = {
+  type: 'Component with Config',
+  params: [
+    {
+      name: 'configFile',
+      description: 'Select a configuration file',
+      type: 'file',
+    },
+  ],
+  files: [
+    {
+      path: ({ name, helpers: { changeCase } }) => changeCase.paramCase(name) + '.tsx',
+      template: ({ name, helpers: { changeCase }, params }) => `
+      import React from 'react';
+      // Configuration from: ${params?.configFile || 'no file selected'}
+      
+      export default function ${changeCase.pascalCase(name)}() {
+        return <div>${name}</div>;
+      }
+        `,
+    },
+  ],
+}
+
 const config: SuperCodeGeneratorConfigSchema<any> = [
   reactComponent,
   cloudFunctionTemplate,
   story,
+  componentWithFile,
 ]
 
 export default config
