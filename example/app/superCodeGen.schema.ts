@@ -170,6 +170,8 @@ const componentWithTags: SuperCodeGeneratorTemplateSchema<any, ComponentWithTags
     ],
   }
 
+// Type the config array - when templates have different param types, use a union type or 'any'
+// For full type safety on individual templates, type each template separately (as shown above)
 const config: SuperCodeGeneratorConfigSchema<any> = [
   reactComponent,
   cloudFunctionTemplate,

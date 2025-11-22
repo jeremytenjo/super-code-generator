@@ -152,9 +152,12 @@ Parameters are accessible in the `template` and `path` functions via the `params
 To get proper TypeScript typing for your params (including tags), define a params schema type:
 
 ```ts
-import type { SuperCodeGeneratorTemplateSchema } from '@jeremytenjo/super-code-generator'
+import type { 
+  SuperCodeGeneratorTemplateSchema,
+  SuperCodeGeneratorConfigSchema 
+} from '@jeremytenjo/super-code-generator'
 
-// Define the params schema for proper typing
+// Define the params schema for proper typing of individual templates
 type MyComponentParams = {
   title: string
   variant: string
@@ -185,6 +188,13 @@ const myComponent: SuperCodeGeneratorTemplateSchema<any, MyComponentParams> = {
     }
   ]
 }
+
+// For the config array, type individual templates separately (as shown above)
+// The config array itself can use the default typing since templates may have different param types
+const config: SuperCodeGeneratorConfigSchema<any> = [
+  myComponent,
+  // ... other templates
+]
 ```
 
 ## Hooks
