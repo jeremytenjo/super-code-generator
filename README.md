@@ -107,6 +107,7 @@ Array of parameters to collect from the user before generating code. Each parame
 - `type` - Type of input: `'input'`, `'dropdown'`, or `'file'`
 - `description` - Description shown to the user
 - `options` - (For dropdown type) Array of options with `value` property
+- `tags` - (Optional) When set, enables multi-select and returns `{ name: string }[]` instead of a single value
 
 Example:
 ```ts
@@ -129,18 +130,71 @@ params: [
     name: 'configFile',
     type: 'file',
     description: 'Select a configuration file'
+  },
+  {
+    name: 'tags',
+    type: 'dropdown',
+    description: 'Select tags for the component',
+    tags: [],
+    options: [
+      { value: 'typescript' },
+      { value: 'react' },
+      { value: 'testing' }
+    ]
   }
 ]
 ```
 
-Parameters are accessible in the `template` and `path` functions via the `params` property:
+Parameters are accessible in the `template` and `path` functions via the `params` property.
+
+**Typing params with tags:**
+
+To get proper TypeScript typing for your params (including tags), define a params schema type:
 
 ```ts
-template: ({ params }) => `
-  // Title: ${params.title}
-  // Variant: ${params.variant}
-  // Config from: ${params.configFile}
-`
+import type { 
+  SuperCodeGeneratorTemplateSchema,
+  SuperCodeGeneratorConfigSchema 
+} from '@jeremytenjo/super-code-generator'
+
+// Define the params schema for proper typing of individual templates
+type MyComponentParams = {
+  title: string
+  variant: string
+  configFile: string
+  tags: { name: string }[]
+}
+
+const myComponent: SuperCodeGeneratorTemplateSchema<any, MyComponentParams> = {
+  type: 'My Component',
+  params: [
+    // ... your params config
+  ],
+  files: [
+    {
+      template: ({ params }) => {
+        // Now params is properly typed!
+        // params.title is string | undefined
+        // params.tags is { name: string }[] | undefined
+        const tagsList = params?.tags ? params.tags.map(tag => tag.name).join(', ') : 'no tags'
+        
+        return `
+          // Title: ${params?.title}
+          // Variant: ${params?.variant}
+          // Config from: ${params?.configFile}
+          // Tags: ${tagsList}
+        `
+      }
+    }
+  ]
+}
+
+// For the config array, type individual templates separately (as shown above)
+// The config array itself can use the default typing since templates may have different param types
+const config: SuperCodeGeneratorConfigSchema<any> = [
+  myComponent,
+  // ... other templates
+]
 ```
 
 ## Hooks

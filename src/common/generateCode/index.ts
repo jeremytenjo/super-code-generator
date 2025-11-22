@@ -153,19 +153,28 @@ export default async function generateCode({ outputPath, context }: generateCode
                   }
 
                   const options = param.options.map((option) => {
-                    return option.value
+                    return String(option.value)
                   })
+
+                  const canPickMany = param.tags !== undefined
 
                   const paramValue = await vscode.window.showQuickPick(options, {
                     title: `${selectedComponentType.label} - ${param.name}`,
                     placeHolder: `Select ${param.name}`,
-                    canPickMany: false,
+                    canPickMany: canPickMany,
                   })
 
                   if (paramValue !== undefined) {
-                    params = {
-                      ...params,
-                      [param.name]: paramValue,
+                    if (canPickMany && Array.isArray(paramValue)) {
+                      params = {
+                        ...params,
+                        [param.name]: paramValue.map((tag) => ({ name: tag })) as { name: string }[],
+                      }
+                    } else {
+                      params = {
+                        ...params,
+                        [param.name]: paramValue,
+                      }
                     }
                   }
                 }
@@ -186,6 +195,8 @@ export default async function generateCode({ outputPath, context }: generateCode
                     }
                   }
                 }
+
+
               }),
             )
           }
