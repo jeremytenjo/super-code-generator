@@ -135,14 +135,11 @@ const componentWithTags: SuperCodeGeneratorTemplateSchema<any> = {
     {
       name: 'tags',
       description: 'Select tags for the component',
-      type: 'dropdown',
-      tags: [],
-      options: [
-        { value: 'typescript' },
-        { value: 'react' },
-        { value: 'testing' },
-        { value: 'documentation' },
-        { value: 'performance' },
+      type: 'input',
+      tags: [
+        {
+          name: 'admin',
+        },
       ],
     },
   ],
@@ -150,6 +147,8 @@ const componentWithTags: SuperCodeGeneratorTemplateSchema<any> = {
     {
       path: ({ name, helpers: { changeCase } }) => changeCase.paramCase(name) + '.tsx',
       template: ({ name, helpers: { changeCase }, params }) => {
+        console.log('params', params)
+
         const tags = params?.tags as { name: string }[] | undefined
         const tagsList = tags ? tags.map((tag) => tag.name).join(', ') : 'no tags'
         return `
