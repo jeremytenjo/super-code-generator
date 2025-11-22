@@ -104,9 +104,10 @@ Format the parent folder name, must be a function that takes { currentName: stri
 
 Array of parameters to collect from the user before generating code. Each parameter has:
 - `name` - Name of the parameter (used as key in params object)
-- `type` - Type of input: `'input'`, `'dropdown'`, `'file'`, or `'tags'`
+- `type` - Type of input: `'input'`, `'dropdown'`, or `'file'`
 - `description` - Description shown to the user
-- `options` - (For dropdown and tags types) Array of options with `value` property
+- `options` - (For dropdown type) Array of options with `value` property
+- `tags` - (Optional) When set, enables multi-select and returns `{ name: string }[]` instead of a single value
 
 Example:
 ```ts
@@ -132,8 +133,9 @@ params: [
   },
   {
     name: 'tags',
-    type: 'tags',
+    type: 'dropdown',
     description: 'Select tags for the component',
+    tags: [],
     options: [
       { value: 'typescript' },
       { value: 'react' },
@@ -147,7 +149,7 @@ Parameters are accessible in the `template` and `path` functions via the `params
 
 ```ts
 template: ({ params }) => {
-  // For tags type, the value is an array of objects with name property
+  // When tags property is set, the value is an array of objects with name property
   const tags = params?.tags as { name: string }[] | undefined
   const tagsList = tags ? tags.map(tag => tag.name).join(', ') : 'no tags'
   

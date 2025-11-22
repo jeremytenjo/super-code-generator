@@ -132,7 +132,8 @@ const componentWithTags: SuperCodeGeneratorTemplateSchema<any> = {
     {
       name: 'tags',
       description: 'Select tags for the component',
-      type: 'tags',
+      type: 'dropdown',
+      tags: [],
       options: [
         { value: 'typescript' },
         { value: 'react' },
