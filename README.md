@@ -173,7 +173,7 @@ const myComponent: SuperCodeGeneratorTemplateSchema<any, MyComponentParams> = {
         // Now params is properly typed!
         // params.title is string | undefined
         // params.tags is { name: string }[] | undefined
-        const tagsList = params?.tags?.map(tag => tag.name).join(', ') ?? 'no tags'
+        const tagsList = params?.tags ? params.tags.map(tag => tag.name).join(', ') : 'no tags'
         
         return `
           // Title: ${params?.title}
