@@ -129,29 +129,35 @@ const componentWithFile: SuperCodeGeneratorTemplateSchema<any> = {
 }
 
 // Component with tags selection example
-const componentWithTags: SuperCodeGeneratorTemplateSchema<any> = {
-  type: 'Component with Tags',
-  params: [
-    {
-      name: 'tags',
-      description: 'Select tags for the component',
-      type: 'input',
-      tags: [
-        {
-          name: 'admin',
-        },
-      ],
-    },
-  ],
-  files: [
-    {
-      path: ({ name, helpers: { changeCase } }) => changeCase.paramCase(name) + '.tsx',
-      template: ({ name, helpers: { changeCase }, params }) => {
-        console.log('params', params)
+// Define the params schema for proper typing
+type ComponentWithTagsParams = {
+  tags: { name: string }[]
+}
 
-        const tags = params?.tags as { name: string }[] | undefined
-        const tagsList = tags ? tags.map((tag) => tag.name).join(', ') : 'no tags'
-        return `
+const componentWithTags: SuperCodeGeneratorTemplateSchema<any, ComponentWithTagsParams> =
+  {
+    type: 'Component with Tags',
+    params: [
+      {
+        name: 'tags',
+        description: 'Select tags for the component',
+        type: 'input',
+        tags: [
+          {
+            name: 'admin',
+          },
+        ],
+      },
+    ],
+    files: [
+      {
+        path: ({ name, helpers: { changeCase } }) => changeCase.paramCase(name) + '.tsx',
+        template: ({ name, helpers: { changeCase }, params }) => {
+          // Now params.tags is properly typed as { name: string }[] | undefined
+          const tagsList = params?.tags
+            ? params.tags.map((tag) => tag.name).join(', ')
+            : 'no tags'
+          return `
       import React from 'react';
       // Tags: ${tagsList}
       
@@ -159,10 +165,10 @@ const componentWithTags: SuperCodeGeneratorTemplateSchema<any> = {
         return <div>${name}</div>;
       }
         `
+        },
       },
-    },
-  ],
-}
+    ],
+  }
 
 const config: SuperCodeGeneratorConfigSchema<any> = [
   reactComponent,
