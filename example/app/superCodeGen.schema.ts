@@ -1,4 +1,3 @@
-import cp from 'child_process'
 import path from 'path'
 import fs from 'fs'
 import {
@@ -12,6 +11,10 @@ const reactComponent: SuperCodeGeneratorTemplateSchema<any> = {
   hooks: {
     onCreate: async ({ outputPath, componentName }) => {
       // do things here
+      console.log({
+        outputPath,
+        componentName,
+      })
     },
   },
   params: [
