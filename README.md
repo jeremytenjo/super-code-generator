@@ -145,20 +145,45 @@ params: [
 ]
 ```
 
-Parameters are accessible in the `template` and `path` functions via the `params` property:
+Parameters are accessible in the `template` and `path` functions via the `params` property.
+
+**Typing params with tags:**
+
+To get proper TypeScript typing for your params (including tags), define a params schema type:
 
 ```ts
-template: ({ params }) => {
-  // When tags property is set, the value is an array of objects with name property
-  const tags = params?.tags as { name: string }[] | undefined
-  const tagsList = tags ? tags.map(tag => tag.name).join(', ') : 'no tags'
-  
-  return `
-    // Title: ${params.title}
-    // Variant: ${params.variant}
-    // Config from: ${params.configFile}
-    // Tags: ${tagsList}
-  `
+import type { SuperCodeGeneratorTemplateSchema } from '@jeremytenjo/super-code-generator'
+
+// Define the params schema for proper typing
+type MyComponentParams = {
+  title: string
+  variant: string
+  configFile: string
+  tags: { name: string }[]
+}
+
+const myComponent: SuperCodeGeneratorTemplateSchema<any, MyComponentParams> = {
+  type: 'My Component',
+  params: [
+    // ... your params config
+  ],
+  files: [
+    {
+      template: ({ params }) => {
+        // Now params is properly typed!
+        // params.title is string | undefined
+        // params.tags is { name: string }[] | undefined
+        const tagsList = params?.tags?.map(tag => tag.name).join(', ') ?? 'no tags'
+        
+        return `
+          // Title: ${params?.title}
+          // Variant: ${params?.variant}
+          // Config from: ${params?.configFile}
+          // Tags: ${tagsList}
+        `
+      }
+    }
+  ]
 }
 ```
 

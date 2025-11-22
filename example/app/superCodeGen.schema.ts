@@ -129,7 +129,12 @@ const componentWithFile: SuperCodeGeneratorTemplateSchema<any> = {
 }
 
 // Component with tags selection example
-const componentWithTags: SuperCodeGeneratorTemplateSchema<any> = {
+// Define the params schema for proper typing
+type ComponentWithTagsParams = {
+  tags: { name: string }[]
+}
+
+const componentWithTags: SuperCodeGeneratorTemplateSchema<any, ComponentWithTagsParams> = {
   type: 'Component with Tags',
   params: [
     {
@@ -150,8 +155,8 @@ const componentWithTags: SuperCodeGeneratorTemplateSchema<any> = {
     {
       path: ({ name, helpers: { changeCase } }) => changeCase.paramCase(name) + '.tsx',
       template: ({ name, helpers: { changeCase }, params }) => {
-        const tags = params?.tags as { name: string }[] | undefined
-        const tagsList = tags ? tags.map((tag) => tag.name).join(', ') : 'no tags'
+        // Now params.tags is properly typed as { name: string }[] | undefined
+        const tagsList = params?.tags ? params.tags.map((tag) => tag.name).join(', ') : 'no tags'
         return `
       import React from 'react';
       // Tags: ${tagsList}
