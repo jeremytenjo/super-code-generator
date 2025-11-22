@@ -128,6 +128,10 @@ const componentWithFile: SuperCodeGeneratorTemplateSchema<any> = {
   ],
 }
 
+// TODO complete new tag with multi-select example
+
+// ref https://github.com/microsoft/vscode-extension-samples/blob/main/quickinput-sample/src/multiStepInput.ts
+
 // Component with tags selection example
 // Define the params schema for proper typing
 type ComponentWithTagsParams = {
@@ -142,11 +146,7 @@ const componentWithTags: SuperCodeGeneratorTemplateSchema<any, ComponentWithTags
         name: 'tags',
         description: 'Select tags for the component',
         type: 'input',
-        tags: [
-          {
-            name: 'admin',
-          },
-        ],
+        tags: ['admin'],
       },
     ],
     files: [
