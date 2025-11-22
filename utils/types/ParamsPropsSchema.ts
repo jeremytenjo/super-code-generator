@@ -1,6 +1,6 @@
 export type ParamsPropsSchema<ParamsFileSchema extends ParamsFilePropsSchema> = {
   name: keyof ParamsFileSchema
-  type: 'input' | 'dropdown' | 'file'
+  type: 'input' | 'dropdown' | 'file' | 'tags'
   description: string
   options?: {
     value: ParamsFileSchema[keyof ParamsFileSchema]
@@ -8,5 +8,5 @@ export type ParamsPropsSchema<ParamsFileSchema extends ParamsFilePropsSchema> = 
 }
 
 export type ParamsFilePropsSchema = {
-  [key: string]: string
+  [key: string]: string | { name: string }[]
 }

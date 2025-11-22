@@ -153,7 +153,7 @@ export default async function generateCode({ outputPath, context }: generateCode
                   }
 
                   const options = param.options.map((option) => {
-                    return option.value
+                    return String(option.value)
                   })
 
                   const paramValue = await vscode.window.showQuickPick(options, {
@@ -183,6 +183,30 @@ export default async function generateCode({ outputPath, context }: generateCode
                     params = {
                       ...params,
                       [param.name]: fileUris[0].fsPath,
+                    }
+                  }
+                }
+
+                if (param.type === 'tags') {
+                  if (!param.options) {
+                    logError(`Missing options for ${param.name}`)
+                    return null
+                  }
+
+                  const options = param.options.map((option) => {
+                    return String(option.value)
+                  })
+
+                  const selectedTags = await vscode.window.showQuickPick(options, {
+                    title: `${selectedComponentType.label} - ${param.name}`,
+                    placeHolder: `Select ${param.name}`,
+                    canPickMany: true,
+                  })
+
+                  if (selectedTags !== undefined) {
+                    params = {
+                      ...params,
+                      [param.name]: selectedTags.map((tag) => ({ name: tag })) as { name: string }[],
                     }
                   }
                 }

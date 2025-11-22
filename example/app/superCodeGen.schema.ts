@@ -125,11 +125,48 @@ const componentWithFile: SuperCodeGeneratorTemplateSchema<any> = {
   ],
 }
 
+// Component with tags selection example
+const componentWithTags: SuperCodeGeneratorTemplateSchema<any> = {
+  type: 'Component with Tags',
+  params: [
+    {
+      name: 'tags',
+      description: 'Select tags for the component',
+      type: 'tags',
+      options: [
+        { value: 'typescript' },
+        { value: 'react' },
+        { value: 'testing' },
+        { value: 'documentation' },
+        { value: 'performance' },
+      ],
+    },
+  ],
+  files: [
+    {
+      path: ({ name, helpers: { changeCase } }) => changeCase.paramCase(name) + '.tsx',
+      template: ({ name, helpers: { changeCase }, params }) => {
+        const tags = params?.tags as { name: string }[] | undefined
+        const tagsList = tags ? tags.map((tag) => tag.name).join(', ') : 'no tags'
+        return `
+      import React from 'react';
+      // Tags: ${tagsList}
+      
+      export default function ${changeCase.pascalCase(name)}() {
+        return <div>${name}</div>;
+      }
+        `
+      },
+    },
+  ],
+}
+
 const config: SuperCodeGeneratorConfigSchema<any> = [
   reactComponent,
   cloudFunctionTemplate,
   story,
   componentWithFile,
+  componentWithTags,
 ]
 
 export default config

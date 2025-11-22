@@ -104,9 +104,9 @@ Format the parent folder name, must be a function that takes { currentName: stri
 
 Array of parameters to collect from the user before generating code. Each parameter has:
 - `name` - Name of the parameter (used as key in params object)
-- `type` - Type of input: `'input'`, `'dropdown'`, or `'file'`
+- `type` - Type of input: `'input'`, `'dropdown'`, `'file'`, or `'tags'`
 - `description` - Description shown to the user
-- `options` - (For dropdown type) Array of options with `value` property
+- `options` - (For dropdown and tags types) Array of options with `value` property
 
 Example:
 ```ts
@@ -129,6 +129,16 @@ params: [
     name: 'configFile',
     type: 'file',
     description: 'Select a configuration file'
+  },
+  {
+    name: 'tags',
+    type: 'tags',
+    description: 'Select tags for the component',
+    options: [
+      { value: 'typescript' },
+      { value: 'react' },
+      { value: 'testing' }
+    ]
   }
 ]
 ```
@@ -136,11 +146,18 @@ params: [
 Parameters are accessible in the `template` and `path` functions via the `params` property:
 
 ```ts
-template: ({ params }) => `
-  // Title: ${params.title}
-  // Variant: ${params.variant}
-  // Config from: ${params.configFile}
-`
+template: ({ params }) => {
+  // For tags type, the value is an array of objects with name property
+  const tags = params?.tags as { name: string }[] | undefined
+  const tagsList = tags ? tags.map(tag => tag.name).join(', ') : 'no tags'
+  
+  return `
+    // Title: ${params.title}
+    // Variant: ${params.variant}
+    // Config from: ${params.configFile}
+    // Tags: ${tagsList}
+  `
+}
 ```
 
 ## Hooks
