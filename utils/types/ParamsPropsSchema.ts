@@ -13,5 +13,5 @@ export type ParamsPropsSchema<ParamsFileSchema extends ParamsFilePropsSchema> = 
 }
 
 export type ParamsFilePropsSchema = {
-  [key: string]: string | { name: string }[]
+  [key: string]: string | { name: string; isTag?: boolean }[]
 }

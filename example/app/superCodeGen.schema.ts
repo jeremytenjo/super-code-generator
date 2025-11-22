@@ -131,7 +131,7 @@ const componentWithFile: SuperCodeGeneratorTemplateSchema<any> = {
 // Component with tags selection example
 // Define the params schema for proper typing
 type ComponentWithTagsParams = {
-  tags: { name: string }[]
+  tags: { name: 'admi'; isTag: true }[]
 }
 
 const componentWithTags: SuperCodeGeneratorTemplateSchema<any, ComponentWithTagsParams> =
@@ -172,7 +172,7 @@ const componentWithTags: SuperCodeGeneratorTemplateSchema<any, ComponentWithTags
 
 // Type the config array - when templates have different param types, use a union type or 'any'
 // For full type safety on individual templates, type each template separately (as shown above)
-const config: SuperCodeGeneratorConfigSchema<any> = [
+const config: SuperCodeGeneratorConfigSchema<ComponentWithTagsParams> = [
   reactComponent,
   cloudFunctionTemplate,
   story,
