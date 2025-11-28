@@ -6,11 +6,13 @@ import { installDependencies } from './commands/installDependencies'
 import {
   ParamsFilePropsSchema,
   ParamsPropsSchema,
+  TagsSchema,
 } from '../utils/types/ParamsPropsSchema'
 
 export type SuperCodeGeneratorConfigSchema<
   CustomProps = object,
   ParamsFileSchema extends ParamsFilePropsSchema = ParamsFilePropsSchema,
+  TagsPropsSchema extends TagsSchema = TagsSchema,
 > = {
   type: string
   files: {
@@ -47,7 +49,7 @@ export type SuperCodeGeneratorConfigSchema<
       newName: string
     }
   }
-  params?: ParamsPropsSchema<ParamsFileSchema>[]
+  params?: ParamsPropsSchema<ParamsFileSchema, TagsPropsSchema>[]
   defaultParams?: Partial<ParamsFileSchema>
 }[]
 
