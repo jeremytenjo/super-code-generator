@@ -100,7 +100,7 @@ export default async function generateCode({ outputPath, context }: generateCode
 
     // If the user is on Windows, remove the first character of the output path if it starts with a slash
     outputPath =
-      platform == 'win32' && StartsWithSlashRegex.test(outputPath)
+      platform === 'win32' && StartsWithSlashRegex.test(outputPath)
         ? removeFirstCharacter(outputPath)
         : outputPath
 
