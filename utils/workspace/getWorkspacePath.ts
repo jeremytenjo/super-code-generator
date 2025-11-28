@@ -18,7 +18,7 @@ export default function getWorkspacePath(
   let filePath = path.join(folderUri.path, props.add || '')
 
   // If the platform is windows and the path starts with a slash, remove the slash
-  if (platform == 'win32' && StartsWithSlashRegex.test(filePath)) {
+  if (platform === 'win32' && StartsWithSlashRegex.test(filePath)) {
     filePath = removeFirstCharacter(filePath)
   }
 

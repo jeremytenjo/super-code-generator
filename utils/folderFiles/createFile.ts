@@ -8,7 +8,7 @@ import removeFirstCharacter from './removeFirstCharacter'
 
 export default async function createFile(outputPath: string, content: string) {
   const writeData = Buffer.from(content, 'utf8')
-  if (platform == 'win32' && StartsWithSlashRegex.test(outputPath)) {
+  if (platform === 'win32' && StartsWithSlashRegex.test(outputPath)) {
     outputPath = removeFirstCharacter(outputPath)
   }
   const folderUri = createUri(outputPath)
