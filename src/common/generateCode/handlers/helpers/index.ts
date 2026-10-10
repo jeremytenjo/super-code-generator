@@ -1,10 +1,11 @@
 import vscode from 'vscode'
 import * as changeCase from 'change-case'
 import { lowerCase } from 'lower-case'
-import wrapInTemplateLiteral, {
+import type {
   WrapInTemplateLiteralProps,
   WrapInTemplateLiteralReturn,
 } from './wrapInTemplateLiteral'
+import wrapInTemplateLiteral from './wrapInTemplateLiteral'
 import addEmptyTemplateLiteral from './addEmptyTemplateLiteral'
 
 export type SuperCodeGeneratorHelpersProps = {

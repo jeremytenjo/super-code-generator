@@ -9,15 +9,15 @@ export type GenerateCodeCommandProps = {
 }
 
 export default async function generateCodeCommand(props: GenerateCodeCommandProps = {}) {
-  const { 
+  const {
     path: componentOutputPath = getActiveFileFolderPath().activeFileFolderPath,
-    context 
+    context,
   } = props
 
   try {
-    await generateCode({ 
+    await generateCode({
       outputPath: componentOutputPath,
-      context 
+      context,
     })
   } catch (error: unknown) {
     logError((error as Error).message)

@@ -1,4 +1,5 @@
-import vscode, { ExtensionContext } from 'vscode'
+import type { ExtensionContext } from 'vscode'
+import vscode from 'vscode'
 
 import logError from '../../../utils/log/logError'
 import generateCode from '../../common/generateCode'

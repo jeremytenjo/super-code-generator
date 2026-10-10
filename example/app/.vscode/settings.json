@@ -1,5 +1,5 @@
 {
   "superCodeGenerator.schemaFilePath": "superCodeGen.schema.ts",
-  "superCodeGenerator.prettierConfigFilePath": ".prettierrc.js",
+  "superCodeGenerator.oxfmtConfigFilePath": ".oxfmtrc.json",
   "superCodeGenerator.verbose": true
 }

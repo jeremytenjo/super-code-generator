@@ -1,7 +1,7 @@
 import cp from 'child_process'
 import path from 'path'
 import fs from 'fs'
-import {
+import type {
   SuperCodeGeneratorConfigSchema,
   SuperCodeGeneratorTemplateSchema,
 } from '../../src'

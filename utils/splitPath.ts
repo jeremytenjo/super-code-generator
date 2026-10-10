@@ -1,4 +1,4 @@
-export const StartsWithSlashRegex = /^[\\/]/;
+export const StartsWithSlashRegex = /^[\\/]/
 
 /**
  * Supports all operating systems

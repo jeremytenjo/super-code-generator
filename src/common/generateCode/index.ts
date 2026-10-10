@@ -3,13 +3,13 @@ import path from 'path'
 
 import logError from '../../../utils/log/logError'
 import helpers from './handlers/helpers'
-import importPrettierConfig from './handlers/importPrettierConfig'
+import importOxfmtConfig from './handlers/importOxfmtConfig'
 import create from './handlers/create'
 import getImportUserConfig from '../../../utils/getImportUserConfig/getImportUserConfig'
 import { platform } from 'process'
 import splitPath, { StartsWithSlashRegex } from '../../../utils/splitPath'
 import removeFirstCharacter from '../../../utils/folderFiles/removeFirstCharacter'
-import { ParamsFilePropsSchema } from '../../../utils/types/ParamsPropsSchema'
+import type { ParamsFilePropsSchema } from '../../../utils/types/ParamsPropsSchema'
 import useRecentSelectedComponents from './handlers/useRecentSelectedComponents'
 
 export type generateCodeProps = {
@@ -39,9 +39,8 @@ export default async function generateCode({ outputPath, context }: generateCode
     return { label: property.type }
   })
 
-  // Import the prettier config
-  const prettierConfig = await importPrettierConfig({
-    prettierConfigPath: userConfig.prettierConfigFilePath,
+  const oxfmtConfig = await importOxfmtConfig({
+    oxfmtConfigPath: userConfig.oxfmtConfigFilePath,
   })
 
   // Get recent components if context is available
@@ -210,10 +209,10 @@ export default async function generateCode({ outputPath, context }: generateCode
           await create({
             name: componentNameTrimmed,
             helpers,
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            // oxlint-disable-next-line typescript/no-explicit-any
             componentConfig: selectedComponentTypeConfig as any,
             componentOutputPath: outputPath,
-            prettierConfig,
+            oxfmtConfig,
             params,
           })
 

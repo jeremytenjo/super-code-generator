@@ -1,0 +1,61 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "node", "oxc"],
+  "categories": {
+    "correctness": "error"
+  },
+  "rules": {
+    "react/static-components": "off",
+
+    "eslint/no-unused-expressions": "off",
+
+    "eslint/no-sparse-arrays": "off",
+
+    "react/preserve-manual-memoization": "off",
+
+    "react/refs": "off",
+    "react/purity": "off",
+
+    "react-hooks/exhaustive-deps": "off",
+    "react/set-state-in-effect": "off",
+    "react/immutability": "off",
+
+    "typescript/no-explicit-any": "off",
+    "typescript/no-unused-vars": "error",
+    "typescript/no-empty-interface": "off",
+    "typescript/no-empty-function": "off",
+    "typescript/no-inferrable-types": "off",
+    "typescript/no-non-null-assertion": "error",
+    "typescript/consistent-generic-constructors": ["error", "type-annotation"],
+    "typescript/consistent-type-imports": [
+      "error",
+      {
+        "prefer": "type-imports"
+      }
+    ],
+    "no-unused-vars": "off",
+    "no-useless-assignment": "warn",
+    "no-console": "off",
+    "no-debugger": "warn",
+    "no-undef": "error",
+    "no-unreachable": "error",
+    "prefer-const": "error",
+    "no-var": "error",
+    "no-const-assign": "error",
+    "no-this-before-super": "error",
+    "constructor-super": "error",
+    "valid-typeof": "error"
+  },
+  "ignorePatterns": [
+    "**/dist/**",
+    "**/out/**",
+    "**/node_modules/**",
+    "website/**",
+    "package-lock.json"
+  ],
+  "env": {
+    "builtin": true,
+    "browser": true,
+    "node": true
+  }
+}

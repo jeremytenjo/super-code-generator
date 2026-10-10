@@ -1,52 +1,63 @@
 {
   "name": "super-code-generator",
   "displayName": "Super Code Generator",
-  "description": "A powerful, fast, and scalable code generator that saves you time",
-  "publisher": "tenjojeremy",
   "version": "4.60.0",
-  "engines": {
-    "vscode": "^1.95.0"
-  },
+  "description": "A powerful, fast, and scalable code generator that saves you time",
   "categories": [
     "Other"
   ],
   "keywords": [
-    "generator",
     "component",
+    "generator",
     "react",
-    "vue",
-    "template"
+    "template",
+    "vue"
   ],
-  "main": "./dist/index.js",
-  "types": "./dist/src/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeremytenjo/super-code-generator"
+  },
+  "publisher": "tenjojeremy",
   "files": [
     "dist"
   ],
+  "main": "./dist/index.js",
+  "types": "./dist/src/index.d.ts",
   "scripts": {
     "dev": "npm run -S build -- --watch",
     "build": "esbuild ./src/index.ts --bundle --outfile=dist/index.js --external:vscode --external:esbuild --format=cjs --platform=node",
-    "lint": "eslint",
+    "lint": "oxlint . --fix",
     "compile-tests": "tsc -p tsconfig.test.json",
     "watch-tests": "tsc -p tsconfig.test.json -w",
     "test": "vscode-test",
     "tests:ts-types": "tsc -p tsconfig.check.types.json --downlevelIteration",
     "types:generate": "tsc -p tsconfig.generate.types.json --downlevelIteration",
     "pretest": "npm run compile-tests",
-    "prettify": "prettier --write '{**/*,*}.{js,jsx,json}'",
+    "prettify": "oxfmt --write \"**/*.{js,jsx,json,ts,tsx,css}\"",
     "npm:publish": "node ./scripts/publishToNpm/publishToNpm.cjs",
-    "deploy": "npm run build && npm run types:generate && npm run tests:ts-types && npm version minor && vsce publish && npm run npm:publish"
+    "deploy": "npm run build && npm run types:generate && npm run tests:ts-types && npm version minor && vsce publish && npm run npm:publish",
   },
-  "icon": "assets/images/logo.png",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jeremytenjo/super-code-generator"
+  "dependencies": {
+    "change-case": "^4.1.2",
+    "esbuild": "^0.12.29",
+    "lower-case": "^2.0.2"
   },
-  "activationEvents": [
-    "onCommand:superCodeGenerator.generateCode",
-    "onCommand:superCodeGenerator.generateCodeInFolder",
-    "onCommand:superCodeGenerator.installDependencies",
-    "onStartupFinished"
-  ],
+  "devDependencies": {
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "8.2.3",
+    "@types/node": "^12.11.7",
+    "@types/vscode": "^1.95.0",
+    "@vscode/test-cli": "0.0.10",
+    "@vscode/test-electron": "2.4.1",
+    "glob": "^7.1.7",
+    "mocha": "8.4.0",
+    "oxfmt": "0.72.0",
+    "oxlint": "1.87.0",
+    "oxlint-plugin-require-js-extension": "0.1.1",
+    "typescript": "5.7.2",
+    "vsce": "2.15.0",
+    "vscode-test": "^1.5.0"
+  },
   "contributes": {
     "configuration": {
       "title": "Super Code Generator",
@@ -56,10 +67,10 @@
           "default": "superCodeGen.schema.ts",
           "description": "Schema file path"
         },
-        "superCodeGenerator.prettierConfigFilePath": {
+        "superCodeGenerator.oxfmtConfigFilePath": {
           "type": "string",
-          "default": ".prettierrc.js",
-          "description": "Prettier config file path (Optional)"
+          "default": ".oxfmtrc.json",
+          "description": "oxfmt config file path (Optional)"
         },
         "superCodeGenerator.verbose": {
           "type": "boolean",
@@ -97,27 +108,14 @@
       ]
     }
   },
-  "dependencies": {
-    "change-case": "^4.1.2",
-    "esbuild": "^0.12.29",
-    "lower-case": "^2.0.2",
-    "prettier": "^2.3.0"
-  },
-  "devDependencies": {
-    "@eslint/js": "8.56.0",
-    "@types/glob": "^7.1.3",
-    "@types/mocha": "8.2.3",
-    "@types/node": "^12.11.7",
-    "@types/prettier": "2.3.0",
-    "@types/vscode": "^1.95.0",
-    "@vscode/test-cli": "0.0.10",
-    "@vscode/test-electron": "2.4.1",
-    "eslint": "^8.56.0",
-    "glob": "^7.1.7",
-    "mocha": "8.4.0",
-    "typescript": "5.7.2",
-    "typescript-eslint": "7.2.0",
-    "vsce": "2.15.0",
-    "vscode-test": "^1.5.0"
+  "activationEvents": [
+    "onCommand:superCodeGenerator.generateCode",
+    "onCommand:superCodeGenerator.generateCodeInFolder",
+    "onCommand:superCodeGenerator.installDependencies",
+    "onStartupFinished"
+  ],
+  "icon": "assets/images/logo.png",
+  "engines": {
+    "vscode": "^1.95.0"
   }
 }

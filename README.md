@@ -11,7 +11,7 @@
 1. Create `superCodeGen.schema.ts`
 
 ```ts
-import type { SuperCodeGeneratorConfigSchema } from '@jeremytenjo/super-code-generator'
+import type { SuperCodeGeneratorConfigSchema } from '@jeremytenjo/super-code-generator';
 
 const superCodeGeneratorConfig: SuperCodeGeneratorConfigSchema = [
   {
@@ -38,9 +38,9 @@ const superCodeGeneratorConfig: SuperCodeGeneratorConfigSchema = [
       },
     ],
   },
-]
+];
 
-export default superCodeGeneratorConfig
+export default superCodeGeneratorConfig;
 ```
 
 2. Click right button in mouse and selected `Create Component`
@@ -53,11 +53,11 @@ Creates the following component when selecting type `React component` and inputt
 `button.jsx`
 
 ```js
-import React from 'react'
-import styles from './button.css'
+import React from 'react';
+import styles from './button.css';
 
 export default function Button() {
-  return <div className={`${styles.wrapper}`}>button</div>
+  return <div className={`${styles.wrapper}`}>button</div>;
 }
 ```
 
@@ -114,23 +114,20 @@ params: [
   {
     name: 'title',
     type: 'input',
-    description: 'Enter a title for the component'
+    description: 'Enter a title for the component',
   },
   {
     name: 'variant',
     type: 'dropdown',
     description: 'Select a variant',
-    options: [
-      { value: 'primary' },
-      { value: 'secondary' }
-    ]
+    options: [{ value: 'primary' }, { value: 'secondary' }],
   },
   {
     name: 'configFile',
     type: 'file',
-    description: 'Select a configuration file'
-  }
-]
+    description: 'Select a configuration file',
+  },
+];
 ```
 
 Parameters are accessible in the `template` and `path` functions via the `params` property:
@@ -140,7 +137,7 @@ template: ({ params }) => `
   // Title: ${params.title}
   // Variant: ${params.variant}
   // Config from: ${params.configFile}
-`
+`;
 ```
 
 ## Hooks
@@ -153,15 +150,15 @@ Trigger function after component is created.
 import type {
   SuperCodeGeneratorTemplateSchema,
   SuperCodeGeneratorFilesSchema,
-} from '@jeremytenjo/super-code-generator'
-import shell from 'child_process'
+} from '@jeremytenjo/super-code-generator';
+import shell from 'child_process';
 
 const files: SuperCodeGeneratorFilesSchema = [
   {
     type: 'React component',
     hooks: {
       onCreate: ({ outputPath }) => {
-        shell.exec(`cd ${outputPath}`)
+        shell.exec(`cd ${outputPath}`);
       },
     },
     files: [
@@ -177,14 +174,14 @@ const files: SuperCodeGeneratorFilesSchema = [
       },
     ],
   },
-]
+];
 
 const template: SuperCodeGeneratorTemplateSchema = {
   type: 'Component',
   files,
-}
+};
 
-export default template
+export default template;
 ```
 
 ## Component Type properties
@@ -204,4 +201,4 @@ helpers: {
 
 Change case uses the [change-case](https://github.com/blakeembrey/change-case#core) library
 
-> Pro Tip: Add a prettier config file path to format your created files.
+> Pro Tip: Add an oxfmt config file path to format your created files.

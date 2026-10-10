@@ -1,9 +1,9 @@
 import vscode from 'vscode'
 import generateCode from './commands/generateCodeCommand'
 import generateCodeInFolder from './commands/generateCodeInFolder'
-import { SuperCodeGeneratorHelpersProps } from './common/generateCode/handlers/helpers'
+import type { SuperCodeGeneratorHelpersProps } from './common/generateCode/handlers/helpers'
 import { installDependencies } from './commands/installDependencies'
-import {
+import type {
   ParamsFilePropsSchema,
   ParamsPropsSchema,
 } from '../utils/types/ParamsPropsSchema'
@@ -82,7 +82,7 @@ export type SuperCodeGeneratorFileProps<
 
 export type SuperCodeGeneratorUserConfigSchema = {
   schemaFilePath: string
-  prettierConfigFilePath: string
+  oxfmtConfigFilePath: string
 }
 
 export type SuperCodeGeneratorSettingsSchema = {
@@ -140,7 +140,7 @@ async function firstTimeActivation(context: vscode.ExtensionContext) {
 export function activate(context: vscode.ExtensionContext) {
   // load the extension configuration
   const extensionConfig =
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // oxlint-disable-next-line typescript/no-explicit-any
     vscode.workspace.getConfiguration('superCodeGenerator')
 
   // check if the user has enabled verbose mode

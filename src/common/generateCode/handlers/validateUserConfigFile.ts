@@ -1,4 +1,4 @@
-import { SuperCodeGeneratorConfigSchema } from '../../..'
+import type { SuperCodeGeneratorConfigSchema } from '../../..'
 import logError from '../../../../utils/log/logError'
 
 export default function validateUserConfigFile(

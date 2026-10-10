@@ -7,17 +7,20 @@ import prettifyFile from '../../../../utils/folderFiles/prettifyFile'
 import openFile from '../../../../utils/folderFiles/openFile'
 import logError from '../../../../utils/log/logError'
 import getWorkspacePath from '../../../../utils/workspace/getWorkspacePath'
-import { SuperCodeGeneratorHelpersProps } from './helpers'
-import { SuperCodeGeneratorConfigSchema, SuperCodeGeneratorFileProps } from '../../..'
-import { ParamsFilePropsSchema } from '../../../../utils/types/ParamsPropsSchema'
+import type { SuperCodeGeneratorHelpersProps } from './helpers'
+import type {
+  SuperCodeGeneratorConfigSchema,
+  SuperCodeGeneratorFileProps,
+} from '../../..'
+import type { ParamsFilePropsSchema } from '../../../../utils/types/ParamsPropsSchema'
 
 export default async function create(props: {
   name: string
   helpers: SuperCodeGeneratorHelpersProps
   componentConfig: SuperCodeGeneratorConfigSchema[0]
   componentOutputPath: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  prettierConfig: any
+  // oxlint-disable-next-line typescript/no-explicit-any
+  oxfmtConfig: any
   params: ParamsFilePropsSchema
 }) {
   try {
@@ -97,7 +100,7 @@ export default async function create(props: {
       if (isJsOrTsFile) {
         const prettifiedContent = await prettifyFile({
           content: await file.template(fileProperties),
-          prettierConfig: props.prettierConfig,
+          oxfmtConfig: props.oxfmtConfig,
         })
         content = prettifiedContent
       }
