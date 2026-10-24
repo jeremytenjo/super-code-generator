@@ -184,6 +184,29 @@ const template: SuperCodeGeneratorTemplateSchema = {
 export default template;
 ```
 
+## Formatting
+
+Generated `.js`, `.jsx`, `.ts`, `.tsx`, `.mjs`, `.cjs`, `.mts` and `.cts` files are formatted automatically. Starting from the generated file, the extension walks up the folder tree and uses the nearest config it finds:
+
+- **Prettier** - `.prettierrc`, `.prettierrc.json`, `.prettierrc.json5`, `.prettierrc.yaml`, `.prettierrc.yml`, `.prettierrc.js`, `.prettierrc.cjs`, `.prettierrc.mjs`, `.prettierrc.ts`, `prettier.config.*`, or a `prettier` key in `package.json`
+- **oxfmt** - `.oxfmtrc.json`, `.oxfmtrc.jsonc`, or `oxfmt.config.*`
+- **Biome** - `biome.json` or `biome.jsonc` (including local `extends`)
+
+If more than one formatter config exists in the same folder, Biome is preferred, then oxfmt, then Prettier. Use the settings below to choose explicitly:
+
+```json
+{
+  "superCodeGenerator.formatter": "auto",
+  "superCodeGenerator.formatterConfigFilePath": ""
+}
+```
+
+- `superCodeGenerator.formatter`: `auto` (default) detects a config, or set `prettier`, `oxfmt`, `biome`, or `none` to disable formatting.
+- `superCodeGenerator.formatterConfigFilePath`: optional path to a specific config file. Relative paths are resolved from the workspace root.
+- `superCodeGenerator.oxfmtConfigFilePath`: deprecated, use `formatterConfigFilePath` instead.
+
+Prettier and Biome options are translated to oxfmt's compatible option names, including overrides. Common options such as indentation, quotes, semicolons, trailing commas, print width, JSX quotes, bracket spacing, arrow parentheses and attribute position are supported. Formatter-specific plugins/options that cannot be represented by oxfmt are ignored, and a formatting failure never prevents a file from being generated.
+
 ## Component Type properties
 
 Properties passed to `path` and `template` functions
@@ -201,4 +224,4 @@ helpers: {
 
 Change case uses the [change-case](https://github.com/blakeembrey/change-case#core) library
 
-> Pro Tip: Add an oxfmt config file path to format your created files.
+> Pro Tip: Formatter configs are detected automatically. See [Formatting](#formatting) for Prettier, oxfmt and Biome support.

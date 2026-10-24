@@ -82,7 +82,12 @@ export type SuperCodeGeneratorFileProps<
 
 export type SuperCodeGeneratorUserConfigSchema = {
   schemaFilePath: string
-  oxfmtConfigFilePath: string
+  /** Which config to read. `auto` detects Prettier, oxfmt or Biome. */
+  formatter?: 'auto' | 'prettier' | 'oxfmt' | 'biome' | 'none'
+  /** Optional explicit config file. Relative paths are workspace-relative. */
+  formatterConfigFilePath?: string
+  /** @deprecated Use `formatterConfigFilePath`. */
+  oxfmtConfigFilePath?: string
 }
 
 export type SuperCodeGeneratorSettingsSchema = {

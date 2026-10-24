@@ -3,7 +3,6 @@ import path from 'path'
 
 import logError from '../../../utils/log/logError'
 import helpers from './handlers/helpers'
-import importOxfmtConfig from './handlers/importOxfmtConfig'
 import create from './handlers/create'
 import getImportUserConfig from '../../../utils/getImportUserConfig/getImportUserConfig'
 import { platform } from 'process'
@@ -37,10 +36,6 @@ export default async function generateCode({ outputPath, context }: generateCode
     }
 
     return { label: property.type }
-  })
-
-  const oxfmtConfig = await importOxfmtConfig({
-    oxfmtConfigPath: userConfig.oxfmtConfigFilePath,
   })
 
   // Get recent components if context is available
@@ -212,7 +207,11 @@ export default async function generateCode({ outputPath, context }: generateCode
             // oxlint-disable-next-line typescript/no-explicit-any
             componentConfig: selectedComponentTypeConfig as any,
             componentOutputPath: outputPath,
-            oxfmtConfig,
+            formatter: {
+              formatter: userConfig.formatter ?? 'auto',
+              configPath: userConfig.formatterConfigFilePath,
+              legacyOxfmtConfigPath: userConfig.oxfmtConfigFilePath,
+            },
             params,
           })
 

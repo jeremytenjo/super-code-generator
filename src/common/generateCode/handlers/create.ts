@@ -3,10 +3,11 @@ import path from 'path'
 
 import createFile from '../../../../utils/folderFiles/createFile'
 import doesFolderOrFileExist from '../../../../utils/folderFiles/doesFolderOrFileExist'
-import prettifyFile from '../../../../utils/folderFiles/prettifyFile'
 import openFile from '../../../../utils/folderFiles/openFile'
 import logError from '../../../../utils/log/logError'
 import getWorkspacePath from '../../../../utils/workspace/getWorkspacePath'
+import { formatFileContent } from '../../../../utils/formatter'
+import type { FormatterSettings } from '../../../../utils/formatter'
 import type { SuperCodeGeneratorHelpersProps } from './helpers'
 import type {
   SuperCodeGeneratorConfigSchema,
@@ -19,8 +20,7 @@ export default async function create(props: {
   helpers: SuperCodeGeneratorHelpersProps
   componentConfig: SuperCodeGeneratorConfigSchema[0]
   componentOutputPath: string
-  // oxlint-disable-next-line typescript/no-explicit-any
-  oxfmtConfig: any
+  formatter?: FormatterSettings
   params: ParamsFilePropsSchema
 }) {
   try {
@@ -87,22 +87,16 @@ export default async function create(props: {
         outputPath = path.join(getWorkspacePath({}).path, await file.path(fileProperties))
       }
 
-      // remove \n from content
       let content = await file.template(fileProperties)
 
-      const isJsOrTsFile =
-        outputPath.endsWith('.js') ||
-        outputPath.endsWith('.ts') ||
-        outputPath.endsWith('.jsx') ||
-        outputPath.endsWith('.tsx')
-
-      // Format JS/TS files
-      if (isJsOrTsFile) {
-        const prettifiedContent = await prettifyFile({
-          content: await file.template(fileProperties),
-          oxfmtConfig: props.oxfmtConfig,
+      // Format JS/TS files with the project's Prettier, oxfmt or Biome config
+      if (isFormattableFile(outputPath)) {
+        content = await formatFileContent({
+          content,
+          filePath: outputPath,
+          workspaceRoot: getWorkspacePath({}).path,
+          settings: props.formatter,
         })
-        content = prettifiedContent
       }
 
       if (doesFolderOrFileExist(outputPath))
@@ -120,4 +114,19 @@ export default async function create(props: {
   } catch (error: unknown) {
     logError((error as Error).message)
   }
+}
+
+const FORMATTABLE_EXTENSIONS = new Set([
+  '.js',
+  '.jsx',
+  '.ts',
+  '.tsx',
+  '.mjs',
+  '.cjs',
+  '.mts',
+  '.cts',
+])
+
+function isFormattableFile(filePath: string) {
+  return FORMATTABLE_EXTENSIONS.has(path.extname(filePath).toLowerCase())
 }

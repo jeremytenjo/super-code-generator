@@ -1,5 +1,5 @@
 {
   "superCodeGenerator.schemaFilePath": "superCodeGen.schema.ts",
-  "superCodeGenerator.oxfmtConfigFilePath": ".oxfmtrc.json",
+  "superCodeGenerator.formatter": "auto",
   "superCodeGenerator.verbose": true
 }

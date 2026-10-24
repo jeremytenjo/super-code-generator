@@ -6,8 +6,12 @@ test/**
 .yarnrc
 assets/videos
 !node_modules/esbuild
+!node_modules/oxfmt
+!node_modules/@oxfmt
 **/*.js.map
 scripts/**
+dist/src/**
+dist/utils/**
 .vscode-test.mjs
 **/*.ts
 **/tsconfig.*
