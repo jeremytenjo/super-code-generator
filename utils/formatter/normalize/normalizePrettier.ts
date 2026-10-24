@@ -1,11 +1,11 @@
 import { asRecord, assignDefined, isRecord, toGlobArray } from './helpers'
-import type { OxfmtOptions } from '../types'
+import type { FormatterOptions } from '../types'
 
 /**
  * Prettier's formatter defaults. Oxfmt uses the same option names for almost
  * everything, but a few defaults differ (most notably `printWidth`).
  */
-const PRETTIER_DEFAULTS: OxfmtOptions = {
+const PRETTIER_DEFAULTS: FormatterOptions = {
   printWidth: 80,
   tabWidth: 2,
   useTabs: false,
@@ -26,8 +26,8 @@ const PRETTIER_DEFAULTS: OxfmtOptions = {
 }
 
 /**
- * Options supported by oxfmt that also exist in Prettier. Unknown Prettier
- * options (plugins, pragma options, ...) are intentionally ignored.
+ * Prettier options forwarded to `prettier.format`. Unknown Prettier options
+ * (plugins, pragma options, ...) are intentionally ignored.
  */
 const PRETTIER_OPTIONS = [
   'arrowParens',
@@ -54,7 +54,7 @@ const PRETTIER_OPTIONS = [
 
 export default function normalizePrettierConfig(
   config: Record<string, unknown>,
-): OxfmtOptions {
+): FormatterOptions {
   const options = normalizePrettierOptions(config, true)
 
   const overrides = normalizePrettierOverrides(config.overrides)
@@ -66,15 +66,12 @@ export default function normalizePrettierConfig(
 function normalizePrettierOptions(
   config: Record<string, unknown>,
   applyDefaults: boolean,
-): OxfmtOptions {
-  const options: OxfmtOptions = applyDefaults ? { ...PRETTIER_DEFAULTS } : {}
+): FormatterOptions {
+  const options: FormatterOptions = applyDefaults ? { ...PRETTIER_DEFAULTS } : {}
 
   for (const key of PRETTIER_OPTIONS) {
     const value = config[key]
     if (value === undefined) continue
-
-    // oxfmt does not support Prettier's `endOfLine: "auto"`.
-    if (key === 'endOfLine' && value === 'auto') continue
 
     options[key] = value
   }

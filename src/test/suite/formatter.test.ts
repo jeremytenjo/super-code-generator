@@ -121,7 +121,7 @@ suite('Formatter config support', () => {
     assert.strictEqual(options.printWidth, 120)
     assert.strictEqual(options.tabWidth, 2)
     assert.strictEqual(options.trailingComma, 'all')
-    assert.strictEqual(options.endOfLine, 'lf')
+    assert.strictEqual(options.endOfLine, 'auto')
     assert.strictEqual(options.plugins, undefined)
 
     const overrides = options.overrides as Record<string, unknown>[]

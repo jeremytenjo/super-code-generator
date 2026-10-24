@@ -6,8 +6,7 @@ test/**
 .yarnrc
 assets/videos
 !node_modules/esbuild
-!node_modules/oxfmt
-!node_modules/@oxfmt
+!node_modules/prettier
 **/*.js.map
 scripts/**
 dist/src/**

@@ -1,10 +1,10 @@
 import { asRecord, isRecord, toGlobArray } from './helpers'
-import type { OxfmtOptions } from '../types'
+import type { FormatterOptions } from '../types'
 
 /**
  * Biome formatter defaults, taken from Biome's configuration reference.
  */
-const BIOME_DEFAULTS: OxfmtOptions = {
+const BIOME_DEFAULTS: FormatterOptions = {
   useTabs: true,
   tabWidth: 2,
   printWidth: 80,
@@ -22,7 +22,7 @@ const BIOME_DEFAULTS: OxfmtOptions = {
 
 export default function normalizeBiomeConfig(
   config: Record<string, unknown>,
-): OxfmtOptions | null {
+): FormatterOptions | null {
   const formatter = asRecord(config.formatter)
   const jsFormatter = asRecord(asRecord(config.javascript).formatter)
 
@@ -39,8 +39,8 @@ function normalizeBiomeOptions(
   formatter: Record<string, unknown>,
   jsFormatter: Record<string, unknown>,
   applyDefaults: boolean,
-): OxfmtOptions {
-  const options: OxfmtOptions = applyDefaults ? { ...BIOME_DEFAULTS } : {}
+): FormatterOptions {
+  const options: FormatterOptions = applyDefaults ? { ...BIOME_DEFAULTS } : {}
 
   const indentStyle = jsFormatter.indentStyle ?? formatter.indentStyle
   if (indentStyle !== undefined) options.useTabs = indentStyle === 'tab'

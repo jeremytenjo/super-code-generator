@@ -205,7 +205,7 @@ If more than one formatter config exists in the same folder, Biome is preferred,
 - `superCodeGenerator.formatterConfigFilePath`: optional path to a specific config file. Relative paths are resolved from the workspace root.
 - `superCodeGenerator.oxfmtConfigFilePath`: deprecated, use `formatterConfigFilePath` instead.
 
-Prettier and Biome options are translated to oxfmt's compatible option names, including overrides. Common options such as indentation, quotes, semicolons, trailing commas, print width, JSX quotes, bracket spacing, arrow parentheses and attribute position are supported. Formatter-specific plugins/options that cannot be represented by oxfmt are ignored, and a formatting failure never prevents a file from being generated.
+Prettier, oxfmt and Biome options are translated to Prettier's compatible option names, including overrides. Common options such as indentation, quotes, semicolons, trailing commas, print width, JSX quotes, bracket spacing, arrow parentheses and attribute position are supported. Formatter-specific plugins/options that Prettier cannot represent are ignored, and a formatting failure never prevents a file from being generated.
 
 ## Component Type properties
 

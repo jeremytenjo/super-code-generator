@@ -1,5 +1,5 @@
 import { isRecord, toGlobArray } from './helpers'
-import type { OxfmtOptions } from '../types'
+import type { FormatterOptions } from '../types'
 
 /**
  * oxfmt configs already use the target option shape. We only normalize file
@@ -7,8 +7,8 @@ import type { OxfmtOptions } from '../types'
  */
 export default function normalizeOxfmtConfig(
   config: Record<string, unknown>,
-): OxfmtOptions {
-  const options: OxfmtOptions = {}
+): FormatterOptions {
+  const options: FormatterOptions = {}
 
   for (const [key, value] of Object.entries(config)) {
     if (key === '$schema') continue

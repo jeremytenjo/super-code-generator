@@ -1,8 +1,8 @@
 /**
  * Formatters whose configuration files are supported by the extension.
  *
- * Every supported config is translated into oxfmt's `FormatConfig` shape,
- * because oxfmt's options are largely compatible with both Prettier and Biome.
+ * Every supported config is translated into Prettier's option shape, because
+ * Prettier, oxfmt and Biome use largely compatible formatter options.
  */
 export type FormatterName = 'prettier' | 'oxfmt' | 'biome'
 
@@ -20,7 +20,7 @@ export type FormatterSettings = {
   legacyOxfmtConfigPath?: string
 }
 
-export type OxfmtOptions = Record<string, unknown>
+export type FormatterOptions = Record<string, unknown>
 
 export type ResolvedFormatter = {
   formatter: FormatterName
@@ -28,7 +28,7 @@ export type ResolvedFormatter = {
   configPath: string | null
   /** Directory the config was loaded from. Used to resolve override globs. */
   configDir: string | null
-  options: OxfmtOptions
+  options: FormatterOptions
 }
 
 export type FormatterConfigFile = {

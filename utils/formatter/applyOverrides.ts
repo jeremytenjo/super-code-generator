@@ -2,7 +2,7 @@ import { minimatch } from 'minimatch'
 import path from 'path'
 
 import { isRecord, toGlobArray } from './normalize/helpers'
-import type { OxfmtOptions } from './types'
+import type { FormatterOptions } from './types'
 
 /**
  * Oxfmt's programmatic `format()` does not resolve config `overrides` for us,
@@ -12,10 +12,10 @@ import type { OxfmtOptions } from './types'
  * `{ files, excludeFiles, options }` shape after loading.
  */
 export default function applyOverrides(
-  options: OxfmtOptions,
+  options: FormatterOptions,
   filePath: string,
   configDir: string | null,
-): OxfmtOptions {
+): FormatterOptions {
   const { overrides, ...baseOptions } = options
 
   if (!configDir || !Array.isArray(overrides)) return baseOptions

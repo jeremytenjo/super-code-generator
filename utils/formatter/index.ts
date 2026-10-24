@@ -7,7 +7,10 @@ import loadBiomeConfig from './loadBiomeConfig'
 import { loadConfigFile } from './loadConfigFile'
 import normalizeBiomeConfig, { BIOME_DEFAULTS } from './normalize/normalizeBiome'
 import normalizeOxfmtConfig from './normalize/normalizeOxfmt'
-import normalizePrettierConfig, { PRETTIER_DEFAULTS } from './normalize/normalizePrettier'
+import normalizePrettierConfig, {
+  PRETTIER_DEFAULTS,
+  PRETTIER_OPTIONS,
+} from './normalize/normalizePrettier'
 import {
   findFormatterConfig,
   inferFormatterFromConfigPath,
@@ -17,7 +20,7 @@ import type {
   FormatterName,
   FormatterSettings,
   FormatterSetting,
-  OxfmtOptions,
+  FormatterOptions,
   ResolvedFormatter,
 } from './types'
 
@@ -30,26 +33,22 @@ type ResolveFormatterProps = {
   settings?: FormatterSettings
 }
 
-type OxfmtModule = {
-  format: (
-    fileName: string,
-    source: string,
-    options?: Record<string, unknown>,
-  ) => Promise<{ code: string; errors?: unknown[] }>
+type PrettierModule = {
+  format: (source: string, options?: Record<string, unknown>) => Promise<string>
 }
 
 const dynamicImport = new Function('specifier', 'return import(specifier)') as (
   specifier: string,
 ) => Promise<unknown>
 
-let oxfmtModulePromise: Promise<OxfmtModule> | null = null
+let prettierModulePromise: Promise<PrettierModule> | null = null
 const resolvedConfigCache: Map<string, Promise<ResolvedFormatter | null>> = new Map()
 
-function loadOxfmt(): Promise<OxfmtModule> {
-  oxfmtModulePromise ??= dynamicImport('oxfmt').then(
-    (moduleValue) => moduleValue as OxfmtModule,
+function loadPrettier(): Promise<PrettierModule> {
+  prettierModulePromise ??= dynamicImport('prettier').then(
+    (moduleValue) => moduleValue as PrettierModule,
   )
-  return oxfmtModulePromise
+  return prettierModulePromise
 }
 
 function isFile(filePath: string) {
@@ -80,7 +79,7 @@ function resolveConfigPath(configPath: string, workspaceRoot: string) {
     : path.resolve(workspaceRoot, configPath)
 }
 
-function defaultOptionsFor(formatter: FormatterName): OxfmtOptions {
+function defaultOptionsFor(formatter: FormatterName): FormatterOptions {
   if (formatter === 'prettier') return { ...PRETTIER_DEFAULTS }
   if (formatter === 'biome') return { ...BIOME_DEFAULTS }
   return {}
@@ -140,7 +139,7 @@ async function loadResolvedFormatter(
 }
 
 /**
- * Resolve the formatter and its translated oxfmt options for a generated file.
+ * Resolve the formatter and its translated Prettier options for a generated file.
  * `null` means formatting should be skipped (disabled in config or by setting).
  */
 export default async function resolveFormatter(
@@ -232,23 +231,15 @@ export async function formatFileContent(props: FormatFileContentProps): Promise<
 
   if (!formatter) return props.content
 
-  const baseDir = formatter.configDir ?? props.workspaceRoot
-  const fileName = path.relative(baseDir, props.filePath).split(path.sep).join('/')
-
   try {
-    const oxfmt = await loadOxfmt()
+    const prettier = await loadPrettier()
     const options = applyOverrides(formatter.options, props.filePath, formatter.configDir)
-    const result = await oxfmt.format(fileName, props.content, options)
+    const result = await prettier.format(props.content, {
+      ...toPrettierOptions(options),
+      filepath: props.filePath,
+    })
 
-    if (result.errors && result.errors.length > 0) {
-      console.warn(
-        `Super Code Generator: ${formatter.formatter} could not format ${props.filePath}. Keeping the generated content.`,
-        result.errors,
-      )
-      return props.content
-    }
-
-    return typeof result.code === 'string' ? result.code : props.content
+    return typeof result === 'string' ? result : props.content
   } catch (error) {
     console.warn(
       `Super Code Generator: failed to format ${props.filePath}. Keeping the generated content.`,
@@ -256,4 +247,20 @@ export async function formatFileContent(props: FormatFileContentProps): Promise<
     )
     return props.content
   }
+}
+
+const PRETTIER_FORMAT_OPTIONS: Set<string> = new Set(PRETTIER_OPTIONS)
+
+/**
+ * Drop options Prettier does not understand (for example `sortImports` or
+ * `sortTailwindcss` from oxfmt configs) before formatting.
+ */
+function toPrettierOptions(options: Record<string, unknown>) {
+  const prettierOptions: Record<string, unknown> = {}
+
+  for (const [key, value] of Object.entries(options)) {
+    if (PRETTIER_FORMAT_OPTIONS.has(key)) prettierOptions[key] = value
+  }
+
+  return prettierOptions
 }
